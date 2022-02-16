@@ -2,8 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Navigate, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import ContextProvider from './components/SolanaWallet/ContextProvider';
-import ConnectionButton from './components/SolanaWallet/ConnectionButton';
+import HomePage from 'pages/HomePage';
+
+import ContextProvider from 'components/SolanaWallet/ContextProvider';
+import ConnectionButton from 'components/SolanaWallet/ConnectionButton';
 
 function App(): JSX.Element {
   return (
@@ -21,6 +23,10 @@ function App(): JSX.Element {
           pauseOnHover
         />
         <ConnectionButton />
+        <Routes>
+          <Route path="/Home" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/Home" />} />
+        </Routes>
       </BrowserRouter>
     </ContextProvider>
   );
