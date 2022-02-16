@@ -2,14 +2,15 @@ import React from 'react';
 import { BrowserRouter, Routes, Navigate, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import HomePage from 'pages/HomePage';
+import HomePage from 'pages/HomePages/HomePage';
+import LandingPage from 'pages/HomePages/LandingPage';
 
-import ContextProvider from 'components/SolanaWallet/ContextProvider';
-import ConnectionButton from 'components/SolanaWallet/ConnectionButton';
+import WalletContextProvider from 'components/SolanaWallet/WalletContextProvider';
+import WalletButton from 'components/SolanaWallet/WalletButton';
 
 function App(): JSX.Element {
   return (
-    <ContextProvider>
+    <WalletContextProvider>
       <BrowserRouter>
         <ToastContainer
           position="bottom-right"
@@ -22,13 +23,14 @@ function App(): JSX.Element {
           draggable
           pauseOnHover
         />
-        <ConnectionButton />
+        <WalletButton />
         <Routes>
           <Route path="/Home" element={<HomePage />} />
+          {/* This route will redirect if Auth */}
           <Route path="/" element={<Navigate to="/Home" />} />
         </Routes>
       </BrowserRouter>
-    </ContextProvider>
+    </WalletContextProvider>
   );
 }
 
