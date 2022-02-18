@@ -24,6 +24,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "react-toastify": "^8.2.0",
+    "recoil": "^0.6.1",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
@@ -43,8 +44,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "env-cmd -f .env.dev.local craco start",
+    "build:env": "env-cmd -f .env.dev craco build",
     "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint src/**/*.ts src/**/*.tsx",

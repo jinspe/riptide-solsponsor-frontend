@@ -2,11 +2,13 @@ import React from 'react';
 import { BrowserRouter, Routes, Navigate, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import AuthManager from 'components/Authentication/AuthManager';
 import HomePage from 'pages/HomePages/HomePage';
-import LandingPage from 'pages/HomePages/LandingPage';
 
 import WalletContextProvider from 'components/SolanaWallet/WalletContextProvider';
 import WalletButton from 'components/SolanaWallet/WalletButton';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App(): JSX.Element {
   return (
@@ -23,12 +25,14 @@ function App(): JSX.Element {
           draggable
           pauseOnHover
         />
-        <WalletButton />
-        <Routes>
-          <Route path="/Home" element={<HomePage />} />
-          {/* This route will redirect if Auth */}
-          <Route path="/" element={<Navigate to="/Home" />} />
-        </Routes>
+        <AuthManager>
+          <WalletButton />
+          <Routes>
+            <Route path="/Home" element={<HomePage />} />
+            {/* This route will redirect if Auth */}
+            <Route path="/" element={<Navigate to="/Home" />} />
+          </Routes>
+        </AuthManager>
       </BrowserRouter>
     </WalletContextProvider>
   );

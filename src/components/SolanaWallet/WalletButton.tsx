@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { WalletMultiButton as ReactUIWalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useWallet } from '@solana/wallet-adapter-react';
+import 'style/wallet.css';
 
 export default function WalletButton(): JSX.Element {
-  const { connected } = useWallet();
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(`Wallet Connected: ${connected}`);
-  }, [connected]);
-
   return <ReactUIWalletMultiButton />;
 }
