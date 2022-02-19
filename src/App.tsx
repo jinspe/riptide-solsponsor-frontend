@@ -5,14 +5,14 @@ import { ToastContainer } from 'react-toastify';
 import AuthManager from 'components/Authentication/AuthManager';
 import HomePage from 'pages/HomePages/HomePage';
 
-import WalletContextProvider from 'components/SolanaWallet/WalletContextProvider';
+import Layout from 'components/Common/Layout';
 import WalletButton from 'components/SolanaWallet/WalletButton';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function App(): JSX.Element {
   return (
-    <WalletContextProvider>
+    <Layout>
       <BrowserRouter>
         <ToastContainer
           position="bottom-right"
@@ -34,7 +34,7 @@ function App(): JSX.Element {
           </Routes>
         </AuthManager>
       </BrowserRouter>
-    </WalletContextProvider>
+    </Layout>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MoonIcon, SunIcon } from '@heroicons/react/solid';
 
-export default function DarkModeSwitch(): JSX.Element {
+function useDarkMode(): [string, React.Dispatch<any>] {
   const [theme, setTheme] = useState(localStorage.theme);
   const colorTheme = theme === 'dark' ? 'light' : 'dark';
 
@@ -11,6 +11,12 @@ export default function DarkModeSwitch(): JSX.Element {
     root.classList.add(theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  return [colorTheme, setTheme];
+}
+
+export default function DarkModeSwitch(): JSX.Element {
+  const [colorTheme, setTheme] = useDarkMode();
 
   return (
     <button
