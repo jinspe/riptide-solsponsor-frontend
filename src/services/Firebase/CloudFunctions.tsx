@@ -15,3 +15,13 @@ export async function testFunction(): Promise<void> {
     coverImage: 'booboo',
   });
 }
+
+export async function checkTransacFunction(signature: string): Promise<any> {
+  const testcall = httpsCallable(
+    FirebaseFunctions,
+    'solanaTrans-checkTransaction'
+  );
+  const result: any = await testcall({ signature });
+
+  return result;
+}

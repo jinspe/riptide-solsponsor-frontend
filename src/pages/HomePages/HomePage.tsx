@@ -1,6 +1,8 @@
 import React from 'react';
 import DarkModeSwitch from 'components/Common/DarkModeSwitch';
 
+import InProgressApp from 'inprogress/InProgressApp';
+
 export default function HomePage(): JSX.Element {
   return (
     <div>
@@ -18,6 +20,7 @@ export default function HomePage(): JSX.Element {
         Text test for colors low
       </p>
       <DarkModeSwitch />
+      <InProgressApp />
     </div>
   );
 }
