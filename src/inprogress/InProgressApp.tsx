@@ -4,6 +4,7 @@ import {
   VerifyTransaction,
   SolanaTransaction,
 } from './SolanaTransaction';
+import MintButton from './mintnft2/minnfttest';
 
 export default function InProgressApp(): JSX.Element {
   return (
@@ -12,6 +13,7 @@ export default function InProgressApp(): JSX.Element {
       <SolanaTransaction />
       <VerifyTransaction />
       <CheckInTheBack />
+      <MintButton />
     </div>
   );
 }

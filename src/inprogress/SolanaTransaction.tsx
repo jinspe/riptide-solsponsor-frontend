@@ -1,10 +1,13 @@
 import React from 'react';
 import {
-  Keypair,
+  clusterApiUrl,
+  Connection,
   SystemProgram,
   Transaction,
   PublicKey,
+  sendAndConfirmTransaction,
 } from '@solana/web3.js';
+import { mintNFT } from '@metaplex/js/lib/actions';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { toast } from 'react-toastify';
 
@@ -16,6 +19,21 @@ const buttonClass =
   'text-indigo-700 bg-indigo-100 hover:bg-indigo-200 ' +
   'focus:outline-none focus:ring-2 focus:ring-offset-2 ' +
   'focus:ring-indigo-500';
+
+export function MintNft(): JSX.Element {
+  const { connection } = useConnection();
+
+  async function transacc() {
+    console.log('mint Nft');
+  }
+  return (
+    <div>
+      <button type="button" className={buttonClass} onClick={transacc}>
+        CheckInTheBack
+      </button>
+    </div>
+  );
+}
 
 export function SolanaTransaction(): JSX.Element {
   const { connection } = useConnection();
