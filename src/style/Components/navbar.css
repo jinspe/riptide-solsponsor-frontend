@@ -1,0 +1,6 @@
+.navbar-logo-sm {
+  @apply block lg:hidden h-8 w-auto;
+}
+.navbar-logo-lg {
+  @apply hidden lg:block h-8 w-auto;
+}

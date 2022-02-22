@@ -1,6 +1,9 @@
 .ck-editor__editable {
   @apply bg-red-100 dark:bg-green-100 !important;
 }
+.ck-content h2 {
+  @apply text-2xl text-red-500;
+}
 
 /* :root {
   --ck-border-radius: 4px;

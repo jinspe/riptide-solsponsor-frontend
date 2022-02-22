@@ -1,9 +1,17 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
+import { useRecoilState } from 'recoil';
+
 import { Editor as ClassicEditor } from 'ckeditor5-custom-build/build/ckeditor';
+import { textCk } from './RecoilText';
+import 'style/ckeditor.css';
+import 'style/ckeditorbase.css';
 
 export default function CKeditsource(): JSX.Element {
+  const [recoilText, setRecoilText] = useRecoilState(textCk);
+
+  const [text, setText] = useState('');
   /* const alertUser = (e: any) => {
     e.preventDefault();
     e.returnValue = 'refresh???';
@@ -14,6 +22,15 @@ export default function CKeditsource(): JSX.Element {
       window.removeEventListener('beforeunload', alertUser);
     };
   }, []); */
+
+  /* eslint-disable no-promise-executor-return */
+  function sleep(ms: any) {
+    return new Promise((resolve, reject) =>
+      setTimeout(() => {
+        resolve('caca');
+      }, ms)
+    );
+  }
 
   function uploadAdapter(loader: any) {
     console.log('Loader', loader);
@@ -26,17 +43,27 @@ export default function CKeditsource(): JSX.Element {
           const body = new FormData();
           loader.file
             .then((file: any) => {
-              body.append('files', file);
+              const reader = new window.FileReader();
+              reader.onloadend = async () => {
+                console.log('RESULT', reader.result);
+                await sleep(20000);
+                resolve({ default: reader.result });
+              };
+              reader.readAsDataURL(file);
+              // body.append('files', file);
               // let headers = new Headers();
               // headers.append("Origin", "http://localhost:3000");
-              console.log(body);
+              // console.log(body);
 
-              const newUrl = URL.createObjectURL(file);
+              // const newUrl = URL.createObjectURL(file);
               // .then((res) => res.json())
               // .then((res) => {
-              resolve({
-                default: newUrl,
-              });
+              // resolve({
+              //   default: newUrl,
+              // });
+              // compress the image and verify it is the correct size
+              // console.log(reader.result);
+              // resolve({ default: reader.result });
             })
             .catch((err: any) => {
               reject(err);
@@ -56,6 +83,7 @@ export default function CKeditsource(): JSX.Element {
   }
   const editorConfiguration = {
     /* toolbar: [
+      'sourceEditing',
       'heading', // ok
       '|',
       'bold', // ok
@@ -88,15 +116,15 @@ export default function CKeditsource(): JSX.Element {
       'mediaEmbed',
       'undo',
       'redo',
-    ],
-   */
+    ], */
+
     image: {
       toolbar: [
         'toggleImageCaption',
         'imageTextAlternative',
-        'imageStyle:inline',
         'linkImage',
         '|',
+        'imageStyle:inline',
         'imageStyle:alignLeft',
         'imageStyle:block',
         'imageStyle:alignRight',
@@ -106,27 +134,47 @@ export default function CKeditsource(): JSX.Element {
     extraPlugins: [uploadPlugin],
   };
   return (
-    <div className="App">
+    <div className="mb-12">
       <h2>Using CKEditor 5 from online builder in React</h2>
       <CKEditor
         editor={ClassicEditor}
         config={editorConfiguration}
-        data="<p>Hello from CKEditor 5!</p>"
+        data=""
         onReady={(editor: any) => {
           // You can store the "editor" and use when it is needed.
           console.log('Editor is ready to use!', editor);
         }}
         onChange={(event: any, editor: any) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          setText(data);
+          // console.log({ event, editor, data });
         }}
-        onBlur={(event: any, editor: any) => {
+        /* onBlur={(event: any, editor: any) => {
           console.log('Blur.', editor);
         }}
         onFocus={(event: any, editor: any) => {
           console.log('Focus.', editor);
-        }}
+        }} */
       />
+      <button
+        type="button"
+        onClick={() => {
+          console.log(text);
+        }}>
+        save
+      </button>
+
+      <div>
+        <p>Recoil Text</p>
+        <div className="ck-content">
+          <div
+            /* eslint-disable react/no-danger */
+            dangerouslySetInnerHTML={{
+              __html: text,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }

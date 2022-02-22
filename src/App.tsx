@@ -5,10 +5,9 @@ import { RecoilRoot } from 'recoil';
 
 import AuthManager from 'components/Authentication/AuthManager';
 import WalletContextProvider from 'components/SolanaWallet/WalletContextProvider';
+import Navbar from 'components/Common/Navbar/Navbar';
 
 import HomePage from 'pages/HomePages/HomePage';
-
-import WalletButton from 'components/SolanaWallet/WalletButton';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,12 +28,16 @@ function App(): JSX.Element {
             pauseOnHover
           />
           <AuthManager>
-            <WalletButton />
-            <Routes>
-              <Route path="/Home" element={<HomePage />} />
-              {/* This route will redirect if Auth */}
-              <Route path="/" element={<Navigate to="/Home" />} />
-            </Routes>
+            <header className="sticky top-0 z-50">
+              <Navbar />
+            </header>
+            <main>
+              <Routes>
+                <Route path="/Home" element={<HomePage />} />
+                {/* This route will redirect if Auth */}
+                <Route path="/" element={<Navigate to="/Home" />} />
+              </Routes>
+            </main>
           </AuthManager>
         </BrowserRouter>
       </RecoilRoot>
