@@ -5,7 +5,7 @@ import { SearchIcon } from '@heroicons/react/solid';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
 import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
-import NavSearchBar from './NavSearchBar';
+import NavSearchBar from '../../components/Common/Navbar/NavSearchBar';
 
 import 'style/Components/navbar.css';
 /*

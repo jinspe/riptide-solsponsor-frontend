@@ -9,9 +9,7 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class' or false
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+      fontFamily: {},
       colors: {
         dbg: {
           l0: '#000000',
@@ -95,6 +93,7 @@ module.exports = {
           700: '#404040',
           800: '#262626',
           900: '#171717',
+          950: '#0D0D0D',
         },
         stone: colors.warmGray,
         rose: {
