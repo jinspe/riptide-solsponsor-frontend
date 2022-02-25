@@ -1,8 +1,6 @@
 import React from 'react';
 import { SearchIcon } from '@heroicons/react/solid';
 
-import 'style/Components/navbar.css';
-
 export default function NavSearchBar(): JSX.Element {
   return (
     <div className="max-w-md w-full  ">

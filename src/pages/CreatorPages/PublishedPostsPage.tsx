@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CreatorPostPage(): JSX.Element {
+export default function PublishedPostsPage(): JSX.Element {
   return (
     <div>
       <p>CreatorPostPage</p>

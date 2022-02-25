@@ -20,6 +20,11 @@ export const userProfileImageAtom = atom<string | undefined>({
   default: undefined,
 });
 
+export const userIsCreatorAtom = atom<boolean>({
+  key: 'userPersonalLink',
+  default: false,
+});
+
 export const userCoverImageAtom = atom<string | undefined>({
   key: 'userCoverImage',
   default: undefined,

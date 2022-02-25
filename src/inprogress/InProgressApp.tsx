@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import {
   userPublicKeyAtom,
   userProfileImageAtom,
-} from 'services/Recoil/userInfo';
+} from 'services/Utils/Recoil/userInfo';
 import {
   CheckInTheBack,
   VerifyTransaction,

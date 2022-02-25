@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LoginButton(): JSX.Element {
   return (
-    <button
-      type="button"
-      className="rounded-3xl 
+    <Link to="/login">
+      <button
+        type="button"
+        className="rounded-3xl 
       h-8
       text-sm
       flex 
@@ -16,7 +18,6 @@ export default function LoginButton(): JSX.Element {
       bg-white
       hover:bg-blue-50
       dark:bg-neutral-800
-      border
       border-blue-600
       dark:border-neutral-600
       focus:outline-none 
@@ -31,7 +32,8 @@ export default function LoginButton(): JSX.Element {
       text-blue-600 
       dark:text-neutral-400 
       dark:hover:text-neutral-200">
-      Log In
-    </button>
+        Log In
+      </button>
+    </Link>
   );
 }

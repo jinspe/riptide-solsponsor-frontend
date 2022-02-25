@@ -1,17 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Routes, Navigate, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { RecoilRoot } from 'recoil';
 
 import AuthManager from 'components/Authentication/AuthManager';
 import WalletContextProvider from 'components/SolanaWallet/WalletContextProvider';
-import Navbar from 'components/Common/Navbar/Navbar';
+import useDarkMode from 'components/Common/Util/useDarkMode';
 
-import HomePage from 'pages/HomePages/HomePage';
+import AppSwitcher from 'components/AppContainers/AppSwitcher';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function App(): JSX.Element {
+  useDarkMode();
   return (
     <WalletContextProvider>
       <RecoilRoot>
@@ -28,16 +29,7 @@ function App(): JSX.Element {
             pauseOnHover
           />
           <AuthManager>
-            <header className="sticky top-0 z-50">
-              <Navbar />
-            </header>
-            <main>
-              <Routes>
-                <Route path="/Home" element={<HomePage />} />
-                {/* This route will redirect if Auth */}
-                <Route path="/" element={<Navigate to="/Home" />} />
-              </Routes>
-            </main>
+            <AppSwitcher />
           </AuthManager>
         </BrowserRouter>
       </RecoilRoot>

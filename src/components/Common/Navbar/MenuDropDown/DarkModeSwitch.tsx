@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MoonIcon } from '@heroicons/react/outline';
 import { Switch } from '@headlessui/react';
 import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
+import useDarkMode from 'components/Common/Util/useDarkMode';
 
-function useDarkMode(): [string, React.Dispatch<any>] {
-  const [theme, setTheme] = useState(localStorage.theme);
-  const colorTheme = theme === 'dark' ? 'light' : 'dark';
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove(colorTheme);
-    root.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  return [colorTheme, setTheme];
-}
+import 'style/Components/headers.css';
 
 export default function DarkModeSwitch(): JSX.Element {
   const [colorTheme, setTheme] = useDarkMode();
@@ -26,14 +15,13 @@ export default function DarkModeSwitch(): JSX.Element {
   return (
     <div
       className=" flex 
-      block py-2 px-3 
+       py-2 px-3 
       items-center
-      text-neutral-800 
-      dark:text-neutral-200
       hover:bg-neutral-200 
-      dark:hover:bg-neutral-700 ">
+      dark:hover:bg-neutral-700 
+      dropdown-text">
       <div className="flex-1 flex items-center ">
-        <MoonIcon className="flex-initial h-6 w-6" />
+        <MoonIcon className="flex-initial nav-icons-size" />
         <p className="flex-auto pl-2">Dark Mode</p>
       </div>
       <Switch

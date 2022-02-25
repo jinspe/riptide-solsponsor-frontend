@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function JoinCreatorButton(): JSX.Element {
+export default function JoinAsCreatorButton(): JSX.Element {
   return (
-    <button
-      type="button"
-      className="rounded-3xl 
+    <Link to="/login?re=become-creator">
+      <button
+        type="button"
+        className="rounded-3xl 
       h-8
       text-sm
       flex 
@@ -12,10 +14,8 @@ export default function JoinCreatorButton(): JSX.Element {
       font-bold
       pb-0.5
       px-4
-      border
-      bg-blue-600
-      hover:bg-blue-500
-      dark:bg-blue-300
+      bg-blue-700
+      hover:bg-blue-600
       border
       border-blue-500
       dark:border-neutral-600
@@ -29,9 +29,9 @@ export default function JoinCreatorButton(): JSX.Element {
       focus:ring-cyan-500
       focus:ring-opacity-100
       text-white 
-      dark:text-neutral-800 
-      dark:hover:bg-blue-400">
-      Create
-    </button>
+      ">
+        Become A Creator
+      </button>
+    </Link>
   );
 }

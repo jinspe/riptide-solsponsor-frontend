@@ -12,6 +12,7 @@ import {
   UserIcon,
   CollectionIcon,
   GlobeIcon,
+  FireIcon,
 } from '@heroicons/react/outline';
 
 import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
@@ -19,37 +20,39 @@ import {
   userPublicKeyAtom,
   userProfileImageAtom,
   userDisplayNameAtom,
-} from 'services/Recoil/userInfo';
+  userIsCreatorAtom,
+} from 'services/Utils/Recoil/userInfo';
 
 import DarkModeSwitch from './DarkModeSwitch';
 
-import 'style/Components/navbar.css';
+import 'style/Components/headers.css';
 
 export default function ProfileDropdown(): JSX.Element {
   const userPublicKey = useRecoilValue(userPublicKeyAtom);
   const userProfileImage = useRecoilValue(userProfileImageAtom);
   const userDisplayName = useRecoilValue(userDisplayNameAtom);
+  const userIsCreator = useRecoilValue(userIsCreatorAtom);
 
   const userNavigation = [
     {
       name: 'My Creators Posts',
       href: '/',
-      icon: <CollectionIcon className="flex-initial h-6 w-6" />,
+      icon: <CollectionIcon className="flex-initial nav-icons-size" />,
     },
     {
       name: 'My Profile',
       href: '/',
-      icon: <UserIcon className="flex-initial h-6 w-6" />,
+      icon: <UserIcon className="flex-initial nav-icons-size" />,
     },
     {
       name: 'Explore Creators',
       href: '/',
-      icon: <GlobeIcon className="flex-initial h-6 w-6" />,
+      icon: <GlobeIcon className="flex-initial nav-icons-size" />,
     },
   ];
 
   return (
-    <Menu as="div" className="text-md relative flex-shrink-0">
+    <Menu as="div" className="text-md relative flex-shrink-0 z-50">
       {({ open }) => (
         <>
           <Menu.Button
@@ -57,7 +60,6 @@ export default function ProfileDropdown(): JSX.Element {
                       rounded-lg 
                       flex 
                       py-0.5
-                      border
                       bg-neutral-100
                       dark:bg-neutral-800
                       border
@@ -109,48 +111,47 @@ export default function ProfileDropdown(): JSX.Element {
             <Menu.Items
               className="origin-top-right absolute 
                       right-0 mt-2 w-48 rounded-md shadow-lg py-1 
-                      bg-white dark:bg-neutral-900  
+                      headers-bg  
                       ring-1   
                       ring-neutral-200
                       dark:ring-neutral-700
-                      focus:outline-none">
+                      focus:outline-none
+                      ">
               {userPublicKey !== undefined && (
                 <div>
                   <Menu.Item disabled key="displayName">
                     <div
                       className=" 
                       block py-1 px-3 
-                      text-neutral-800 
-                      dark:text-neutral-200
-                      hover:bg-neutral-200 
-                      dark:hover:bg-neutral-700
                       w-full truncate -mb-1">
-                      <p className="text-center truncate ">{userDisplayName}</p>
+                      <p className="dropdown-text text-center truncate ">
+                        {userDisplayName}
+                      </p>
                       <p
                         className="text-center mt-0.5 truncate
                       text-neutral-500
-                      text-xs">
+                      text-xs font-medium">
                         {userPublicKey}
                       </p>
                     </div>
                   </Menu.Item>
                   {userNavigation.map((item) => (
-                    <Menu.Item key={item.name}>
-                      {({ active }) => (
-                        <Link
-                          to={item.href}
-                          className={ClassNamesLogic(
-                            active ? 'bg-neutral-200 dark:bg-neutral-700' : '',
-                            'block py-2 px-3 ' +
-                              'text-neutral-800 dark:text-neutral-200 mt-1'
-                          )}>
-                          <div className="flex-1 flex items-center ">
-                            {item.icon}
-                            <p className="pl-2">{item.name}</p>
+                    <Link to={item.href} key={item.name}>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={ClassNamesLogic(
+                              active ? 'dropdown-bg-active' : '',
+                              'block py-2 px-3 dropdown-text mt-1'
+                            )}>
+                            <div className="flex-1 flex items-center ">
+                              {item.icon}
+                              <p className="pl-2 ">{item.name}</p>
+                            </div>
                           </div>
-                        </Link>
-                      )}
-                    </Menu.Item>
+                        )}
+                      </Menu.Item>
+                    </Link>
                   ))}
                   <div className="px-3 mt-1 mb-1">
                     <div
@@ -160,66 +161,97 @@ export default function ProfileDropdown(): JSX.Element {
                   </div>
                 </div>
               )}
-
-              <Menu.Item key="Dark mode">
-                <DarkModeSwitch />
+              <Menu.Item disabled key="Dark mode">
+                <div>
+                  <DarkModeSwitch />
+                </div>
               </Menu.Item>
-              <Menu.Item key="HelpCenter">
-                {({ active }) => (
-                  <Link
-                    to="/"
-                    className={ClassNamesLogic(
-                      active ? 'bg-neutral-200 dark:bg-neutral-700' : '',
-                      'block py-2 px-3 ' +
-                        'text-neutral-800 dark:text-neutral-200 mt-1'
-                    )}>
-                    <div className="flex-1 flex items-center ">
-                      <QuestionMarkCircleIcon
-                        className="flex-initial 
-                      h-6 w-6"
-                      />
-                      <p className="pl-2">Help Center</p>
+              {/* HelpCenter */}
+              <Link to="/help-center" key="HelpCenter">
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      className={ClassNamesLogic(
+                        active ? 'dropdown-bg-active' : '',
+                        'block py-2 px-3 dropdown-text mt-1'
+                      )}>
+                      <div className="flex-1 flex items-center ">
+                        <QuestionMarkCircleIcon
+                          className="flex-initial 
+                        nav-icons-size"
+                        />
+                        <p className="pl-2 ">Help Center</p>
+                      </div>
                     </div>
-                  </Link>
-                )}
-              </Menu.Item>
+                  )}
+                </Menu.Item>
+              </Link>
+              {/* BecomeCreator */}
+              <Link
+                to="/become-creator"
+                key="BecomeCreator"
+                className={ClassNamesLogic(
+                  userPublicKey !== undefined && !userIsCreator
+                    ? 'block'
+                    : 'block sm:hidden',
+                  ''
+                )}>
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      className={ClassNamesLogic(
+                        active ? 'dropdown-bg-active' : '',
+                        'block py-2 px-3 dropdown-text mt-1'
+                      )}>
+                      <div className="flex-1 flex items-center ">
+                        <FireIcon
+                          className="flex-initial 
+                          nav-icons-size"
+                        />
+                        <p className="pl-2">Become A Creator</p>
+                      </div>
+                    </div>
+                  )}
+                </Menu.Item>
+              </Link>
               <div className="px-3 mt-1 mb-1">
                 <div
                   className=" border-t 
                 border-neutral-500"
                 />
               </div>
-              <Menu.Item key="LoginSignin">
-                {({ active }) => (
-                  <Link
-                    to="/"
-                    className={ClassNamesLogic(
-                      active ? 'bg-neutral-200 dark:bg-neutral-700' : '',
-                      'block py-2 px-3 ' +
-                        'text-neutral-800 dark:text-neutral-200 '
-                    )}>
-                    <div className="flex-1 flex items-center ">
-                      {userPublicKey !== undefined ? (
-                        <LogoutIcon
-                          className="flex-initial transform 
-              rotate-180 h-6 w-6"
-                        />
-                      ) : (
-                        <LoginIcon
-                          className="flex-initial transform 
-              rotate-180 h-6 w-6"
-                        />
-                      )}
+              {/* Logout/ Signin */}
+              <Link to="/login" key="LoginSignin">
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      className={ClassNamesLogic(
+                        active ? 'dropdown-bg-active' : '',
+                        ' block py-2 px-3 dropdown-text  '
+                      )}>
+                      <div className="flex-1 flex items-center ">
+                        {userPublicKey !== undefined ? (
+                          <LogoutIcon
+                            className="flex-initial transform 
+                              rotate-180 nav-icons-size"
+                          />
+                        ) : (
+                          <LoginIcon
+                            className="flex-initial transform 
+                              rotate-180 nav-icons-size"
+                          />
+                        )}
 
-                      <p className="pl-2">
-                        {userPublicKey !== undefined
-                          ? 'Signout'
-                          : 'Signin/Login'}
-                      </p>
+                        <p className="pl-2">
+                          {userPublicKey !== undefined
+                            ? 'Signout'
+                            : 'Signin/Login'}
+                        </p>
+                      </div>
                     </div>
-                  </Link>
-                )}
-              </Menu.Item>
+                  )}
+                </Menu.Item>
+              </Link>
             </Menu.Items>
           </Transition>
         </>

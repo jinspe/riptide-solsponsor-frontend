@@ -2,23 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { userPublicKeyAtom } from 'services/Recoil/userInfo';
+import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
 
 import NavSearchBar from './NavSearchBar';
 import LoginButton from './LoginButton';
 import ProfileDropdown from './MenuDropDown/ProfileDropdown';
-import JoinCreatorButton from './JoinCreatorButton';
-import 'style/Components/navbar.css';
+import JoinAsCreatorButton from './JoinAsCreatorButton';
+
+import 'style/Components/headers.css';
 /*
 TODO:
 -Logo with colors that are ok
 */
 
-export default function Navbar(): JSX.Element {
+export default function UserNavbar(): JSX.Element {
   const userPublicKey = useRecoilValue(userPublicKeyAtom);
 
   return (
-    <nav className="bg-white dark:bg-neutral-900 shadow mb-5">
+    <nav className="headers-bg shadow mb-5 sticky top-0 z-40">
       <div className="mcontainer-c0">
         <div className="flex justify-between h-12">
           {/* Logo */}
@@ -26,12 +27,12 @@ export default function Navbar(): JSX.Element {
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
                 <img
-                  className="navbar-logo-sm"
+                  className="block lg:hidden h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                   alt="Workflow"
                 />
                 <img
-                  className="navbar-logo-lg"
+                  className="hidden lg:block h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
                   alt="Workflow"
                 />
@@ -46,15 +47,15 @@ export default function Navbar(): JSX.Element {
             <NavSearchBar />
           </div>
           {/* Profile dropdown */}
-          <div className=" ml-4 flex items-center">
+          <div className=" ml-4 align-middle flex items-center">
             {userPublicKey === undefined && (
-              <div className="mr-4 hidden sm:block ">
+              <div className="mr-4 hidden align-middle sm:block ">
                 <div className="flex">
                   <div className=" mr-2">
                     <LoginButton />
                   </div>
                   <div className="">
-                    <JoinCreatorButton />
+                    <JoinAsCreatorButton />
                   </div>
                 </div>
               </div>
