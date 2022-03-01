@@ -14,21 +14,7 @@ export default function NavSearchBar(): JSX.Element {
                     dark:placeholder-neutral-400
                     bg-neutral-100
                     dark:bg-neutral-950
-                    border
-                    border-neutral-400
-                    dark:border-neutral-600
-                    outline-none
-                    text-sm
-                    hover:ring-2
-                    hover:ring-inset
-                    hover:ring-cyan-500
-                    hover:ring-opacity-30
-                    focus:ring-2
-                    focus:ring-inset
-                    focus:ring-cyan-500
-                    focus:ring-opacity-100
-                    text-neutral-900
-                    dark:text-neutral-100
+                    text-input-field
                     "
           placeholder="Search"
           type="search"

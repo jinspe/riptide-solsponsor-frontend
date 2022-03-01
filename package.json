@@ -8,9 +8,9 @@
     "@craco/craco": "^6.4.3",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
+    "@solana/spl-token": "^0.2.0",
     "@metaplex-foundation/mpl-core": "^0.0.4",
     "@metaplex/js": "^4.12.0",
-    "@solana/spl-token": "^0.2.0",
     "@solana/wallet-adapter-base": "^0.6.0",
     "@solana/wallet-adapter-react": "^0.12.2",
     "@solana/wallet-adapter-react-ui": "^0.4.2",
@@ -37,6 +37,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.4.0",
     "autoprefixer": "^9",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.4",

@@ -2,6 +2,10 @@ import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { toast } from 'react-toastify';
+
+import SignoutWithWallet from 'services/Firebase/Authentication/SignoutWithWallet';
 
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import {
@@ -28,6 +32,8 @@ import DarkModeSwitch from './DarkModeSwitch';
 import 'style/Components/headers.css';
 
 export default function ProfileDropdown(): JSX.Element {
+  const { disconnect, connected } = useWallet();
+
   const userPublicKey = useRecoilValue(userPublicKeyAtom);
   const userProfileImage = useRecoilValue(userProfileImageAtom);
   const userDisplayName = useRecoilValue(userDisplayNameAtom);
@@ -40,8 +46,8 @@ export default function ProfileDropdown(): JSX.Element {
       icon: <CollectionIcon className="flex-initial nav-icons-size" />,
     },
     {
-      name: 'My Profile',
-      href: '/',
+      name: 'My Profile Settings',
+      href: '/user-settings',
       icon: <UserIcon className="flex-initial nav-icons-size" />,
     },
     {
@@ -51,8 +57,16 @@ export default function ProfileDropdown(): JSX.Element {
     },
   ];
 
+  async function SignoutFunction() {
+    try {
+      await SignoutWithWallet({ disconnect, connected });
+    } catch (error: any) {
+      toast.error(`Failed to signout: ${error?.message}`);
+    }
+  }
+
   return (
-    <Menu as="div" className="text-md relative flex-shrink-0 z-50">
+    <Menu as="div" className="text-md relative flex-shrink-0 z-30">
       {({ open }) => (
         <>
           <Menu.Button
@@ -80,7 +94,7 @@ export default function ProfileDropdown(): JSX.Element {
                       dark:hover:text-neutral-200">
             <span className="sr-only">Open user menu</span>
             <div className="flex ">
-              {userPublicKey === undefined ? (
+              {userPublicKey === undefined || userProfileImage === '' ? (
                 <UserCircleIcon className="ml-1 h-7 w-7" />
               ) : (
                 <img
@@ -186,6 +200,7 @@ export default function ProfileDropdown(): JSX.Element {
                   )}
                 </Menu.Item>
               </Link>
+
               {/* BecomeCreator */}
               <Link
                 to="/become-creator"
@@ -221,37 +236,51 @@ export default function ProfileDropdown(): JSX.Element {
                 />
               </div>
               {/* Logout/ Signin */}
-              <Link to="/login" key="LoginSignin">
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={ClassNamesLogic(
-                        active ? 'dropdown-bg-active' : '',
-                        ' block py-2 px-3 dropdown-text  '
-                      )}>
-                      <div className="flex-1 flex items-center ">
-                        {userPublicKey !== undefined ? (
-                          <LogoutIcon
-                            className="flex-initial transform 
-                              rotate-180 nav-icons-size"
-                          />
-                        ) : (
+
+              {userPublicKey === undefined ? (
+                /* Login */
+                <Link to="/login" key="LoginSignin">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <div
+                        className={ClassNamesLogic(
+                          active ? 'dropdown-bg-active' : '',
+                          ' block py-2 px-3 dropdown-text  '
+                        )}>
+                        <div className="flex-1 flex items-center ">
                           <LoginIcon
                             className="flex-initial transform 
                               rotate-180 nav-icons-size"
                           />
-                        )}
-
-                        <p className="pl-2">
-                          {userPublicKey !== undefined
-                            ? 'Signout'
-                            : 'Signin/Login'}
-                        </p>
+                          <p className="pl-2">Signin/Login</p>
+                        </div>
+                      </div>
+                    )}
+                  </Menu.Item>
+                </Link>
+              ) : (
+                /* Signout */
+                <Menu.Item
+                  onClick={() => {
+                    SignoutFunction();
+                  }}>
+                  {({ active }) => (
+                    <div
+                      className={ClassNamesLogic(
+                        active ? 'dropdown-bg-active' : '',
+                        ' block py-2 px-3 dropdown-text cursor-pointer '
+                      )}>
+                      <div className="flex-1 flex items-center ">
+                        <LogoutIcon
+                          className="flex-initial transform 
+                              rotate-180 nav-icons-size"
+                        />
+                        <p className="pl-2">Signout</p>
                       </div>
                     </div>
                   )}
                 </Menu.Item>
-              </Link>
+              )}
             </Menu.Items>
           </Transition>
         </>

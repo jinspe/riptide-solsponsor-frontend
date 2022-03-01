@@ -10,6 +10,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import HomePage from 'pages/HomePages/HomePage';
 import UserHomePage from 'pages/HomePages/UserHomePage';
+import UserSettingPage from 'pages/UserPages/UserSettingPage';
+import BecomeCreatorPage from 'pages/CreatorPages/BecomeCreatorPage';
 
 import CreatorHomePage from 'pages/HomePages/CreatorHomePage';
 import NewPostPage from 'pages/CreatorPages/NewPostPage';
@@ -39,6 +41,22 @@ export default function AppRoutes(): JSX.Element {
       <Route
         path="/home"
         element={<HomeUserRouting element={<UserHomePage />} />}
+      />
+
+      <Route
+        path="/user-settings"
+        element={
+          <OnlyAuthRoute element={<UserSettingPage />} route="user-settings" />
+        }
+      />
+      <Route
+        path="/become-creator"
+        element={
+          <OnlyAuthRoute
+            element={<BecomeCreatorPage />}
+            route="become-creator"
+          />
+        }
       />
 
       {/* Creator Pages */}

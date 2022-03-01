@@ -1,4 +1,5 @@
 import React from 'react';
+import { LogoLarge } from 'components/Common/Util/LogoText';
 
 import SideBarItems from './SideBarItems';
 
@@ -13,19 +14,17 @@ export default function SideNavFix(): JSX.Element {
         min-h-0 
         shadow 
         headers-bg">
-          <div className="flex-1 flex flex-col py-3 ">
+          <div className="px-4 pt-2">
+            <LogoLarge />
+          </div>
+          <div className="flex-1 flex flex-col pb-3 pt-1 ">
             <div
               className="flex items-center 
             shadow border-b 
             dark:border-neutral-800 
             border-neutral-200 
-            flex-shrink-0 pb-1 px-4">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-900-text.svg"
-                alt="Workflow"
-              />
-            </div>
+            flex-shrink-0 pb-1 px-4 "
+            />
             <div
               className="overflow-y-auto 
            max-h-screen  no-scrollbar">

@@ -5,6 +5,8 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import NavSearchBar from 'components/Common/Navbar/NavSearchBar';
 import ProfileDropdown from 'components/Common/Navbar/MenuDropDown/ProfileDropdown';
 
+import { LogoLarge } from 'components/Common/Util/LogoText';
+
 import SideBarItems from './DashBoardNav/SideBarItems';
 
 import SideNavFix from './DashBoardNav/SideNavFix';
@@ -23,7 +25,7 @@ export default function DashBoard({
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 flex z-30 lg:hidden"
+          className="fixed inset-0 flex z-40 lg:hidden"
           onClose={setSidebarOpen}>
           <Transition.Child
             as={Fragment}
@@ -86,11 +88,7 @@ export default function DashBoard({
               </Transition.Child>
               <div className="flex-1 h-full pt-5 pb-4 overflow-y-auto">
                 <div className="flex-shrink-0 flex items-center px-4">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-900-text.svg"
-                    alt="Workflow"
-                  />
+                  <LogoLarge />
                 </div>
                 <SideBarItems setSidebarOpen={setSidebarOpen} />
               </div>

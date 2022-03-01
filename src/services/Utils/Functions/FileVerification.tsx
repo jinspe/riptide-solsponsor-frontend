@@ -9,3 +9,7 @@ export default function IsImageBelowMaxSize(file: File, maxSize: number): void {
     throw new Error(`Input image needs to be smaller than ${maxSize} Mb!`);
   }
 }
+
+export function usernameIsValid(username: string): boolean {
+  return /^[0-9a-zA-Z_.-]+$/.test(username);
+}

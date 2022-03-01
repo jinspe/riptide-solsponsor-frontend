@@ -3,49 +3,52 @@ Button inside the modal
 Needs to be up of trigger or it overwrite trigger
 */
 .wallet-adapter-button {
-  @apply text-gray-900 bg-pink-500 font-sans rounded-lg;
+  @apply font-sans rounded-lg;
 }
 /* 
 Main button
 below adapter-button
 */
 .wallet-adapter-button-trigger {
-  @apply dark:text-ltext-t0 text-dtext-t0 
-  bg-gradient-to-r from-cyan-500 to-blue-500 
-  hover:from-rose-400 hover:to-red-700 
-  dark:from-rose-200 dark:to-pink-300 
-  dark:hover:from-cyan-700 dark:hover:to-blue-700 
+  @apply text-neutral-100 
+  bg-gradient-to-br from-cyan-400 to-indigo-800
+  hover:from-cyan-600 hover:to-indigo-900 
   font-sans rounded-lg
-  h-10 w-20 text-sm
+  h-10 w-auto text-sm
   !important;
 }
 
 /* 
 modal wrapper
 */
+/*
 .wallet-adapter-modal-wrapper {
   @apply text-gray-900 bg-red-600 font-sans rounded-lg;
 }
+*/
 /* 
 modal title list of wallets
 */
+/*
 .wallet-adapter-modal-title {
   @apply text-gray-900 bg-red-600 font-sans rounded-lg;
 }
-
+*/
 /*
 Container of dropdown trigger button
 */
+/*
 .wallet-adapter-dropdown-list {
   @apply text-gray-900 bg-red-600 font-sans rounded-lg;
-}
+}*/
 
 /*
 buttons inside the dropdown disconnect etc..
 */
+/*
 .wallet-adapter-dropdown-list-item {
   @apply text-gray-900 bg-red-600 font-sans rounded-lg;
-}
+}*/
 
 /*
 Cannot overwrite close button and collapse buttons

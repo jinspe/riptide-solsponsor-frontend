@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { LogoSmall } from 'components/Common/Util/LogoText';
+
 export default function NotFoundPage(): JSX.Element {
   return (
     <div className="min-h-full pt-16 pb-12 flex flex-col ">
@@ -9,16 +11,13 @@ export default function NotFoundPage(): JSX.Element {
       justify-center 
       max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex-shrink-0 flex justify-center">
-          <a href="/" className="inline-flex">
-            <span className="sr-only">Workflow</span>
-            <img
-              className="h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-              alt=""
-            />
-          </a>
+          <Link to="/" className="inline-flex">
+            <div className=" transform scale-250 ">
+              <LogoSmall />
+            </div>
+          </Link>
         </div>
-        <div className="py-16">
+        <div className="pb-16 pt-14">
           <div className="text-center">
             <p
               className="text-base font-semibold 

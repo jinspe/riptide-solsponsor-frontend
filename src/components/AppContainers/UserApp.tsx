@@ -8,7 +8,7 @@ export default function UserApp(): JSX.Element {
   return (
     <div>
       <UserNavbar />
-      <SinginsFunc />
+      {/* <SinginsFunc /> */}
       <main>
         <AppRoutes />
       </main>

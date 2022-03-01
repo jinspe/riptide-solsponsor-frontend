@@ -3,6 +3,8 @@ import { useRecoilValue } from 'recoil';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
 
+import LoginProcess from 'components/Common/Login/LoginProcess';
+
 /*
 Make it
 */
@@ -46,12 +48,8 @@ export default function LoginPage(): JSX.Element {
   }, [userPublicKey]);
 
   return (
-    <div className="pageFrame">
-      <p>Login page</p>
-      <p> {message}</p>
-      <button type="button" onClick={() => console.log(message, redirect)}>
-        console
-      </button>
+    <div className="mcontainer-c0">
+      <LoginProcess message={message} />
     </div>
   );
 }

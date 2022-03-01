@@ -1,0 +1,13 @@
+.bc-section-bg {
+  @apply bg-white dark:bg-neutral-800;
+}
+
+.bc-text-color {
+  @apply text-neutral-900 dark:text-neutral-100;
+}
+
+.bc-field-input {
+  @apply bg-white dark:bg-neutral-700
+  placeholder-neutral-500
+  dark:placeholder-neutral-400;
+}
