@@ -1,13 +1,15 @@
 import React, { ReactNode, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
+import { onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
+import { PublicKey } from '@solana/web3.js';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { doc, getDoc } from 'firebase/firestore';
-import { httpsCallable } from 'firebase/functions';
-import { PublicKey } from '@solana/web3.js';
-import SignMessage from 'services/Solana/Functions/SignMessage';
 
-import { onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
+import { creatorConverter } from 'services/Firebase/Converters/CreatorConverter';
+
+import SignMessage from 'services/Solana/Functions/SignMessage';
 import SignoutWithWallet from 'services/Firebase/Authentication/SignoutWithWallet';
 import { Imembership } from 'types/types';
 
@@ -24,17 +26,7 @@ import {
   userMembershipsAtom,
 } from 'services/Utils/Recoil/userInfo';
 
-import {
-  creatorUserNameAtom,
-  creatorBioAtom,
-  creatorDisplayNameAtom,
-  creatorProfileImageAtom,
-  creatorCoverImageAtom,
-  creatorTierImageAtom,
-  creatorTierPriceAtom,
-  creatorTierTitleAtom,
-  creatorTierDescriptionAtom,
-} from 'services/Utils/Recoil/creatorInfo';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import { loginStepAtom, loadingAppAtom } from 'services/Utils/Recoil/appState';
 
@@ -63,22 +55,7 @@ export default function AuthManager({
   const [, setUserIsCreator] = useRecoilState(userIsCreatorAtom);
   const [, setUserMemberships] = useRecoilState(userMembershipsAtom);
 
-  const [, setCreatorUserNameRecoil] = useRecoilState(creatorUserNameAtom);
-  const [, setCreatorBioRecoil] = useRecoilState(creatorBioAtom);
-  const [, setCreatorDisplayNameRecoil] = useRecoilState(
-    creatorDisplayNameAtom
-  );
-  const [, setCreatorProfileImageRecoil] = useRecoilState(
-    creatorProfileImageAtom
-  );
-  const [, setCreatorCoverImageRecoil] = useRecoilState(creatorCoverImageAtom);
-
-  const [, setCreatorTierImageRecoil] = useRecoilState(creatorTierImageAtom);
-  const [, setCreatorTierPriceRecoil] = useRecoilState(creatorTierPriceAtom);
-  const [, setCreatorTierTitleRecoil] = useRecoilState(creatorTierTitleAtom);
-  const [, setCreatorTierDescriptionRecoil] = useRecoilState(
-    creatorTierDescriptionAtom
-  );
+  const [, setCreatorInfosRecoil] = useRecoilState(creatorInfosAtom);
 
   const [, setLoginStep] = useRecoilState(loginStepAtom);
   const [, setLoadingApp] = useRecoilState(loadingAppAtom);
@@ -185,21 +162,14 @@ export default function AuthManager({
               setUserMemberships(memberships);
               setUserIsCreator(userDoc.data().isCreator);
               if (userDoc.data().isCreator) {
-                const creatorRef = doc(Firestore, 'creators', user.uid);
+                const creatorRef = doc(
+                  Firestore,
+                  'creators',
+                  user.uid
+                ).withConverter(creatorConverter);
                 const creatorDoc = await getDoc(creatorRef);
                 if (creatorDoc.exists()) {
-                  setCreatorUserNameRecoil(creatorDoc.data().userName);
-                  setCreatorBioRecoil(creatorDoc.data().bio);
-                  setCreatorDisplayNameRecoil(creatorDoc.data().displayName);
-                  setCreatorProfileImageRecoil(creatorDoc.data().profileImage);
-                  setCreatorCoverImageRecoil(creatorDoc.data().coverImage);
-
-                  setCreatorTierImageRecoil(creatorDoc.data().tierImage);
-                  setCreatorTierPriceRecoil(creatorDoc.data().tierPrice);
-                  setCreatorTierTitleRecoil(creatorDoc.data().tierTitle);
-                  setCreatorTierDescriptionRecoil(
-                    creatorDoc.data().tierDescription
-                  );
+                  setCreatorInfosRecoil(creatorDoc.data());
                 }
               }
             } else {

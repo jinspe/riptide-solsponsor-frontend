@@ -22,12 +22,12 @@ import SettingsPage from 'pages/SelfCreatorPages/SettingPages/SettingsPage';
 
 import CreatorPage from 'pages/CreatorPages/CreatorPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
+import SearchPage from 'pages/CommonPages/SearchPages/SearchPage';
 import NotFoundPage from 'pages/CommonPages/NotFoundPage';
 
 export default function AppRoutes(): JSX.Element {
   return (
     <Routes>
-      {/* This route will redirect if Auth */}
       <Route
         path="/"
         element={
@@ -64,6 +64,7 @@ export default function AppRoutes(): JSX.Element {
       <Route path="/c/:creator" element={<CreatorPage />} />
       <Route path="/c/:creator/:postId" element={<CreatorPage />} />
 
+      <Route path="/search" element={<SearchPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundPage />} />
 

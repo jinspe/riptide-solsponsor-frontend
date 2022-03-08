@@ -28,11 +28,12 @@ export interface ImessageToSign {
 }
 
 export interface ICreator {
-  uid: string | undefined;
+  uId: string | undefined;
   userName: string | undefined;
   displayName: string | undefined;
   profileImage: string | undefined;
   coverImage: string | undefined;
+  shortBio: string | undefined;
   bio: string | undefined;
   tierImage: string | undefined;
   tierPrice: number | undefined;

@@ -1,8 +1,6 @@
 import React from 'react';
 
 import DashBoard from 'components/Creators/DashBoard/DashBoard';
-import SinginsFunc from 'inprogress/util/SinginsFunc';
-
 import AppRoutes from './AppRoutes';
 
 export default function CreatorApp(): JSX.Element {
@@ -10,7 +8,6 @@ export default function CreatorApp(): JSX.Element {
     <div>
       <DashBoard>
         <main>
-          {/*  <SinginsFunc /> */}
           <AppRoutes />
         </main>
       </DashBoard>

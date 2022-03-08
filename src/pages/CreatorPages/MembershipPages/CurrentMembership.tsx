@@ -25,8 +25,8 @@ export default function CurrentMembership({
 
   async function readMembershipFile() {
     try {
-      if (creatorInfos?.uid !== undefined) {
-        const memberFile = await getMembershipFiles(creatorInfos?.uid);
+      if (creatorInfos?.uId !== undefined) {
+        const memberFile = await getMembershipFiles(creatorInfos?.uId);
         setMemeberhsipImage(memberFile.image);
       }
     } catch (error: any) {
@@ -36,7 +36,7 @@ export default function CurrentMembership({
 
   useEffect(() => {
     setCreatorMembership(
-      memberships.find((element) => element.cId === creatorInfos?.uid)
+      memberships.find((element) => element.cId === creatorInfos?.uId)
     );
     readMembershipFile();
   }, [memberships, creatorInfos, refreshMembership]);
@@ -64,7 +64,7 @@ export default function CurrentMembership({
           Your current membership
         </h3>
       </div>
-      {creatorInfos?.uid !== undefined && creatorMembership !== undefined ? (
+      {creatorInfos?.uId !== undefined && creatorMembership !== undefined ? (
         <div className="mt-4 ">
           {/* have membership */}
           <img

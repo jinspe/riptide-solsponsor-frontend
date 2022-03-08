@@ -82,7 +82,7 @@ export default function CheckoutSection({
 
   useEffect(() => {
     setCurrentMembership(
-      membershipsRecoil.find((element) => element.cId === creatorInfos?.uid)
+      membershipsRecoil.find((element) => element.cId === creatorInfos?.uId)
     );
   }, [creatorInfos]);
 
@@ -130,13 +130,13 @@ export default function CheckoutSection({
     const priceAtcheckout = price;
     setPaymentState(creatingMessage);
     setTransactionState('checking');
-    if (publicKey && creatorInfos?.uid !== undefined) {
+    if (publicKey && creatorInfos?.uId !== undefined) {
       try {
         // Creating Transaction
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: publicKey,
-            toPubkey: new PublicKey(creatorInfos.uid),
+            toPubkey: new PublicKey(creatorInfos.uId),
             lamports: priceAtcheckout * LAMPORTS_PER_SOL,
           })
         );

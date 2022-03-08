@@ -29,7 +29,6 @@ export default function CreatorHomePage(): JSX.Element {
         })
         .then(async (dataUrl) => {
           const img = new Image();
-          // console.log(dataUrl);
           img.src = dataUrl;
           setUrr(dataUrl);
           await fetch(dataUrl).then(async (res) => {

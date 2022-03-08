@@ -10,18 +10,9 @@ import { LogoSmall } from 'components/Common/Util/LogoText';
 
 import MemberCard from 'components/Creators/Membership/MemberCard';
 
-import {
-  creatorBioAtom,
-  creatorDisplayNameAtom,
-  creatorProfileImageAtom,
-  creatorCoverImageAtom,
-} from 'services/Utils/Recoil/creatorInfo';
-
 export default function CreatorHomePage(): JSX.Element {
   const [pipo, setPipo] = useState<undefined | HTMLImageElement>(undefined);
   const [urrr, setUrr] = useState('');
-  const [creatorProfileImageRecoil, setCreatorProfileImageRecoil] =
-    useRecoilState(creatorProfileImageAtom);
 
   const onCapture = () => {
     const node = document.getElementById('popo');
@@ -66,19 +57,7 @@ export default function CreatorHomePage(): JSX.Element {
                "
                 />
               </div> */}
-              <img
-                src={creatorProfileImageRecoil}
-                className="  rounded-lg
-                absolute top-2
-                w-60
-                h-60
-                left-1/2
-                shadow-2xl
-                object-cover
-               transform -translate-x-1/2
-               "
-                alt="popo"
-              />
+
               <div
                 className="  
              font-bold text-center  

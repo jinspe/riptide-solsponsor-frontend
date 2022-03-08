@@ -13,14 +13,7 @@ import { defaultTierImage } from 'components/Common/Util/DefaultValues';
 import BasicEditor from 'services/Utils/CKeditor/Editor/BasicEditor';
 import DOMPurify from 'dompurify';
 
-import {
-  creatorUserNameAtom,
-  creatorDisplayNameAtom,
-  creatorTierImageAtom,
-  creatorTierPriceAtom,
-  creatorTierTitleAtom,
-  creatorTierDescriptionAtom,
-} from 'services/Utils/Recoil/creatorInfo';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
 
@@ -40,32 +33,23 @@ const MAXDESCRIPTIONLENGTH = 3000;
 
 const SAMPLEPUBK = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 export default function BenefitSettings(): JSX.Element {
-  const [creatorTierImageRecoil, setCreatorTierImageRecoil] =
-    useRecoilState(creatorTierImageAtom);
-  const [creatorTierPriceRecoil, setCreatorTierPriceRecoil] =
-    useRecoilState(creatorTierPriceAtom);
-  const [creatorTierTitleRecoil, setCreatorTierTitleRecoil] =
-    useRecoilState(creatorTierTitleAtom);
-  const [creatorTierDescriptionRecoil, setCreatorTierDescriptionRecoil] =
-    useRecoilState(creatorTierDescriptionAtom);
-
-  const creatorUserName = useRecoilValue(creatorUserNameAtom);
-  const creatorDisplayName = useRecoilValue(creatorDisplayNameAtom);
+  const [creatorInfosRecoil, setCreatorInfosRecoil] =
+    useRecoilState(creatorInfosAtom);
 
   const userPublicKey = useRecoilValue(userPublicKeyAtom);
 
   const [tierImage, setTierImage] = useState(
-    creatorTierImageRecoil ?? defaultTierImage
+    creatorInfosRecoil.tierImage ?? defaultTierImage
   );
-  const [tierPrice, setTierPrice] = useState(creatorTierPriceRecoil ?? 0.2);
+  const [tierPrice, setTierPrice] = useState(
+    creatorInfosRecoil.tierPrice ?? 0.2
+  );
   const [tierTitle, setTierTitle] = useState(
-    creatorTierTitleRecoil ?? 'Buckle up!'
+    creatorInfosRecoil.tierTitle ?? 'Buckle up!'
   );
   const [tierDescription, setTierDescription] = useState(
-    creatorTierDescriptionRecoil ?? ''
+    creatorInfosRecoil.tierDescription ?? ''
   );
 
   const inputTierImButton = useRef<HTMLInputElement>(null);
@@ -78,7 +62,10 @@ export default function BenefitSettings(): JSX.Element {
     try {
       const imageUrl = await SaveTierImage(file);
       setTierImage(imageUrl);
-      setCreatorTierImageRecoil(imageUrl);
+      setCreatorInfosRecoil((prevState) => ({
+        ...prevState,
+        tierImage: imageUrl,
+      }));
       toast.success('Tier Image Updated');
     } catch {
       toast.error('Failed to process your image');
@@ -147,9 +134,12 @@ export default function BenefitSettings(): JSX.Element {
         tierTitle,
         DOMPurify.sanitize(tierDescription)
       );
-      setCreatorTierPriceRecoil(tierPrice);
-      setCreatorTierTitleRecoil(tierTitle);
-      setCreatorTierDescriptionRecoil(DOMPurify.sanitize(tierDescription));
+      setCreatorInfosRecoil((prevState) => ({
+        ...prevState,
+        tierPrice,
+        tierTitle,
+        tierDescription: DOMPurify.sanitize(tierDescription),
+      }));
 
       setLoadingSaving(false);
       toast.success('Your tier has been updated!');
@@ -215,11 +205,9 @@ export default function BenefitSettings(): JSX.Element {
 
                 {/* Tier Price */}
                 <div>
-                  <label
-                    htmlFor="price"
-                    className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium bc-text-color">
                     Tier price per 30 days
-                  </label>
+                  </p>
                   <div className="mt-1 flex items-center">
                     <input
                       /* name="price" */
@@ -248,11 +236,9 @@ export default function BenefitSettings(): JSX.Element {
 
                 {/* About */}
                 <div>
-                  <label
-                    htmlFor="about"
-                    className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium bc-text-color">
                     Supporter benefits description
-                  </label>
+                  </p>
                   <div className="mt-1">
                     <BasicEditor
                       maxLength={MAXDESCRIPTIONLENGTH}
@@ -267,9 +253,9 @@ export default function BenefitSettings(): JSX.Element {
 
                 {/* Tier image */}
                 <div>
-                  <label className=" text-sm font-medium bc-text-color">
+                  <p className=" text-sm font-medium bc-text-color">
                     Tier image
-                  </label>
+                  </p>
                   <div
                     className="mt-1 sm:flex  items-end
                   sm:space-x-5 ">
@@ -322,15 +308,15 @@ export default function BenefitSettings(): JSX.Element {
 
                 {/* Member Card */}
                 <div className=" ">
-                  <label className=" text-sm font-medium bc-text-color">
+                  <p className=" text-sm font-medium bc-text-color">
                     Membership card preview
-                  </label>
+                  </p>
                   <div className="transform scale-100 origin-top-left mt-2">
                     <MemberCard
                       title={tierTitle}
                       image={tierImage}
-                      userName={creatorUserName ?? ''}
-                      displayName={creatorDisplayName ?? ''}
+                      userName={creatorInfosRecoil.userName ?? ''}
+                      displayName={creatorInfosRecoil.displayName ?? ''}
                       expiration="XX/XX/XXXX"
                       creatorKey={userPublicKey ?? ''}
                       minterKey={SAMPLEPUBK}
@@ -350,10 +336,10 @@ export default function BenefitSettings(): JSX.Element {
               type="button"
               className="button-cancel w-20 h-9 justify-start"
               onClick={async () => {
-                setTierImage(creatorTierImageRecoil ?? defaultTierImage);
-                setTierPrice(creatorTierPriceRecoil ?? 0.2);
-                setTierTitle(creatorTierTitleRecoil ?? 'Buckle up!');
-                setTierDescription(creatorTierDescriptionRecoil ?? '');
+                setTierImage(creatorInfosRecoil.tierImage ?? defaultTierImage);
+                setTierPrice(creatorInfosRecoil.tierPrice ?? 0.2);
+                setTierTitle(creatorInfosRecoil.tierTitle ?? 'Buckle up!');
+                setTierDescription(creatorInfosRecoil.tierDescription ?? '');
               }}
               disabled={loadingSaving}>
               <p className="mx-auto">Cancel</p>

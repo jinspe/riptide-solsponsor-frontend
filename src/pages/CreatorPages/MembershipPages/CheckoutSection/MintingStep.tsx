@@ -71,7 +71,7 @@ export default function MintingStep({
 
   async function generateFiles() {
     if (
-      creatorInfos?.uid !== undefined &&
+      creatorInfos?.uId !== undefined &&
       creatorInfos?.displayName !== undefined &&
       creatorInfos?.tierTitle !== undefined &&
       userPublicKey !== undefined
@@ -80,16 +80,16 @@ export default function MintingStep({
         const dataUrl = await captureMemberCard();
         const dataFetch = await fetch(dataUrl);
         const dataBlob = await dataFetch.blob();
-        const imageUrl = await SaveNFTImage(dataBlob, creatorInfos.uid);
+        const imageUrl = await SaveNFTImage(dataBlob, creatorInfos.uId);
         setNftImageUrl(imageUrl);
 
         const transactionList = await getMembershipsTransaction(
-          creatorInfos.uid
+          creatorInfos.uId
         );
 
         const jsonMade = CreateMetadata(
           userPublicKey,
-          creatorInfos.uid,
+          creatorInfos.uId,
           creatorInfos.displayName,
           creatorInfos.tierTitle,
           imageUrl,
@@ -98,7 +98,7 @@ export default function MintingStep({
         setMetadataJson(jsonMade);
         const stringyJson = JSON.stringify(jsonMade);
         const jsonBlob = new Blob([stringyJson], { type: 'application/json' });
-        const metadataUrl = await SaveNFTJson(jsonBlob, creatorInfos.uid);
+        const metadataUrl = await SaveNFTJson(jsonBlob, creatorInfos.uId);
         setMetadatUri(metadataUrl);
         setRefreshMembership(!refreshMembership);
       } catch (error: any) {
@@ -245,7 +245,7 @@ export default function MintingStep({
               userName={creatorInfos?.userName ?? ''}
               displayName={creatorInfos?.displayName ?? ''}
               expiration={expiration}
-              creatorKey={creatorInfos?.uid ?? ''}
+              creatorKey={creatorInfos?.uId ?? ''}
               minterKey={userPublicKey ?? ''}
               idx={NFTid}
             />

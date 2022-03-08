@@ -11,7 +11,7 @@ import {
 
 import { getMembers } from 'services/Firebase/GetData/MembersUtil';
 import {
-  creatorUserNameAtom,
+  creatorInfosAtom,
   creatorMembersAtom,
 } from 'services/Utils/Recoil/creatorInfo';
 import { Iuser } from 'types/types';
@@ -19,7 +19,7 @@ import { Iuser } from 'types/types';
 export default function MembersTab(): JSX.Element {
   const [memberLoading, setMemberLoading] = useState(true);
 
-  const creatorUsername = useRecoilValue(creatorUserNameAtom);
+  const creatorUsername = useRecoilValue(creatorInfosAtom).userName;
   const [memberListRecoil, setMemberListRecoil] =
     useRecoilState(creatorMembersAtom);
   const [memberListSubset, setMemberListSubset] = useState<Iuser[]>([]);

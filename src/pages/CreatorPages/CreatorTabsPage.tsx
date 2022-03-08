@@ -113,7 +113,7 @@ export default function CreatorTabsPage({
               <p
                 className="text-sm mt-0.5 font-semibold italic text-neutral-500 
              truncate">
-                {creatorInfos?.uid}
+                {creatorInfos?.uId}
               </p>
             </div>
           </div>

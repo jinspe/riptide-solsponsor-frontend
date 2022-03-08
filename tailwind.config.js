@@ -53,36 +53,6 @@ module.exports = {
         '7xl': '5rem',
       },
       colors: {
-        dbg: {
-          l0: '#000000',
-          l1: '#121212',
-          l2: '#1b1b1b',
-          l3: '#252525',
-        },
-        lbg: {
-          l0: '#E6E6E6',
-          l1: '#EFEFEF',
-          l2: '#F5F5F5',
-          l3: '#FFFFFF',
-        },
-        dtext: {
-          t0: '#FFFFFF',
-          t1: '#DDDDDD',
-          t2: '#999999',
-          t3: '#666666',
-        },
-        ltext: {
-          t0: '#000000',
-          t1: '#000000',
-          t2: '#666666',
-          t3: '#999999',
-        },
-        dhover: {
-          gray: '#404040',
-        },
-        lhover: {
-          gray: '#d4d4d4',
-        },
         amber: {
           200: '#fde68a',
           500: '#f59e0b',

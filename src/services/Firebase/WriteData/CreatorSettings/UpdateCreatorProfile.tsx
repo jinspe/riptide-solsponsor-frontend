@@ -5,11 +5,10 @@ import { defaultTierImage } from 'components/Common/Util/DefaultValues';
 import { FirebaseAuth, Firestore } from '../../FirebaseConfig';
 import UploadFile from '../../UploadFile';
 
-/* eslint-disable max-len */
-
 export async function SaveCreatorInfos(
   displayName: string,
   bio: string,
+  shortBio: string,
   profileImage: string,
   coverImage: string
 ): Promise<void> {

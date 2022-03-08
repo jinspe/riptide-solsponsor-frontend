@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SearchIcon } from '@heroicons/react/solid';
 
 export default function NavSearchBar(): JSX.Element {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState('');
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (search !== '') {
+      navigate(`/search?c=${search}`);
+      setSearch('');
+    }
+  }
+
   return (
     <div className="max-w-md w-full  ">
-      <div className="flex relative ">
+      <form className="flex relative " onSubmit={(e) => handleSubmit(e)}>
         <input
           id="search"
           name="search"
@@ -18,10 +31,11 @@ export default function NavSearchBar(): JSX.Element {
                     "
           placeholder="Search"
           type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          onClick={() => console.log('doThat')}
-          type="button"
+          type="submit"
           className="absolute right-0 px-1 
             h-full
             bg-neutral-200
@@ -39,7 +53,7 @@ export default function NavSearchBar(): JSX.Element {
             dark:hover:text-neutral-200"
           />
         </button>
-      </div>
+      </form>
     </div>
   );
 }

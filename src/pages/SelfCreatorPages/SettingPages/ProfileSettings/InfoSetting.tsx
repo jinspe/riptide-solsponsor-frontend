@@ -12,7 +12,10 @@ import Spinner from 'components/Common/Util/Spinner';
 import BasicEditor from 'services/Utils/CKeditor/Editor/BasicEditor';
 import DOMPurify from 'dompurify';
 
-import { defaultCoverImage } from 'components/Common/Util/DefaultValues';
+import {
+  defaultCoverImage,
+  defaultCreatorImage,
+} from 'components/Common/Util/DefaultValues';
 
 import {
   SaveProfileImage,
@@ -20,43 +23,30 @@ import {
   SaveCreatorInfos,
 } from 'services/Firebase/WriteData/CreatorSettings/UpdateCreatorProfile';
 
-import {
-  creatorBioAtom,
-  creatorDisplayNameAtom,
-  creatorProfileImageAtom,
-  creatorCoverImageAtom,
-} from 'services/Utils/Recoil/creatorInfo';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import 'style/Components/creator.css';
 
 const BIOMAXLENGTH = 2000;
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
-
-/* eslint-disable jsx-a11y/label-has-associated-control */
+const MAXSHORTBIOLENGTH = 100;
+const MINSHORTBIOLENGTH = 0;
 
 export default function InfoSetting(): JSX.Element {
-  const [creatorBioRecoil, setCreatorBioRecoil] =
-    useRecoilState(creatorBioAtom);
-  const [creatorDisplayNameRecoil, setCreatorDisplayNameRecoil] =
-    useRecoilState(creatorDisplayNameAtom);
-  const [creatorProfileImageRecoil, setCreatorProfileImageRecoil] =
-    useRecoilState(creatorProfileImageAtom);
-  const [creatorCoverImageRecoil, setCreatorCoverImageRecoil] = useRecoilState(
-    creatorCoverImageAtom
-  );
+  const [creatorInfosRecoil, setCreatorInfosRecoil] =
+    useRecoilState(creatorInfosAtom);
 
-  const [displayName, setDisplayName] = useState(creatorDisplayNameRecoil);
-  const [bio, setBio] = useState(
-    creatorBioRecoil === undefined ? '' : creatorBioRecoil
+  const [displayName, setDisplayName] = useState(
+    creatorInfosRecoil.displayName ?? ''
   );
+  const [bio, setBio] = useState(creatorInfosRecoil.bio ?? '');
+  const [shortBio, setShortBio] = useState(creatorInfosRecoil.shortBio ?? '');
   const [profileImage, setProfileImage] = useState(
-    creatorProfileImageRecoil === undefined ? '' : creatorProfileImageRecoil
+    creatorInfosRecoil.profileImage ?? defaultCreatorImage
   );
   const [coverImage, setCoverImage] = useState(
-    creatorCoverImageRecoil === undefined
-      ? defaultCoverImage
-      : creatorCoverImageRecoil
+    creatorInfosRecoil.coverImage ?? defaultCoverImage
   );
 
   const inputProfileImButton = useRef<HTMLInputElement>(null);
@@ -70,7 +60,10 @@ export default function InfoSetting(): JSX.Element {
     try {
       const imageUrl = await SaveProfileImage(file);
       setProfileImage(imageUrl);
-      setCreatorProfileImageRecoil(imageUrl);
+      setCreatorInfosRecoil((prevState) => ({
+        ...prevState,
+        profileImage: imageUrl,
+      }));
       toast.success('Creator Profile Image Updated');
     } catch {
       toast.error('Failed to process your image');
@@ -80,7 +73,10 @@ export default function InfoSetting(): JSX.Element {
     try {
       const imageUrl = await SaveCoverImage(file);
       setCoverImage(imageUrl);
-      setCreatorCoverImageRecoil(imageUrl);
+      setCreatorInfosRecoil((prevState) => ({
+        ...prevState,
+        coverImage: imageUrl,
+      }));
       toast.success('Creator Cover Image Updated');
     } catch {
       toast.error('Failed to process your image');
@@ -177,14 +173,19 @@ export default function InfoSetting(): JSX.Element {
       await SaveCreatorInfos(
         displayName,
         DOMPurify.sanitize(bio),
+        shortBio,
         profileImage,
         coverImage
       );
 
-      setCreatorBioRecoil(bio);
-      setCreatorDisplayNameRecoil(displayName);
-      setCreatorProfileImageRecoil(profileImage);
-      setCreatorCoverImageRecoil(coverImage);
+      setCreatorInfosRecoil((prevState) => ({
+        ...prevState,
+        bio,
+        shortBio,
+        displayName,
+        profileImage,
+        coverImage,
+      }));
       setLoadingSaving(false);
       toast.success('Your creator profile has been updated!');
     } catch (error: any) {
@@ -220,11 +221,9 @@ export default function InfoSetting(): JSX.Element {
                 autoComplete="off">
                 {/* Display Name */}
                 <div>
-                  <label
-                    htmlFor="userName"
-                    className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium bc-text-color">
                     Creator display name
-                  </label>
+                  </p>
                   <div className="mt-1">
                     <input
                       id="displayname"
@@ -242,14 +241,39 @@ export default function InfoSetting(): JSX.Element {
                     />
                   </div>
                 </div>
+                {/* Short Bio */}
+                <div>
+                  <p className="block text-sm font-medium bc-text-color">
+                    Short About
+                  </p>
+                  <div className="mt-1">
+                    <input
+                      id="displayname"
+                      name="displayname"
+                      type="text"
+                      className="shadow-sm 
+                  text-input-field
+                  bc-field-input
+                   block w-full text-sm border 
+                    rounded-md"
+                      maxLength={MAXSHORTBIOLENGTH}
+                      minLength={MINSHORTBIOLENGTH}
+                      value={shortBio}
+                      onChange={(e) => setShortBio(e.target.value)}
+                      placeholder="example: Music, NFT Artist, Developer, Podcaster"
+                    />
+                  </div>
+                  <p className="mt-2 text-sm text-neutral-500">
+                    Help sponsors discover you with a small description of what
+                    you do
+                  </p>
+                </div>
 
                 {/* About */}
                 <div>
-                  <label
-                    htmlFor="about"
-                    className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium bc-text-color">
                     About
-                  </label>
+                  </p>
                   <div className="mt-1">
                     <BasicEditor
                       maxLength={BIOMAXLENGTH}
@@ -383,17 +407,14 @@ export default function InfoSetting(): JSX.Element {
               type="button"
               className="button-cancel w-20 h-9 justify-start"
               onClick={() => {
-                setDisplayName(creatorDisplayNameRecoil);
-                setBio(creatorBioRecoil === undefined ? '' : creatorBioRecoil);
+                setDisplayName(creatorInfosRecoil.displayName ?? '');
+                setBio(creatorInfosRecoil.bio ?? '');
+                setShortBio(creatorInfosRecoil.shortBio ?? '');
                 setProfileImage(
-                  creatorProfileImageRecoil === undefined
-                    ? ''
-                    : creatorProfileImageRecoil
+                  creatorInfosRecoil.profileImage ?? defaultCreatorImage
                 );
                 setCoverImage(
-                  creatorCoverImageRecoil === undefined
-                    ? defaultCoverImage
-                    : creatorCoverImageRecoil
+                  creatorInfosRecoil.coverImage ?? defaultCoverImage
                 );
               }}
               disabled={loadingSaving}>

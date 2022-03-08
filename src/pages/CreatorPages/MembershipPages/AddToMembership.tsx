@@ -129,7 +129,7 @@ export default function AddToMembership({
                 </div>
 
                 {/* Connect Wallet */}
-                {creatorInfos?.uid !== undefined && (
+                {creatorInfos?.uId !== undefined && (
                   <CheckoutSection
                     price={membershipPrice}
                     creatorInfos={creatorInfos}

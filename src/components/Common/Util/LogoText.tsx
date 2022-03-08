@@ -1,13 +1,5 @@
 import React from 'react';
 
-/* <span className="inline-flex rounded-lg border text-center h-8 w-8">
-      <p
-        className=" text-4xl font-extrabold 
-      text-transparent bg-clip-text bg-gradient-to-br 
-      from-cyan-400 to-indigo-800   ">
-        S
-      </p>
-    </span> */
 export function LogoSmall(): JSX.Element {
   return (
     <div
@@ -50,22 +42,3 @@ export function LogoLarge(): JSX.Element {
     </div>
   );
 }
-
-/*
-<div className="w-min flex">
-      <p
-        className=" text-3xl font-extrabold 
-      text-transparent bg-clip-text bg-gradient-to-br 
-      from-cyan-400 to-indigo-800 m-auto  ">
-        S
-      </p>
-      <span
-        className="inline-block text-xl font-extrabold 
-        mt-auto align-text-bottom 
-        text-transparent bg-clip-text 
-        bg-gradient-to-br 
-        from-cyan-400 to-indigo-800">
-        olsponsor
-      </span>
-    </div>
-*/

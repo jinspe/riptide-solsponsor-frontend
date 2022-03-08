@@ -40,13 +40,7 @@ import {
   userDisplayNameAtom,
 } from 'services/Utils/Recoil/userInfo';
 
-import {
-  creatorBioAtom,
-  creatorDisplayNameAtom,
-  creatorProfileImageAtom,
-  creatorCoverImageAtom,
-  creatorUserNameAtom,
-} from 'services/Utils/Recoil/creatorInfo';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import 'style/Components/creator.css';
 
@@ -55,8 +49,8 @@ const USERNAMEMINLENGTH = 3;
 const BIOMAXLENGTH = 2000;
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
-
-/* eslint-disable jsx-a11y/label-has-associated-control */
+const MAXSHORTBIOLENGTH = 100;
+const MINSHORTBIOLENGTH = 0;
 
 export default function BecomeCreatorPage(): JSX.Element {
   const navigate = useNavigate();
@@ -65,19 +59,13 @@ export default function BecomeCreatorPage(): JSX.Element {
   const publicKey = useRecoilValue(userPublicKeyAtom);
   const userDisplayName = useRecoilValue(userDisplayNameAtom);
 
-  const [, setCreatorUserNameRecoil] = useRecoilState(creatorUserNameAtom);
-  const [, setCreatorBioRecoil] = useRecoilState(creatorBioAtom);
-  const [, setCreatorDisplayNameRecoil] = useRecoilState(
-    creatorDisplayNameAtom
-  );
-  const [, setCreatorProfileImageRecoil] = useRecoilState(
-    creatorProfileImageAtom
-  );
-  const [, setCreatorCoverImageRecoil] = useRecoilState(creatorCoverImageAtom);
+  const [, setCreatorInfosRecoil] = useRecoilState(creatorInfosAtom);
 
   const [userName, setUserName] = useState(publicKey);
   const [displayName, setDisplayName] = useState(userDisplayName);
   const [bio, setBio] = useState('');
+  const [shortBio, setShortBio] = useState('');
+
   const [profileImage, setProfileImage] = useState(
     userProfileImage === undefined ? defaultCreatorImage : userProfileImage
   );
@@ -118,7 +106,6 @@ export default function BecomeCreatorPage(): JSX.Element {
   );
 
   async function checkUserNameValid(userNameBeingChecked: string | undefined) {
-    // eslint-disable-next-line no-console
     setLoadingCheckUserName(true);
     let isUserNameValid = true;
     if (userNameBeingChecked !== publicKey) {
@@ -263,23 +250,42 @@ export default function BecomeCreatorPage(): JSX.Element {
       setLoadingSaving(false);
       return;
     }
+    if (
+      shortBio === undefined ||
+      shortBio.length > MAXSHORTBIOLENGTH ||
+      shortBio.length < MINSHORTBIOLENGTH
+    ) {
+      toast.error(
+        'Short About Error: Short about needs to be between' +
+          ` ${MINSHORTBIOLENGTH} and ${MAXSHORTBIOLENGTH} characters`
+      );
+
+      setLoadingSaving(false);
+      return;
+    }
     try {
       if (userNameBeingChecked !== undefined) {
         await CreateUserNameCloud(userNameBeingChecked);
         await SaveCreatorInfos(
           displayName,
           DOMPurify.sanitize(bio),
+          shortBio,
           profileImage,
           coverImage
         );
 
         await CreateTier();
 
-        setCreatorBioRecoil(bio);
-        setCreatorDisplayNameRecoil(displayName);
-        setCreatorProfileImageRecoil(profileImage);
-        setCreatorCoverImageRecoil(coverImage);
-        setCreatorUserNameRecoil(userNameBeingChecked);
+        setCreatorInfosRecoil((prevState) => ({
+          ...prevState,
+          bio,
+          shortBio,
+          displayName,
+          profileImage,
+          coverImage,
+          userName: userNameBeingChecked,
+        }));
+
         setLoadingSaving(false);
         toast.success('Welcome! You are now a creator!');
         await setUserAsCreator();
@@ -335,11 +341,9 @@ export default function BecomeCreatorPage(): JSX.Element {
                   {/* Creator username */}
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 max-w-lg">
-                      <label
-                        htmlFor="company-website"
-                        className="block text-sm font-medium bc-text-color">
+                      <p className="block text-sm font-medium bc-text-color">
                         Creator username
-                      </label>
+                      </p>
                       <div className="mt-1 flex rounded-md shadow-sm">
                         <span
                           className="inline-flex items-center 
@@ -384,11 +388,9 @@ export default function BecomeCreatorPage(): JSX.Element {
 
                   {/* Display Name */}
                   <div>
-                    <label
-                      htmlFor="userName"
-                      className="block text-sm font-medium bc-text-color">
+                    <p className="block text-sm font-medium bc-text-color">
                       Creator display name
-                    </label>
+                    </p>
                     <div className="mt-1">
                       <input
                         id="displayname"
@@ -407,12 +409,38 @@ export default function BecomeCreatorPage(): JSX.Element {
                     </div>
                   </div>
 
+                  {/* Short Bio */}
                   <div>
-                    <label
-                      htmlFor="about"
-                      className="block text-sm font-medium bc-text-color">
+                    <p className="block text-sm font-medium bc-text-color">
+                      Short About
+                    </p>
+                    <div className="mt-1">
+                      <input
+                        id="displayname"
+                        name="displayname"
+                        type="text"
+                        className="shadow-sm 
+                  text-input-field
+                  bc-field-input
+                   block w-full text-sm border 
+                    rounded-md"
+                        maxLength={MAXSHORTBIOLENGTH}
+                        minLength={MINSHORTBIOLENGTH}
+                        value={shortBio}
+                        onChange={(e) => setShortBio(e.target.value)}
+                        placeholder="example: Music, NFT Artist, Developer, Podcaster"
+                      />
+                    </div>
+                    <p className="mt-2 text-sm text-neutral-500">
+                      Help sponsors discover you with a small description of
+                      what you do
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="block text-sm font-medium bc-text-color">
                       About
-                    </label>
+                    </p>
                     <div className="mt-1">
                       <BasicEditor
                         maxLength={BIOMAXLENGTH}

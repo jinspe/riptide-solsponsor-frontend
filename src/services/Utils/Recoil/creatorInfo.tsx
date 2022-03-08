@@ -1,49 +1,22 @@
 import { atom } from 'recoil';
-import { Iuser } from 'types/types';
+import { Iuser, ICreator } from 'types/types';
 
-export const creatorUserNameAtom = atom<string | undefined>({
-  key: 'creatorUserName',
-  default: undefined,
-});
-
-export const creatorBioAtom = atom<string | undefined>({
-  key: 'creatorBio',
-  default: undefined,
-});
-
-export const creatorDisplayNameAtom = atom<string | undefined>({
-  key: 'creatorDisplayName',
-  default: undefined,
-});
-
-export const creatorProfileImageAtom = atom<string | undefined>({
-  key: 'creatorProfileImage',
-  default: undefined,
-});
-
-export const creatorCoverImageAtom = atom<string | undefined>({
-  key: 'creatorCoverImage',
-  default: undefined,
-});
-
-export const creatorTierImageAtom = atom<string | undefined>({
-  key: 'creatorTierImage',
-  default: undefined,
-});
-
-export const creatorTierPriceAtom = atom<number | undefined>({
-  key: 'creatorTierPrice',
-  default: undefined,
-});
-
-export const creatorTierTitleAtom = atom<string | undefined>({
-  key: 'creatorTierTitle',
-  default: undefined,
-});
-
-export const creatorTierDescriptionAtom = atom<string | undefined>({
-  key: 'creatorTierDescription',
-  default: undefined,
+const defaultCreatorInfos: ICreator = {
+  uId: undefined,
+  userName: undefined,
+  displayName: undefined,
+  profileImage: undefined,
+  coverImage: undefined,
+  bio: undefined,
+  shortBio: undefined,
+  tierImage: undefined,
+  tierPrice: undefined,
+  tierTitle: undefined,
+  tierDescription: undefined,
+};
+export const creatorInfosAtom = atom<ICreator>({
+  key: 'creatorInfos',
+  default: defaultCreatorInfos,
 });
 
 export const creatorMembersAtom = atom<Array<Iuser>>({

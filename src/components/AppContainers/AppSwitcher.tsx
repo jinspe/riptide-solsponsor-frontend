@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+
 import { userIsCreatorAtom } from 'services/Utils/Recoil/userInfo';
 import { loadingAppAtom } from 'services/Utils/Recoil/appState';
 import Spinner from 'components/Common/Util/Spinner';
-
 import CreatorApp from 'components/AppContainers/CreatorApp';
 import UserApp from 'components/AppContainers/UserApp';
 

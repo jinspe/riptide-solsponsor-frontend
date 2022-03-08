@@ -89,7 +89,7 @@ export default function SupportingCard({
                 Your memberships
               </p>
               {memListActive.map((memship) => (
-                <div key={memship.creatorInfos.uid}>
+                <div key={memship.creatorInfos.uId}>
                   <MembershipCard membershipInfos={memship} />
                 </div>
               ))}
@@ -104,7 +104,7 @@ export default function SupportingCard({
                 Expired memberships
               </p>
               {memListExpired.map((memship) => (
-                <div key={memship.creatorInfos.uid}>
+                <div key={memship.creatorInfos.uId}>
                   <MembershipCard membershipInfos={memship} />
                 </div>
               ))}

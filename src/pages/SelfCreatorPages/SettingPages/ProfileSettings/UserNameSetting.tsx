@@ -13,22 +13,20 @@ import { UpdateUserName } from 'services/Firebase/CloudFunctions/CreatorFunction
 
 import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
 
-import { creatorUserNameAtom } from 'services/Utils/Recoil/creatorInfo';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import 'style/Components/creator.css';
 
 const USERNAMEMAXLENGTH = 40;
 const USERNAMEMINLENGTH = 3;
 
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 export default function UserNameSetting(): JSX.Element {
   const publicKey = useRecoilValue(userPublicKeyAtom);
 
-  const [creatorUserNameRecoil, setCreatorUserNameRecoil] =
-    useRecoilState(creatorUserNameAtom);
+  const [creatorInfosRecoil, setCreatorInfosRecoil] =
+    useRecoilState(creatorInfosAtom);
 
-  const [userName, setUserName] = useState(creatorUserNameRecoil);
+  const [userName, setUserName] = useState(creatorInfosRecoil.userName);
 
   const [loadingCheckUserName, setLoadingCheckUserName] = useState(false);
   const [loadingSaving, setLoadingSaving] = useState(false);
@@ -62,7 +60,7 @@ export default function UserNameSetting(): JSX.Element {
   async function checkUserNameValid(userNameBeingChecked: string | undefined) {
     setLoadingCheckUserName(true);
     let isUserNameValid = true;
-    if (userNameBeingChecked !== creatorUserNameRecoil) {
+    if (userNameBeingChecked !== creatorInfosRecoil.userName) {
       if (
         userNameBeingChecked === undefined ||
         userNameBeingChecked?.length < USERNAMEMINLENGTH ||
@@ -103,9 +101,12 @@ export default function UserNameSetting(): JSX.Element {
 
     try {
       if (userNameBeingChecked !== undefined) {
-        if (userNameBeingChecked !== creatorUserNameRecoil) {
+        if (userNameBeingChecked !== creatorInfosRecoil.userName) {
           await UpdateUserName(userNameBeingChecked);
-          setCreatorUserNameRecoil(userNameBeingChecked);
+          setCreatorInfosRecoil((prevState) => ({
+            ...prevState,
+            userName: userNameBeingChecked,
+          }));
         }
         setLoadingSaving(false);
         toast.success('Your username has been updated');
@@ -146,11 +147,9 @@ export default function UserNameSetting(): JSX.Element {
                 {/* Creator username */}
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-3 max-w-lg">
-                    <label
-                      htmlFor="company-website"
-                      className="block text-sm font-medium bc-text-color">
+                    <p className="block text-sm font-medium bc-text-color">
                       Creator username
-                    </label>
+                    </p>
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <span
                         className="inline-flex items-center 
@@ -204,7 +203,8 @@ export default function UserNameSetting(): JSX.Element {
               type="button"
               className="button-cancel w-20 h-9 justify-start"
               onClick={() => {
-                setUserName(creatorUserNameRecoil);
+                // setUserName(creatorUserNameRecoil);
+                setUserName(creatorInfosRecoil.userName);
               }}
               disabled={loadingSaving}>
               <p className="mx-auto">Cancel</p>

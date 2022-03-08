@@ -38,30 +38,24 @@ body {
 
 /* Surfaces-Backgrounds */
 .surface-l0 {
-  @apply bg-neutral-600 dark:bg-dbg-l0;
+  @apply bg-neutral-300 dark:bg-neutral-900;
 }
 .surface-l1 {
-  @apply bg-lbg-l1 dark:bg-dbg-l1;
+  @apply bg-neutral-200 dark:bg-neutral-800;
 }
 .surface-l2 {
-  @apply bg-lbg-l2 dark:bg-dbg-l2;
-}
-.surface-l3 {
-  @apply bg-lbg-l3 dark:bg-dbg-l3;
+  @apply bg-neutral-300 dark:bg-neutral-700;
 }
 
 /* main text */
-.mtext-t0 {
-  @apply text-ltext-t0 dark:text-dtext-t0;
+.text-primary {
+  @apply text-neutral-900 dark:text-neutral-100;
 }
-.mtext-t1 {
-  @apply text-ltext-t1 dark:text-dtext-t1;
+.text-secondary {
+  @apply text-neutral-500;
 }
-.mtext-t2 {
-  @apply text-ltext-t2 dark:text-dtext-t2;
-}
-.mtext-t3 {
-  @apply text-ltext-t3 dark:text-dtext-t3;
+.text-accent {
+  @apply text-cyan-700;
 }
 
 .button-action {
