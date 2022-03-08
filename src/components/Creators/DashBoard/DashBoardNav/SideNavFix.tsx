@@ -1,5 +1,6 @@
 import React from 'react';
 import { LogoLarge } from 'components/Common/Util/LogoText';
+import { Link } from 'react-router-dom';
 
 import SideBarItems from './SideBarItems';
 
@@ -14,9 +15,9 @@ export default function SideNavFix(): JSX.Element {
         min-h-0 
         shadow 
         headers-bg">
-          <div className="px-4 pt-2">
+          <Link to="/" className="px-4 pt-2">
             <LogoLarge />
-          </div>
+          </Link>
           <div className="flex-1 flex flex-col pb-3 pt-1 ">
             <div
               className="flex items-center 

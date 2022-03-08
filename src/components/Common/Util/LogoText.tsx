@@ -20,7 +20,7 @@ export function LogoSmall(): JSX.Element {
         className=" text-3xl font-extrabold w-8 h-7 
       text-transparent bg-clip-text bg-gradient-to-br text-center 
       from-indigo-400 to-cyan-200 ">
-        <p className=" -mt-1.5 ">S</p>
+        <p className=" -mt-2.5 ">S</p>
       </div>
     </div>
   );
@@ -39,7 +39,7 @@ export function LogoLarge(): JSX.Element {
           className=" text-3xl font-extrabold w-8 h-7 
       text-transparent bg-clip-text bg-gradient-to-br text-center 
       from-indigo-400 to-cyan-200 ">
-          <p className=" -mt-1.5 ">S</p>
+          <p className=" -mt-2.5 ">S</p>
         </div>
       </div>
       <p

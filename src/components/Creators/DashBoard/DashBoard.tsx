@@ -1,6 +1,7 @@
 import React, { Fragment, useState, ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Link } from 'react-router-dom';
 
 import NavSearchBar from 'components/Common/Navbar/NavSearchBar';
 import ProfileDropdown from 'components/Common/Navbar/MenuDropDown/ProfileDropdown';
@@ -88,8 +89,17 @@ export default function DashBoard({
               </Transition.Child>
               <div className="flex-1 h-full pt-5 pb-4 overflow-y-auto">
                 <div className="flex-shrink-0 flex items-center px-4">
-                  <LogoLarge />
+                  <Link to="/">
+                    <LogoLarge />
+                  </Link>
                 </div>
+                <div
+                  className="flex items-center mt-2
+            shadow border-b 
+            dark:border-neutral-800 
+            border-neutral-200 
+            flex-shrink-0 pb-1 px-4 "
+                />
                 <SideBarItems setSidebarOpen={setSidebarOpen} />
               </div>
             </div>

@@ -66,19 +66,26 @@ body {
 
 .button-action {
   @apply inline-flex items-center px-4 py-2     
-    shadow-sm text-base font-medium  rounded-lg 
-  text-white bg-gradient-to-r from-cyan-700 to-cyan-700
-  hover:from-blue-800 hover:to-cyan-800 hover:ring-2
+    shadow-sm  font-medium  rounded-lg 
+  text-white 
+  bg-gradient-to-br from-cyan-400 to-indigo-800
+  hover:from-cyan-600 hover:to-indigo-900
+  
+  hover:ring-2
     hover:ring-inset hover:ring-cyan-500 hover:ring-opacity-30
     focus:ring-2 focus:ring-inset focus:ring-cyan-500 focus:ring-opacity-100
   focus:outline-none;
 }
+/* bg-gradient-to-r from-cyan-700 to-cyan-700
+  hover:from-blue-800 hover:to-cyan-800  */
 
 .button-cancel {
   @apply inline-flex items-center px-4 py-2     
-    shadow-sm text-base font-medium  rounded-lg 
-  text-white bg-gradient-to-r from-red-700 to-red-700
-  hover:from-red-900 hover:to-pink-800 hover:ring-2
+    shadow-sm  font-medium  rounded-lg 
+  text-white 
+  bg-gradient-to-br from-red-400 to-red-800
+  hover:from-red-600 hover:to-red-900 
+  hover:ring-2
     hover:ring-inset hover:ring-red-500 hover:ring-opacity-30
     focus:ring-2 focus:ring-inset focus:ring-red-500 focus:ring-opacity-100
     focus:outline-none;
@@ -89,7 +96,6 @@ body {
                 border-neutral-400
                 dark:border-neutral-600
                 outline-none
-                text-sm
                 hover:ring-2
                 hover:ring-inset
                 hover:ring-cyan-500

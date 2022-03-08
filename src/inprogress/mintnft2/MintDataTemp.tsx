@@ -1,5 +1,4 @@
 import * as metadt from './MetadataTypes';
-// {MetadataJson,MetadataJsonAttribute,MetadataJsonCollection,MetadataJsonProperties,MetaDataJsonCategory} from "./MintColab/MetadataTypes"
 
 const creator: metadt.MetadataJsonCreator[] = [
   {

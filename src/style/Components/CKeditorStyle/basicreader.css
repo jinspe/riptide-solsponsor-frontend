@@ -1,0 +1,35 @@
+.ckbreader {
+  @apply text-black dark:text-neutral-100 
+  
+  font-sans
+  !important;
+}
+.ckbreader ul,
+.ckbreader ul li {
+  list-style-type: inherit;
+}
+
+.ckbreader ul {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  padding-left: 40px;
+}
+
+.ckbreader a {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  @apply text-cyan-500 underline;
+}
+
+.ckbreader h2 {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  @apply text-4xl;
+}
+
+.ckbreader h3 {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  @apply text-3xl;
+}
+
+.ckbreader h4 {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  @apply text-xl;
+}

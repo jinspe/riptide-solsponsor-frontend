@@ -2,15 +2,29 @@ import React from 'react';
 import { UserCircleIcon, PencilIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 
+import Spinner from 'components/Common/Util/Spinner';
+
+import { ImembershipInfo } from 'types/types';
+
+import MembershipCard from './MembershipCard';
+
 type IsupportingCard = {
   displayName: string | undefined;
   profileImage: string | undefined;
   publicKey: string | undefined;
+  isCreator: boolean;
+  memListActive: ImembershipInfo[];
+  memListExpired: ImembershipInfo[];
+  getCreatorsLoading: boolean;
 };
 export default function SupportingCard({
   displayName,
   profileImage,
   publicKey,
+  isCreator,
+  memListActive,
+  memListExpired,
+  getCreatorsLoading,
 }: IsupportingCard): JSX.Element {
   return (
     <div className="bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1">
@@ -53,19 +67,60 @@ export default function SupportingCard({
         <div className="border-neutral-500 border-b " />
       </div>
       {/* List of creator Supported */}
-      <div className="p-2 max-h-48 md:max-h-96 overflow-auto no-scrollbar">
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
-        <div className="p-3">pop</div>
+
+      <div
+        className="px-2 max-h-60 md:max-h-96 overflow-auto no-scrollbar 
+        rounded-lg
+      ">
+        <div className=" rounded-lg">
+          {getCreatorsLoading && (
+            <div
+              className="flex justify-center text-neutral-500
+          text-xs font-medium mt-2">
+              <Spinner classExtend="h-8" />
+            </div>
+          )}
+          {!getCreatorsLoading && memListActive.length > 0 && (
+            <div>
+              <p
+                className="mt-1 px-6 text-left text-neutral-800 
+          dark:text-neutral-200 
+          text-md font-semibold leading-none">
+                Your memberships
+              </p>
+              {memListActive.map((memship) => (
+                <div key={memship.creatorInfos.uid}>
+                  <MembershipCard membershipInfos={memship} />
+                </div>
+              ))}
+            </div>
+          )}
+          {!getCreatorsLoading && memListExpired.length > 0 && (
+            <div>
+              <p
+                className="mt-1 px-6 text-left text-neutral-800 
+          dark:text-neutral-200 
+          text-md font-semibold leading-none">
+                Expired memberships
+              </p>
+              {memListExpired.map((memship) => (
+                <div key={memship.creatorInfos.uid}>
+                  <MembershipCard membershipInfos={memship} />
+                </div>
+              ))}
+            </div>
+          )}
+          {!getCreatorsLoading &&
+            memListActive.length === 0 &&
+            memListExpired.length === 0 && (
+              <p
+                className="mt-1 px-6 py-2 text-center text-neutral-800 
+    dark:text-neutral-200 
+    text-md font-semibold ">
+                You currently have no memberships
+              </p>
+            )}
+        </div>
       </div>
 
       <div className="px-5 py-2">
@@ -80,14 +135,15 @@ export default function SupportingCard({
             Discover new creators <span aria-hidden="true"> &rarr;</span>
           </Link>
         </div>
-
-        <div className="py-1 mt-3 flex">
-          <Link to="/become-creator" className="mx-auto">
-            <button type="button" className=" h-7 text-center button-action ">
-              Become a creator
-            </button>
-          </Link>
-        </div>
+        {!isCreator && (
+          <div className="py-1 mt-3 flex">
+            <Link to="/become-creator" className="mx-auto">
+              <button type="button" className=" h-7 text-center button-action ">
+                Become a creator
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

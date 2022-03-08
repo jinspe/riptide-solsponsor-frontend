@@ -11,3 +11,8 @@ export const loadingAppAtom = atom<boolean>({
   key: 'loadingApp',
   default: true,
 });
+
+export const refreshMembershipAtom = atom<boolean>({
+  key: 'refreshMembership',
+  default: false,
+});

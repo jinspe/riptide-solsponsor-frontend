@@ -9,6 +9,7 @@ import SignMessage from 'services/Solana/Functions/SignMessage';
 
 import { onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
 import SignoutWithWallet from 'services/Firebase/Authentication/SignoutWithWallet';
+import { Imembership } from 'types/types';
 
 import {
   FirebaseAuth,
@@ -20,7 +21,20 @@ import {
   userDisplayNameAtom,
   userProfileImageAtom,
   userIsCreatorAtom,
+  userMembershipsAtom,
 } from 'services/Utils/Recoil/userInfo';
+
+import {
+  creatorUserNameAtom,
+  creatorBioAtom,
+  creatorDisplayNameAtom,
+  creatorProfileImageAtom,
+  creatorCoverImageAtom,
+  creatorTierImageAtom,
+  creatorTierPriceAtom,
+  creatorTierTitleAtom,
+  creatorTierDescriptionAtom,
+} from 'services/Utils/Recoil/creatorInfo';
 
 import { loginStepAtom, loadingAppAtom } from 'services/Utils/Recoil/appState';
 
@@ -47,6 +61,24 @@ export default function AuthManager({
   const [, setDisplayName] = useRecoilState(userDisplayNameAtom);
   const [, setProfileImage] = useRecoilState(userProfileImageAtom);
   const [, setUserIsCreator] = useRecoilState(userIsCreatorAtom);
+  const [, setUserMemberships] = useRecoilState(userMembershipsAtom);
+
+  const [, setCreatorUserNameRecoil] = useRecoilState(creatorUserNameAtom);
+  const [, setCreatorBioRecoil] = useRecoilState(creatorBioAtom);
+  const [, setCreatorDisplayNameRecoil] = useRecoilState(
+    creatorDisplayNameAtom
+  );
+  const [, setCreatorProfileImageRecoil] = useRecoilState(
+    creatorProfileImageAtom
+  );
+  const [, setCreatorCoverImageRecoil] = useRecoilState(creatorCoverImageAtom);
+
+  const [, setCreatorTierImageRecoil] = useRecoilState(creatorTierImageAtom);
+  const [, setCreatorTierPriceRecoil] = useRecoilState(creatorTierPriceAtom);
+  const [, setCreatorTierTitleRecoil] = useRecoilState(creatorTierTitleAtom);
+  const [, setCreatorTierDescriptionRecoil] = useRecoilState(
+    creatorTierDescriptionAtom
+  );
 
   const [, setLoginStep] = useRecoilState(loginStepAtom);
   const [, setLoadingApp] = useRecoilState(loadingAppAtom);
@@ -136,7 +168,40 @@ export default function AuthManager({
             if (userDoc.exists()) {
               setDisplayName(userDoc.data().displayName);
               setProfileImage(userDoc.data().profileImage);
-              setUserIsCreator(userDoc.data().userIsCreator);
+              const userTokens =
+                await FirebaseAuth.currentUser?.getIdTokenResult();
+              const claims = userTokens?.claims;
+              const memberships: Imembership[] = [];
+              if (claims !== undefined) {
+                Object.keys(claims).forEach((key) => {
+                  if (key.length === 44) {
+                    memberships.push({
+                      cId: key,
+                      expiration: String(claims[key]),
+                    });
+                  }
+                });
+              }
+              setUserMemberships(memberships);
+              setUserIsCreator(userDoc.data().isCreator);
+              if (userDoc.data().isCreator) {
+                const creatorRef = doc(Firestore, 'creators', user.uid);
+                const creatorDoc = await getDoc(creatorRef);
+                if (creatorDoc.exists()) {
+                  setCreatorUserNameRecoil(creatorDoc.data().userName);
+                  setCreatorBioRecoil(creatorDoc.data().bio);
+                  setCreatorDisplayNameRecoil(creatorDoc.data().displayName);
+                  setCreatorProfileImageRecoil(creatorDoc.data().profileImage);
+                  setCreatorCoverImageRecoil(creatorDoc.data().coverImage);
+
+                  setCreatorTierImageRecoil(creatorDoc.data().tierImage);
+                  setCreatorTierPriceRecoil(creatorDoc.data().tierPrice);
+                  setCreatorTierTitleRecoil(creatorDoc.data().tierTitle);
+                  setCreatorTierDescriptionRecoil(
+                    creatorDoc.data().tierDescription
+                  );
+                }
+              }
             } else {
               throw new Error('User information not found');
             }

@@ -32,7 +32,7 @@ export default function LoginProcess({ message }: IloginMessage): JSX.Element {
   }, [loginStep]);
 
   return (
-    <div className="min-h-full pt-2 pb-12 flex flex-col ">
+    <div className="min-h-full pt-4 pb-12 flex flex-col ">
       <main
         className="  flex-grow flex flex-col 
       justify-center 
@@ -45,7 +45,7 @@ export default function LoginProcess({ message }: IloginMessage): JSX.Element {
         <h1
           className="mt-4 text-xl text-center font-extrabold 
               text-neutral-900 dark:text-neutral-100
-            tracking-tight ">
+             leading-tight">
           Sign in to your account <br /> or create a new one.
         </h1>
         <p

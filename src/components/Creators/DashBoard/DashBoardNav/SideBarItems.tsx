@@ -33,8 +33,13 @@ export default function SideBarItems({
   const location = useLocation();
 
   return (
-    <nav aria-label="Sidebar" className="mt-5">
-      <div className="px-2 space-y-1">
+    <nav aria-label="Sidebar" className="mt-3">
+      {/* <div
+        className="px-2 py-0 rounded-md text-left pl-14 
+      text-neutral-500 text-lg font-semibold">
+        Creator Manager
+      </div> */}
+      <div className="px-2 space-y-1 mt-2">
         {navItems.map((item) => (
           <Link
             key={item.name}

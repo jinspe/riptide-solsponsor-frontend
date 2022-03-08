@@ -10,7 +10,7 @@ export default function CreatorApp(): JSX.Element {
     <div>
       <DashBoard>
         <main>
-          <SinginsFunc />
+          {/*  <SinginsFunc /> */}
           <AppRoutes />
         </main>
       </DashBoard>

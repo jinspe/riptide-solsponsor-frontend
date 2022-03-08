@@ -42,7 +42,7 @@ export default function ProfileDropdown(): JSX.Element {
   const userNavigation = [
     {
       name: 'My Creators Posts',
-      href: '/',
+      href: '/home',
       icon: <CollectionIcon className="flex-initial nav-icons-size" />,
     },
     {
@@ -208,7 +208,10 @@ export default function ProfileDropdown(): JSX.Element {
                 className={ClassNamesLogic(
                   userPublicKey !== undefined && !userIsCreator
                     ? 'block'
-                    : 'block sm:hidden',
+                    : ClassNamesLogic(
+                        !userIsCreator ? 'block sm:hidden' : 'hidden',
+                        ''
+                      ),
                   ''
                 )}>
                 <Menu.Item>
@@ -236,7 +239,6 @@ export default function ProfileDropdown(): JSX.Element {
                 />
               </div>
               {/* Logout/ Signin */}
-
               {userPublicKey === undefined ? (
                 /* Login */
                 <Link to="/login" key="LoginSignin">

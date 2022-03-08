@@ -2,14 +2,56 @@
 const { neutral } = require('tailwindcss/colors');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
+const svgToDataUri = require('mini-svg-data-uri');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   content: ['./src/*.tsx'],
   darkMode: 'class', // or 'media' or 'class' or false
-  plugins: [require('@tailwindcss/forms')],
+  variants: {
+    extend: {
+      ringWidth: ['hover', 'active'],
+      ringColor: ['hover', 'active'],
+      ringOpacity: ['hover', 'active'],
+      appearance: ['hover', 'focus'],
+    },
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    plugin(function ({ addComponents, theme }) {
+      addComponents({
+        select: {
+          'background-image': `url("${svgToDataUri(
+            `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="${theme(
+              'colors.trueGray.500',
+              colors.trueGray[500]
+            )}" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4"/></svg>`
+          )}")`,
+        },
+      });
+    }),
+  ],
   theme: {
     extend: {
+      fontSize: {
+        '4xs': '.4rem',
+        '45xs': '.45rem',
+        '3xs': '.5rem',
+        '2xs': '.6rem',
+        xs: '.75rem',
+        sm: '.875rem',
+        tiny: '.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '4rem',
+        '7xl': '5rem',
+      },
       colors: {
         dbg: {
           l0: '#000000',
@@ -125,13 +167,6 @@ module.exports = {
         250: '2.5',
         300: '3',
       },
-    },
-  },
-  variants: {
-    extend: {
-      ringWidth: ['hover', 'active'],
-      ringColor: ['hover', 'active'],
-      ringOpacity: ['hover', 'active'],
     },
   },
 };

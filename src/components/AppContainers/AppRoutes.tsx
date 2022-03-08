@@ -11,17 +11,17 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from 'pages/HomePages/HomePage';
 import UserHomePage from 'pages/HomePages/UserHomePage';
 import UserSettingPage from 'pages/UserPages/UserSettingPage';
-import BecomeCreatorPage from 'pages/CreatorPages/BecomeCreatorPage';
+import BecomeCreatorPage from 'pages/SelfCreatorPages/BecomeCreatorPage';
 
 import CreatorHomePage from 'pages/HomePages/CreatorHomePage';
-import NewPostPage from 'pages/CreatorPages/NewPostPage';
-import EditPostPage from 'pages/CreatorPages/EditPostPages/EditPostPage';
-import PublishedPostsPage from 'pages/CreatorPages/PublishedPostsPage';
-import YourCommunityPage from 'pages/CreatorPages/YourCommunityPage';
-import SettingsPage from 'pages/CreatorPages/SettingsPage';
+import NewPostPage from 'pages/SelfCreatorPages/NewPostPage';
+import EditPostPage from 'pages/SelfCreatorPages/EditPostPages/EditPostPage';
+import PublishedPostsPage from 'pages/SelfCreatorPages/PublishedPostsPage';
+import YourCommunityPage from 'pages/SelfCreatorPages/YourCommunityPages/YourCommunityPage';
+import SettingsPage from 'pages/SelfCreatorPages/SettingPages/SettingsPage';
 
+import CreatorPage from 'pages/CreatorPages/CreatorPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
-
 import NotFoundPage from 'pages/CommonPages/NotFoundPage';
 
 export default function AppRoutes(): JSX.Element {
@@ -43,6 +43,7 @@ export default function AppRoutes(): JSX.Element {
         element={<HomeUserRouting element={<UserHomePage />} />}
       />
 
+      {/* Auth Pages */}
       <Route
         path="/user-settings"
         element={
@@ -58,6 +59,13 @@ export default function AppRoutes(): JSX.Element {
           />
         }
       />
+
+      {/* Public Pages */}
+      <Route path="/c/:creator" element={<CreatorPage />} />
+      <Route path="/c/:creator/:postId" element={<CreatorPage />} />
+
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={<NotFoundPage />} />
 
       {/* Creator Pages */}
       <Route
@@ -91,9 +99,6 @@ export default function AppRoutes(): JSX.Element {
         path="/settings"
         element={<OnlyCreatorRoute element={<SettingsPage />} />}
       />
-
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
