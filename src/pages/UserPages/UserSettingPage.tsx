@@ -1,21 +1,23 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import Compressor from 'compressorjs';
+import { toast } from 'react-toastify';
+
+import { PencilIcon, UserCircleIcon } from '@heroicons/react/outline';
+
 import {
   userDisplayNameAtom,
   userProfileImageAtom,
 } from 'services/Utils/Recoil/userInfo';
 import IsImageBelowMaxSize from 'services/Utils/Functions/FileVerification';
-import { PencilIcon, UserCircleIcon } from '@heroicons/react/outline';
-
-import Compressor from 'compressorjs';
-import Spinner from 'components/Common/Util/Spinner';
-import { toast } from 'react-toastify';
 
 import {
   SaveProfileImage,
   SaveDisplayName,
 } from 'services/Firebase/WriteData/UserSettings/UpdateProfile';
+
+import Spinner from 'components/Common/Util/Spinner';
 
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
@@ -87,7 +89,6 @@ export default function UserSettingPage(): JSX.Element {
       tempDisplayName.length >= MINDISPLAYNAMELENGTH &&
       tempDisplayName.length <= MAXDISPLAYNAMELENGTH
     ) {
-      // save image Firebase
       try {
         await SaveDisplayName(tempDisplayName);
         setDisplayNameRecoil(tempDisplayName);
