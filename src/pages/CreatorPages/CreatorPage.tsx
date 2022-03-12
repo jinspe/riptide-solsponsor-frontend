@@ -5,32 +5,26 @@ import { getCreatorByUserName } from 'services/Firebase/GetData/CreatorUtils';
 
 import Spinner from 'components/Common/Util/Spinner';
 
-import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
-
 import NotFoundPage from 'pages/CommonPages/NotFoundPage';
 
-import { ICreator } from 'types/types';
+import { Icreator } from 'types/types';
 
 import CreatorTabsPage from './CreatorTabsPage';
-import PostPage from './PostPages/PostPage';
+import PostPage from '../PostPages/PostPage';
 
 export default function CreatorPage(): JSX.Element {
   const { creator } = useParams<'creator'>();
   const { postId } = useParams<'postId'>();
 
-  const [creatorInfos, setCreatorInfos] = useState<ICreator | undefined>();
-  const [creatorNotFound, setCreatorNotFound] = useState(true);
+  const [creatorInfos, setCreatorInfos] = useState<Icreator | undefined>();
   const [pageLoading, setPageLoading] = useState(true);
-  const [postPageView, setPostPageView] = useState(false);
 
   async function loadCreator() {
     setPageLoading(true);
-    setCreatorNotFound(true);
     if (creator !== undefined) {
       try {
         setCreatorInfos(await getCreatorByUserName(creator));
-        setCreatorNotFound(false);
-      } catch {
+      } catch (error: any) {
         toast.error('Creator not found.');
       }
     } else {
@@ -42,52 +36,33 @@ export default function CreatorPage(): JSX.Element {
     loadCreator();
   }, [creator]);
 
-  useEffect(() => {
-    if (postId === undefined) {
-      setPostPageView(false);
-    } else {
-      setPostPageView(true);
-    }
-  }, [postId]);
-
   return (
     <div>
       {/* Not Found Page */}
-      <div
-        className={ClassNamesLogic(
-          creatorNotFound && !pageLoading ? 'block' : 'hidden',
-          ' '
-        )}>
+      {!pageLoading && postId === undefined && creatorInfos === undefined && (
         <NotFoundPage />
-      </div>
+      )}
+
       {/* Normal Pages */}
       <div className="pageFrame">
         {/* Loading Page */}
-        <div
-          className={ClassNamesLogic(
-            pageLoading ? 'block overflow-hidden mt-10' : 'hidden',
-            ' '
-          )}>
-          <div className="h-full flex">
-            <Spinner classExtend=" h-20 w-20 mt-10 text-cyan-700 m-auto" />
+        {pageLoading && (
+          <div className="overflow-hidden mt-10">
+            <div className="h-full flex">
+              <Spinner classExtend=" h-20 w-20 mt-10 spinner-color m-auto" />
+            </div>
           </div>
-        </div>
+        )}
+
         {/* Creator Tabs */}
-        <div
-          className={ClassNamesLogic(
-            pageLoading || postPageView || creatorNotFound ? 'hidden' : '',
-            ' '
-          )}>
+        {!pageLoading && postId === undefined && creatorInfos !== undefined && (
           <CreatorTabsPage creatorInfos={creatorInfos} />
-        </div>
+        )}
+
         {/* Post Pages */}
-        <div
-          className={ClassNamesLogic(
-            pageLoading || !postPageView || creatorNotFound ? 'hidden' : '',
-            ' '
-          )}>
-          <PostPage />
-        </div>
+        {!pageLoading && postId !== undefined && creatorInfos !== undefined && (
+          <PostPage postId={postId} creatorInfos={creatorInfos} />
+        )}
       </div>
     </div>
   );

@@ -1,20 +1,20 @@
 import { atom } from 'recoil';
-import { Iuser, ICreator } from 'types/types';
+import { Iuser, Icreator } from 'types/types';
 
-const defaultCreatorInfos: ICreator = {
+const defaultCreatorInfos: Icreator = {
   uId: undefined,
   userName: undefined,
   displayName: undefined,
   profileImage: undefined,
   coverImage: undefined,
   bio: undefined,
-  shortBio: undefined,
+  tags: undefined,
   tierImage: undefined,
   tierPrice: undefined,
   tierTitle: undefined,
   tierDescription: undefined,
 };
-export const creatorInfosAtom = atom<ICreator>({
+export const creatorInfosAtom = atom<Icreator>({
   key: 'creatorInfos',
   default: defaultCreatorInfos,
 });

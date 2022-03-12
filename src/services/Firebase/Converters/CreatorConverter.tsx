@@ -1,8 +1,8 @@
 import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
-import { ICreator } from 'types/types';
+import { Icreator } from 'types/types';
 
 export const creatorConverter = {
-  toFirestore(creatorInfos: ICreator): DocumentData {
+  toFirestore(creatorInfos: Icreator): DocumentData {
     return {
       uId: creatorInfos.uId,
       userName: creatorInfos.userName,
@@ -10,14 +10,14 @@ export const creatorConverter = {
       profileImage: creatorInfos.profileImage,
       coverImage: creatorInfos.coverImage,
       bio: creatorInfos.bio,
-      shortBio: creatorInfos.shortBio,
+      tags: creatorInfos.tags,
       tierImage: creatorInfos.tierImage,
       tierPrice: creatorInfos.tierPrice,
       tierTitle: creatorInfos.tierTitle,
       tierDescription: creatorInfos.tierDescription,
     };
   },
-  fromFirestore(snapshot: QueryDocumentSnapshot): ICreator {
+  fromFirestore(snapshot: QueryDocumentSnapshot): Icreator {
     const data = snapshot.data();
     return {
       uId: snapshot.id,
@@ -26,11 +26,11 @@ export const creatorConverter = {
       profileImage: data.profileImage,
       coverImage: data.coverImage,
       bio: data.bio,
-      shortBio: data.shortBio,
+      tags: data.tags,
       tierImage: data.tierImage,
       tierPrice: data.tierPrice,
       tierTitle: data.tierTitle,
       tierDescription: data.tierDescription,
-    } as ICreator;
+    } as Icreator;
   },
 };

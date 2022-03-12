@@ -52,7 +52,7 @@ export default function ProfileDropdown(): JSX.Element {
     },
     {
       name: 'Explore Creators',
-      href: '/',
+      href: '/search?c=',
       icon: <GlobeIcon className="flex-initial nav-icons-size" />,
     },
   ];

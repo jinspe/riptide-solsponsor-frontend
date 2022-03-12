@@ -31,7 +31,7 @@ export default function NotFoundPage(): JSX.Element {
               Page not found.
             </h1>
             <p className="mt-2 text-base text-neutral-500">
-              Sorry, we couldn’t find the page you’re looking for.
+              Sorry, we couldn&apos;t find the page you&apos;re looking for.
             </p>
             <div className="mt-6">
               <Link

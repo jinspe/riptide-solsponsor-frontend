@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-
+import { toast } from 'react-toastify';
 import { useRecoilValue, useRecoilState } from 'recoil';
 
 import { usernameIsValid } from 'services/Utils/Functions/FileVerification';
-
 import { checkUserNameExist } from 'services/Firebase/GetData/CreatorUtils';
-
-import { toast } from 'react-toastify';
-import Spinner from 'components/Common/Util/Spinner';
-
 import { UpdateUserName } from 'services/Firebase/CloudFunctions/CreatorFunctions';
-
 import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
-
 import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
+
+import Spinner from 'components/Common/Util/Spinner';
 
 import 'style/Components/creator.css';
 

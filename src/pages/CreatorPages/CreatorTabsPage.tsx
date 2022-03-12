@@ -4,12 +4,14 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon, MailIcon } from '@heroicons/react/solid';
 import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
 
-import { ICreator } from 'types/types';
+import { Icreator } from 'types/types';
+
+import PostFeedPage from './PostFeedPages/PostFeedPage';
 
 import MembershipTab from './MembershipPages/MembershipTab';
 
 type TcreatorTabsPage = {
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator;
 };
 
 export default function CreatorTabsPage({
@@ -43,7 +45,7 @@ export default function CreatorTabsPage({
                 <img
                   className="h-24 w-24 rounded-full 
                   ring-4 ring-neutral-200 
-                  dark:ring-neutral-800 
+                  dark:ring-neutral-900 
                   sm:h-32 sm:w-32"
                   src={creatorInfos?.profileImage}
                   alt=""
@@ -245,7 +247,10 @@ export default function CreatorTabsPage({
               currentTab === 0 ? 'block' : 'hidden',
               ''
             )}>
-            <p>tab 0</p>
+            <PostFeedPage
+              creatorInfos={creatorInfos}
+              setCurrentTab={setCurrentTab}
+            />
           </div>
           <div
             className={ClassNamesLogic(

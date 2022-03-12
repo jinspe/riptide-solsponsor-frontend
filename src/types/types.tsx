@@ -27,13 +27,13 @@ export interface ImessageToSign {
   signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
 }
 
-export interface ICreator {
+export interface Icreator {
   uId: string | undefined;
   userName: string | undefined;
   displayName: string | undefined;
   profileImage: string | undefined;
   coverImage: string | undefined;
-  shortBio: string | undefined;
+  tags: string[] | undefined;
   bio: string | undefined;
   tierImage: string | undefined;
   tierPrice: number | undefined;
@@ -42,6 +42,46 @@ export interface ICreator {
 }
 
 export interface ImembershipInfo {
-  creatorInfos: ICreator;
+  creatorInfos: Icreator;
   membership: Imembership;
+}
+
+export const postTypeList = ['article', 'images', 'link'];
+export type TpostType = typeof postTypeList[number]; // 'article' | 'images' | 'link';
+export type TpostSate = 'draft' | 'published';
+
+export interface Iattachment {
+  filePath: string;
+  fileUrl: string;
+  fileType: string;
+  name: string;
+}
+
+export interface IattachmentLocal {
+  file: File | Blob;
+  fileUrl: string;
+  fileType: string;
+  name: string;
+}
+
+export interface IpostPreview {
+  id: string;
+  title: string;
+  type: TpostType;
+  cId: string;
+  teaser: string;
+  timeCreation: number;
+  attachmentCount: number;
+  state: TpostSate;
+}
+
+export interface IpostContent {
+  id: string;
+  content: string;
+  attachments: Iattachment[];
+}
+
+export interface IFullPost {
+  preview: IpostPreview;
+  content: IpostContent | undefined;
 }

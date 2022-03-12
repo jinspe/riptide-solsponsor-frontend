@@ -10,6 +10,7 @@ import useDarkMode from 'components/Common/Util/useDarkMode';
 import AppSwitcher from 'components/AppContainers/AppSwitcher';
 
 import 'react-toastify/dist/ReactToastify.css';
+import 'style/Components/Toastify/toastify.css';
 
 function App(): JSX.Element {
   useDarkMode();
@@ -19,7 +20,7 @@ function App(): JSX.Element {
         <BrowserRouter>
           <ToastContainer
             position="bottom-right"
-            autoClose={5000}
+            autoClose={3000}
             hideProgressBar
             newestOnTop={false}
             closeOnClick
@@ -36,5 +37,4 @@ function App(): JSX.Element {
     </WalletContextProvider>
   );
 }
-
 export default App;

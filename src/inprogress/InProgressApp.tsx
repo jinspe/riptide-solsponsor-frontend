@@ -1,5 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
+
 import {
   userPublicKeyAtom,
   userProfileImageAtom,
@@ -24,6 +26,15 @@ const buttonClass =
 export default function InProgressApp(): JSX.Element {
   const [userPublicKey, setUserPubKey] = useRecoilState(userPublicKeyAtom);
 
+  function succc() {
+    toast.success(
+      'fbdjbfkjhvbjkdhfbkjfhdbkjhfdvbfvjdhbfvdjkhbvfdjbfvjbfvkjhfvdbkjfhvbjh'
+    );
+  }
+  function errr() {
+    toast.error('dfhsoihfvifbvihfbvhi');
+  }
+
   return (
     <div className="max-w-5xl mx-auto">
       <p>test buttons</p>
@@ -33,6 +44,13 @@ export default function InProgressApp(): JSX.Element {
       <MintButton /> 
       <CKeditorC /> 
       <CKeditsource /> */}
+
+      <button className={buttonClass} type="button" onClick={errr}>
+        toast error
+      </button>
+      <button className={buttonClass} type="button" onClick={succc}>
+        toast success
+      </button>
       <SinginsFunc />
       <h1 className="mtext-t0">POPO</h1>
       <h1 className="mtext-t0">POPO</h1>

@@ -1,37 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useRecoilValue, useRecoilState } from 'recoil';
+import { PencilIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { toast } from 'react-toastify';
+import Compressor from 'compressorjs';
+import DOMPurify from 'dompurify';
 
 import IsImageBelowMaxSize, {
   usernameIsValid,
 } from 'services/Utils/Functions/FileVerification';
-
 import { checkUserNameExist } from 'services/Firebase/GetData/CreatorUtils';
-
-import { PencilIcon, UserCircleIcon } from '@heroicons/react/outline';
-import { toast } from 'react-toastify';
-import Compressor from 'compressorjs';
-import Spinner from 'components/Common/Util/Spinner';
-
 import BasicEditor from 'services/Utils/CKeditor/Editor/BasicEditor';
-import DOMPurify from 'dompurify';
-
 import { CreateUserNameCloud } from 'services/Firebase/CloudFunctions/CreatorFunctions';
-
 import { setUserAsCreator } from 'services/Firebase/WriteData/UserSettings/UpdateProfile';
-
-import {
-  defaultCoverImage,
-  defaultCreatorImage,
-} from 'components/Common/Util/DefaultValues';
-
 import {
   SaveProfileImage,
   SaveCoverImage,
   SaveCreatorInfos,
   CreateTier,
 } from 'services/Firebase/WriteData/CreatorSettings/UpdateCreatorProfile';
+import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
+
+import Spinner from 'components/Common/Util/Spinner';
+
+import {
+  defaultCoverImage,
+  defaultCreatorImage,
+} from 'components/Common/Util/DefaultValues';
 
 import {
   userIsCreatorAtom,
@@ -40,8 +35,6 @@ import {
   userDisplayNameAtom,
 } from 'services/Utils/Recoil/userInfo';
 
-import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
-
 import 'style/Components/creator.css';
 
 const USERNAMEMAXLENGTH = 40;
@@ -49,8 +42,8 @@ const USERNAMEMINLENGTH = 3;
 const BIOMAXLENGTH = 2000;
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
-const MAXSHORTBIOLENGTH = 100;
-const MINSHORTBIOLENGTH = 0;
+const MAXTAGSLENGTH = 100;
+const MINTAGSLENGTH = 0;
 
 export default function BecomeCreatorPage(): JSX.Element {
   const navigate = useNavigate();
@@ -64,10 +57,12 @@ export default function BecomeCreatorPage(): JSX.Element {
   const [userName, setUserName] = useState(publicKey);
   const [displayName, setDisplayName] = useState(userDisplayName);
   const [bio, setBio] = useState('');
-  const [shortBio, setShortBio] = useState('');
+  const [tags, setTags] = useState('');
 
   const [profileImage, setProfileImage] = useState(
-    userProfileImage === undefined ? defaultCreatorImage : userProfileImage
+    userProfileImage === undefined || userProfileImage === ''
+      ? defaultCreatorImage
+      : userProfileImage
   );
   const [coverImage, setCoverImage] = useState(defaultCoverImage);
 
@@ -138,7 +133,6 @@ export default function BecomeCreatorPage(): JSX.Element {
     setLoadingCheckUserName(false);
     return isUserNameValid;
   }
-
   async function SaveProfileIm(file: File | Blob) {
     try {
       const imageUrl = await SaveProfileImage(file);
@@ -226,50 +220,44 @@ export default function BecomeCreatorPage(): JSX.Element {
   async function handleSubmit() {
     setLoadingSaving(true);
     const userNameBeingChecked = userName;
-    if (!(await checkUserNameValid(userNameBeingChecked))) {
-      toast.error(<div> Username Error: {availabilityMessage}</div>);
-      setLoadingSaving(false);
-      return;
-    }
-    if (bio.length > BIOMAXLENGTH || bio === undefined) {
-      toast.error(
-        `About Error: about needs to be smaller than ${BIOMAXLENGTH} characters`
-      );
-      setLoadingSaving(false);
-      return;
-    }
-    if (
-      displayName === undefined ||
-      displayName.length > MAXDISPLAYNAMELENGTH ||
-      displayName.length < MINDISPLAYNAMELENGTH
-    ) {
-      toast.error(
-        'Display name Error:  Display name needs to be between' +
-          ` ${MINDISPLAYNAMELENGTH} and ${MAXDISPLAYNAMELENGTH} characters`
-      );
-      setLoadingSaving(false);
-      return;
-    }
-    if (
-      shortBio === undefined ||
-      shortBio.length > MAXSHORTBIOLENGTH ||
-      shortBio.length < MINSHORTBIOLENGTH
-    ) {
-      toast.error(
-        'Short About Error: Short about needs to be between' +
-          ` ${MINSHORTBIOLENGTH} and ${MAXSHORTBIOLENGTH} characters`
-      );
-
-      setLoadingSaving(false);
-      return;
-    }
     try {
+      if (!(await checkUserNameValid(userNameBeingChecked))) {
+        toast.error(<div> Username Error: {availabilityMessage}</div>);
+        setLoadingSaving(false);
+        return;
+      }
+      if (bio.length > BIOMAXLENGTH || bio === undefined) {
+        throw new Error(
+          `About Error: about needs to be smaller than ${BIOMAXLENGTH} characters`
+        );
+      }
+      if (
+        displayName === undefined ||
+        displayName.length > MAXDISPLAYNAMELENGTH ||
+        displayName.length < MINDISPLAYNAMELENGTH
+      ) {
+        throw new Error(
+          'Display name Error:  Display name needs to be between' +
+            ` ${MINDISPLAYNAMELENGTH} and ${MAXDISPLAYNAMELENGTH} characters`
+        );
+      }
+      if (
+        tags === undefined ||
+        tags.length > MAXTAGSLENGTH ||
+        tags.length < MINTAGSLENGTH
+      ) {
+        throw new Error(
+          'Short About Error: Short about needs to be between' +
+            ` ${MINTAGSLENGTH} and ${MAXTAGSLENGTH} characters`
+        );
+      }
+
       if (userNameBeingChecked !== undefined) {
         await CreateUserNameCloud(userNameBeingChecked);
         await SaveCreatorInfos(
           displayName,
           DOMPurify.sanitize(bio),
-          shortBio,
+          tags.toLowerCase().split(','),
           profileImage,
           coverImage
         );
@@ -279,7 +267,7 @@ export default function BecomeCreatorPage(): JSX.Element {
         setCreatorInfosRecoil((prevState) => ({
           ...prevState,
           bio,
-          shortBio,
+          tags: tags.toLocaleLowerCase().split(','),
           displayName,
           profileImage,
           coverImage,
@@ -412,7 +400,7 @@ export default function BecomeCreatorPage(): JSX.Element {
                   {/* Short Bio */}
                   <div>
                     <p className="block text-sm font-medium bc-text-color">
-                      Short About
+                      Creator tags
                     </p>
                     <div className="mt-1">
                       <input
@@ -424,16 +412,17 @@ export default function BecomeCreatorPage(): JSX.Element {
                   bc-field-input
                    block w-full text-sm border 
                     rounded-md"
-                        maxLength={MAXSHORTBIOLENGTH}
-                        minLength={MINSHORTBIOLENGTH}
-                        value={shortBio}
-                        onChange={(e) => setShortBio(e.target.value)}
+                        maxLength={MAXTAGSLENGTH}
+                        minLength={MINTAGSLENGTH}
+                        value={tags}
+                        onChange={(e) => setTags(e.target.value)}
                         placeholder="example: Music, NFT Artist, Developer, Podcaster"
                       />
                     </div>
                     <p className="mt-2 text-sm text-neutral-500">
                       Help sponsors discover you with a small description of
-                      what you do
+                      what you do separate the tags by commas ({MAXTAGSLENGTH}{' '}
+                      characters max)
                     </p>
                   </div>
 

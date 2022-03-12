@@ -129,7 +129,7 @@ export default function SupportingCard({
       <div className="p-2">
         <div className="mx-auto text-center">
           <Link
-            to="/"
+            to="/search?c="
             className="  text-lg font-medium 
                 text-cyan-600 hover:text-cyan-500 text-center mx-auto">
             Discover new creators <span aria-hidden="true"> &rarr;</span>

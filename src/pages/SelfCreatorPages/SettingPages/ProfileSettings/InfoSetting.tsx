@@ -1,37 +1,32 @@
 import React, { useState, useRef } from 'react';
-
 import { useRecoilState } from 'recoil';
-
-import IsImageBelowMaxSize from 'services/Utils/Functions/FileVerification';
-
+import DOMPurify from 'dompurify';
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
 import Compressor from 'compressorjs';
-import Spinner from 'components/Common/Util/Spinner';
 
 import BasicEditor from 'services/Utils/CKeditor/Editor/BasicEditor';
-import DOMPurify from 'dompurify';
-
-import {
-  defaultCoverImage,
-  defaultCreatorImage,
-} from 'components/Common/Util/DefaultValues';
-
+import IsImageBelowMaxSize from 'services/Utils/Functions/FileVerification';
 import {
   SaveProfileImage,
   SaveCoverImage,
   SaveCreatorInfos,
 } from 'services/Firebase/WriteData/CreatorSettings/UpdateCreatorProfile';
-
 import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
+
+import {
+  defaultCoverImage,
+  defaultCreatorImage,
+} from 'components/Common/Util/DefaultValues';
+import Spinner from 'components/Common/Util/Spinner';
 
 import 'style/Components/creator.css';
 
 const BIOMAXLENGTH = 2000;
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
-const MAXSHORTBIOLENGTH = 100;
-const MINSHORTBIOLENGTH = 0;
+const MAXTAGSLENGTH = 100;
+const MINTAGSLENGTH = 0;
 
 export default function InfoSetting(): JSX.Element {
   const [creatorInfosRecoil, setCreatorInfosRecoil] =
@@ -41,9 +36,12 @@ export default function InfoSetting(): JSX.Element {
     creatorInfosRecoil.displayName ?? ''
   );
   const [bio, setBio] = useState(creatorInfosRecoil.bio ?? '');
-  const [shortBio, setShortBio] = useState(creatorInfosRecoil.shortBio ?? '');
+  const [tags, setTags] = useState(creatorInfosRecoil.tags?.join(',') ?? '');
   const [profileImage, setProfileImage] = useState(
-    creatorInfosRecoil.profileImage ?? defaultCreatorImage
+    creatorInfosRecoil.profileImage === undefined ||
+      creatorInfosRecoil.profileImage === ''
+      ? defaultCreatorImage
+      : creatorInfosRecoil.profileImage
   );
   const [coverImage, setCoverImage] = useState(
     creatorInfosRecoil.coverImage ?? defaultCoverImage
@@ -150,30 +148,37 @@ export default function InfoSetting(): JSX.Element {
 
   async function handleSubmit() {
     setLoadingSaving(true);
-    if (bio === undefined || bio.length > BIOMAXLENGTH) {
-      toast.error(
-        `About Error: about needs to be smaller than ${BIOMAXLENGTH} characters`
-      );
-      setLoadingSaving(false);
-      return;
-    }
-    if (
-      displayName === undefined ||
-      displayName.length > MAXDISPLAYNAMELENGTH ||
-      displayName.length < MINDISPLAYNAMELENGTH
-    ) {
-      toast.error(
-        'Display name Error:  Display name needs to be between' +
-          ` ${MINDISPLAYNAMELENGTH} and ${MAXDISPLAYNAMELENGTH} characters`
-      );
-      setLoadingSaving(false);
-      return;
-    }
     try {
+      if (bio === undefined || bio.length > BIOMAXLENGTH) {
+        throw new Error(
+          `About Error: about needs to be smaller than ${BIOMAXLENGTH} characters`
+        );
+      }
+      if (
+        tags === undefined ||
+        tags.length > MAXTAGSLENGTH ||
+        tags.length < MINTAGSLENGTH
+      ) {
+        throw new Error(
+          'Short About Error: Short about needs to be between' +
+            ` ${MINTAGSLENGTH} and ${MAXTAGSLENGTH} characters`
+        );
+      }
+      if (
+        displayName === undefined ||
+        displayName.length > MAXDISPLAYNAMELENGTH ||
+        displayName.length < MINDISPLAYNAMELENGTH
+      ) {
+        throw new Error(
+          'Display name Error:  Display name needs to be between' +
+            ` ${MINDISPLAYNAMELENGTH} and ${MAXDISPLAYNAMELENGTH} characters`
+        );
+      }
+
       await SaveCreatorInfos(
         displayName,
         DOMPurify.sanitize(bio),
-        shortBio,
+        tags.toLowerCase().split(','),
         profileImage,
         coverImage
       );
@@ -181,7 +186,7 @@ export default function InfoSetting(): JSX.Element {
       setCreatorInfosRecoil((prevState) => ({
         ...prevState,
         bio,
-        shortBio,
+        tags: tags.toLocaleLowerCase().split(','),
         displayName,
         profileImage,
         coverImage,
@@ -244,7 +249,7 @@ export default function InfoSetting(): JSX.Element {
                 {/* Short Bio */}
                 <div>
                   <p className="block text-sm font-medium bc-text-color">
-                    Short About
+                    Creator tags
                   </p>
                   <div className="mt-1">
                     <input
@@ -256,16 +261,17 @@ export default function InfoSetting(): JSX.Element {
                   bc-field-input
                    block w-full text-sm border 
                     rounded-md"
-                      maxLength={MAXSHORTBIOLENGTH}
-                      minLength={MINSHORTBIOLENGTH}
-                      value={shortBio}
-                      onChange={(e) => setShortBio(e.target.value)}
+                      maxLength={MAXTAGSLENGTH}
+                      minLength={MINTAGSLENGTH}
+                      value={tags}
+                      onChange={(e) => setTags(e.target.value)}
                       placeholder="example: Music, NFT Artist, Developer, Podcaster"
                     />
                   </div>
                   <p className="mt-2 text-sm text-neutral-500">
                     Help sponsors discover you with a small description of what
-                    you do
+                    you do separate the tags by commas ({MAXTAGSLENGTH}{' '}
+                    characters)
                   </p>
                 </div>
 
@@ -409,7 +415,7 @@ export default function InfoSetting(): JSX.Element {
               onClick={() => {
                 setDisplayName(creatorInfosRecoil.displayName ?? '');
                 setBio(creatorInfosRecoil.bio ?? '');
-                setShortBio(creatorInfosRecoil.shortBio ?? '');
+                setTags(creatorInfosRecoil.tags?.join(',') ?? '');
                 setProfileImage(
                   creatorInfosRecoil.profileImage ?? defaultCreatorImage
                 );

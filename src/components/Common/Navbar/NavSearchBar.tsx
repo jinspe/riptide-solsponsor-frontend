@@ -30,6 +30,7 @@ export default function NavSearchBar(): JSX.Element {
                     text-input-field
                     "
           placeholder="Search"
+          autoComplete="off"
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

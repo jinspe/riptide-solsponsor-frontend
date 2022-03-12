@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TimestampToExpiration } from 'services/Utils/Functions/TimestampToExpiration';
-import { ICreator, ImembershipInfo } from 'types/types';
+import { ImembershipInfo } from 'types/types';
 
 type TmembershipCard = {
   membershipInfos: ImembershipInfo;

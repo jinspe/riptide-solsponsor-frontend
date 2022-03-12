@@ -8,10 +8,10 @@ import {
   userIsCreatorAtom,
   userMembershipsAtom,
 } from 'services/Utils/Recoil/userInfo';
-import { ICreator, ImembershipInfo } from 'types/types';
+import { Icreator, ImembershipInfo } from 'types/types';
 
 import SupportingCard from './Components/SupportingCard';
-import YourCreatorFeed from './Components/YourCreatorFeed';
+import YourCreatorFeed from './Components/CreatorFeed/YourCreatorFeed';
 
 export default function UserHomePage(): JSX.Element {
   const userProfileImage = useRecoilValue(userProfileImageAtom);
@@ -81,7 +81,10 @@ export default function UserHomePage(): JSX.Element {
             />
           </div>
           <div className="w-full ">
-            <YourCreatorFeed />
+            <YourCreatorFeed
+              memListActive={memListActive}
+              getCreatorsLoading={getCreatorsLoading}
+            />
           </div>
         </div>
         <div className="items-center w-full block md:hidden">

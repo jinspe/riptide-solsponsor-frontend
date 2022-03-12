@@ -14,15 +14,16 @@ import UserSettingPage from 'pages/UserPages/UserSettingPage';
 import BecomeCreatorPage from 'pages/SelfCreatorPages/BecomeCreatorPage';
 
 import CreatorHomePage from 'pages/HomePages/CreatorHomePage';
-import NewPostPage from 'pages/SelfCreatorPages/NewPostPage';
-import EditPostPage from 'pages/SelfCreatorPages/EditPostPages/EditPostPage';
-import PublishedPostsPage from 'pages/SelfCreatorPages/PublishedPostsPage';
+import NewPostPage from 'pages/SelfCreatorPages/NewPostPages/NewPostPage';
+import DraftPostPage from 'pages/SelfCreatorPages/DraftPostPages/DraftPostPage';
+import PublishedPostsPage from 'pages/SelfCreatorPages/PublishedPostPages/PublishedPostsPage';
 import YourCommunityPage from 'pages/SelfCreatorPages/YourCommunityPages/YourCommunityPage';
 import SettingsPage from 'pages/SelfCreatorPages/SettingPages/SettingsPage';
 
 import CreatorPage from 'pages/CreatorPages/CreatorPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SearchPage from 'pages/CommonPages/SearchPages/SearchPage';
+import HelpCenterPage from 'pages/CommonPages/HelpCenterPage/HelpCenterPage';
 import NotFoundPage from 'pages/CommonPages/NotFoundPage';
 
 export default function AppRoutes(): JSX.Element {
@@ -63,7 +64,7 @@ export default function AppRoutes(): JSX.Element {
       {/* Public Pages */}
       <Route path="/c/:creator" element={<CreatorPage />} />
       <Route path="/c/:creator/:postId" element={<CreatorPage />} />
-
+      <Route path="/help-center" element={<HelpCenterPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundPage />} />
@@ -81,19 +82,23 @@ export default function AppRoutes(): JSX.Element {
         element={<OnlyCreatorRoute element={<NewPostPage />} />}
       />
       <Route
-        path="/edit/:postType/:postId"
-        element={<OnlyCreatorRoute element={<EditPostPage />} />}
+        path="/drafts"
+        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
       />
       <Route
-        path="/edit/:postType"
-        element={<OnlyCreatorRoute element={<EditPostPage />} />}
+        path="/drafts/:postType/:postId"
+        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
+      />
+      <Route
+        path="/drafts/:postType"
+        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
       />
       <Route
         path="/published"
         element={<OnlyCreatorRoute element={<PublishedPostsPage />} />}
       />
       <Route
-        path="/community"
+        path="/sponsors"
         element={<OnlyCreatorRoute element={<YourCommunityPage />} />}
       />
       <Route

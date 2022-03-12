@@ -72,7 +72,7 @@ export default function MembersTab(): JSX.Element {
         <div
           className="text-center my-20
          dark:text-neutral-100 text-neutral-800">
-          <p className="font-bold text-2xl ">You currently have no members</p>
+          <p className="font-bold text-2xl ">You currently have no sponsors</p>
           <p className="font-semibold text-base text-neutral-500 ">
             Consider sharing the link to your profile on social media.
           </p>
@@ -105,7 +105,7 @@ export default function MembersTab(): JSX.Element {
             <p
               className="mt-4 text-sm text-neutral-500 text-left
            pl-2">
-              Search members by name or publickey
+              Search sponsors by name or publickey
             </p>
             <div className="flex mt-1 mb-8 ">
               <input

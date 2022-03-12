@@ -27,11 +27,11 @@ import {
 import CreateMetadata from 'services/Solana/Metaplex/CreateMetadata';
 
 import { defaultTierImage } from 'components/Common/Util/DefaultValues';
-import { ICreator, TtransactionSate } from 'types/types';
+import { Icreator, TtransactionSate } from 'types/types';
 import { toast } from 'react-toastify';
 
 type TmintingStep = {
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator | undefined;
   expiration: string;
   userPublicKey: string | undefined;
   transactionState: TtransactionSate;
@@ -55,6 +55,7 @@ export default function MintingStep({
   const [metadataJson, setMetadataJson] = useState<MetadataJson | undefined>();
   const [metadataUri, setMetadatUri] = useState<string>('');
   const [nftImageUrl, setNftImageUrl] = useState<string>('');
+  const [mintTransaction, setMintTransaction] = useState<string>('');
 
   async function captureMemberCard(): Promise<string> {
     const node = document.getElementById(NFTid);
@@ -126,12 +127,16 @@ export default function MintingStep({
           signAllTransactions: wallet.signAllTransactions,
         };
         try {
-          await CreateMasterEdition(
+          const mintSignature = await CreateMasterEdition(
             metadataJson,
             metadataUri,
             customerMetaWallet
           );
+          setMintTransaction(mintSignature);
           setTransactionState('finish');
+          toast.success(
+            `Minting successful https://explorer.solana.com/tx/${mintSignature}?cluster=devnet`
+          );
         } catch (error: any) {
           toast.error(error?.message);
           setTransactionState('mint');
@@ -217,14 +222,24 @@ export default function MintingStep({
         )}
       </div>
       {transactionState === 'finish' && (
-        <div
-          className=" flex mt-2 text-black 
- dark:text-neutral-100 mx-auto ">
+        <div>
           <div
-            className="text-base flex items-center gap-x-2 mt-0.5 
+            className=" flex mt-2 text-black 
+ dark:text-neutral-100 mx-auto ">
+            <div
+              className="text-base flex items-center gap-x-2 mt-0.5 
    font-semibold mx-auto ">
-            <CheckIcon className="h-6 " />
-            NFT Minted
+              <CheckIcon className="h-6 " />
+              NFT Minted
+            </div>
+          </div>
+          <div className="max-w-md mx-auto text-center leading-none">
+            <a
+              href={`https://explorer.solana.com/tx/${mintTransaction}?cluster=devnet`}
+              className="text-xs leading-none font-medium 
+              mx-auto text-cyan-700 italic break-words underline ">
+              {`https://explorer.solana.com/tx/${mintTransaction}?cluster=devnet`}
+            </a>
           </div>
         </div>
       )}

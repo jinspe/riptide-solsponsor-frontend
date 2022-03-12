@@ -19,7 +19,7 @@ const navItems = [
   { name: 'New Post', href: '/new-post', icon: DocumentAddIcon },
   { name: 'Draft Posts', href: '/drafts', icon: PencilAltIcon },
   { name: 'Published Posts', href: '/published', icon: DocumentReportIcon },
-  { name: 'Your Community', href: '/community', icon: UserGroupIcon },
+  { name: 'Your Sponsors', href: '/sponsors', icon: UserGroupIcon },
   { name: 'Settings', href: '/settings', icon: CogIcon },
 ];
 
@@ -45,7 +45,7 @@ export default function SideBarItems({
             key={item.name}
             to={item.href}
             className={ClassNamesLogic(
-              location.pathname === item.href
+              location.pathname.startsWith(item.href)
                 ? 'side-items-bg-active'
                 : 'side-items-bg-hover ',
               'group flex items-center px-2 py-3 rounded-md side-items-text'
@@ -55,7 +55,7 @@ export default function SideBarItems({
             }}>
             <item.icon
               className={ClassNamesLogic(
-                location.pathname === item.href
+                location.pathname.startsWith(item.href)
                   ? 'side-items-text-color'
                   : 'side-icons-inactive side-icons-hover',
                 'mr-4 side-icons-size'

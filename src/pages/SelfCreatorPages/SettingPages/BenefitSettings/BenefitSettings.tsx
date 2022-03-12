@@ -163,7 +163,7 @@ export default function BenefitSettings(): JSX.Element {
                 Update your tier
               </h3>
               <p className="mt-1 text-sm text-neutral-500">
-                Create membership tiers for your supporters.
+                Create membership tiers for your sponsors.
               </p>
             </div>
             <div className="mt-5 ">
@@ -182,7 +182,7 @@ export default function BenefitSettings(): JSX.Element {
                     Tier title{' '}
                     <p className="text-neutral-500 text-xs pl-2">
                       {' '}
-                      ({MAXTIERTITLELENGTH} characters)
+                      (max {MAXTIERTITLELENGTH} characters)
                     </p>
                   </label>
                   <div className="mt-1">
@@ -237,7 +237,7 @@ export default function BenefitSettings(): JSX.Element {
                 {/* About */}
                 <div>
                   <p className="block text-sm font-medium bc-text-color">
-                    Supporter benefits description
+                    Sponsors benefits description
                   </p>
                   <div className="mt-1">
                     <BasicEditor

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import WalletButton from 'components/SolanaWallet/WalletButton';
+import { CheckIcon } from '@heroicons/react/solid';
 
 import { FirebaseAuth } from 'services/Firebase/FirebaseConfig';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -10,7 +11,7 @@ import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { VerifyTransaction } from 'services/Firebase/CloudFunctions/VerifyTransaction';
 
-import { ICreator, Imembership, TtransactionSate } from 'types/types';
+import { Icreator, Imembership, TtransactionSate } from 'types/types';
 import {
   userPublicKeyAtom,
   userMembershipsAtom,
@@ -33,7 +34,7 @@ import MintingStep from './MintingStep';
 
 type TcheckoutWallet = {
   price: number;
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator | undefined;
   membershipTime: number;
 };
 
@@ -75,6 +76,8 @@ export default function CheckoutSection({
     let newTime = DAYTIMESTAMP * membershipTime;
     if (currentMembership?.expiration !== undefined) {
       newTime += parseFloat(currentMembership?.expiration);
+    } else {
+      newTime += new Date().getTime();
     }
     setExpiration(TimestampToExpiration(newTime));
     return price;
@@ -236,9 +239,13 @@ export default function CheckoutSection({
             <div
               className=" text-center  text-neutral-900 
 dark:text-neutral-100 mx-auto ">
-              <p className="text-base text-center font-medium bc-text-color">
+              <div
+                className=" justify-center text-center  bc-text-color
+            text-base flex items-center gap-x-2 mt-0.5 
+            font-semibold mx-auto">
+                <CheckIcon className="h-6 " />
                 Transaction Successful
-              </p>
+              </div>
               <div className="max-w-md mx-auto leading-none">
                 <a
                   href={`https://explorer.solana.com/tx/${transacSignature}?cluster=devnet`}

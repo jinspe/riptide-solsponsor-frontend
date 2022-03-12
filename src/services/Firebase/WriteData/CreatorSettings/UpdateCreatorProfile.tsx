@@ -8,7 +8,7 @@ import UploadFile from '../../UploadFile';
 export async function SaveCreatorInfos(
   displayName: string,
   bio: string,
-  shortBio: string,
+  tags: string[],
   profileImage: string,
   coverImage: string
 ): Promise<void> {
@@ -20,6 +20,7 @@ export async function SaveCreatorInfos(
       {
         displayName,
         bio,
+        tags,
         profileImage,
         coverImage,
       },

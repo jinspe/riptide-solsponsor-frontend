@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getMembershipFiles } from 'services/Firebase/GetData/UserUtils';
-import { Imembership, ICreator } from 'types/types';
-import { userMembershipsAtom } from 'services/Utils/Recoil/userInfo';
+import { Imembership, Icreator } from 'types/types';
+import {
+  userMembershipsAtom,
+  userPublicKeyAtom,
+} from 'services/Utils/Recoil/userInfo';
 import { refreshMembershipAtom } from 'services/Utils/Recoil/appState';
 import { toast } from 'react-toastify';
 
 type TcurrentMembership = {
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator | undefined;
 };
 export default function CurrentMembership({
   creatorInfos,
@@ -19,18 +22,21 @@ export default function CurrentMembership({
 
   const memberships = useRecoilValue(userMembershipsAtom);
   const refreshMembership = useRecoilValue(refreshMembershipAtom);
+  const userPublicKey = useRecoilValue(userPublicKeyAtom);
 
   const [membershipImage, setMemeberhsipImage] = useState<string | undefined>();
   const [expiration, setExpiration] = useState<string | undefined>();
 
   async function readMembershipFile() {
-    try {
-      if (creatorInfos?.uId !== undefined) {
-        const memberFile = await getMembershipFiles(creatorInfos?.uId);
-        setMemeberhsipImage(memberFile.image);
+    if (userPublicKey !== undefined) {
+      try {
+        if (creatorInfos?.uId !== undefined) {
+          const memberFile = await getMembershipFiles(creatorInfos?.uId);
+          setMemeberhsipImage(memberFile.image);
+        }
+      } catch (error: any) {
+        toast.error('Failed to get your current membership Image');
       }
-    } catch (error: any) {
-      toast.error('Failed to get your current membership Image');
     }
   }
 

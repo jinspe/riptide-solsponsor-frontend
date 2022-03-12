@@ -6,9 +6,9 @@ export default async function UploadFile(
   file: File | Blob
 ): Promise<[string, string]> {
   if (FirebaseAuth.currentUser != null) {
-    const newImageRef = ref(FirebaseStorage, filePath);
-    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
-    const fileUrl = await getDownloadURL(newImageRef);
+    const newFileRef = ref(FirebaseStorage, filePath);
+    const fileSnapshot = await uploadBytesResumable(newFileRef, file);
+    const fileUrl = await getDownloadURL(newFileRef);
     return [fileUrl, fileSnapshot.metadata.fullPath];
   }
   throw new Error('User can not be null to upload a file');

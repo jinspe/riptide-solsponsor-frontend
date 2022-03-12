@@ -1,12 +1,12 @@
 import React from 'react';
 import BasicEditorReader from 'services/Utils/CKeditor/Reader/BasicEditorReader';
 
-import { ICreator } from 'types/types';
+import { Icreator } from 'types/types';
 import AddToMembership from './AddToMembership';
 import CurrentMembership from './CurrentMembership';
 
 type TmembershipTab = {
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator;
 };
 
 export default function MembershipTab({

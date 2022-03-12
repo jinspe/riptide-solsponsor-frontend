@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import BasicEditorReader from 'services/Utils/CKeditor/Reader/BasicEditorReader';
 
-import { ICreator } from 'types/types';
+import { Icreator } from 'types/types';
 
 import CheckoutSection from './CheckoutSection/CheckoutSection';
 
 type TmembershipTab = {
-  creatorInfos: ICreator | undefined;
+  creatorInfos: Icreator | undefined;
 };
 
 export default function AddToMembership({
@@ -51,7 +51,7 @@ export default function AddToMembership({
                 text-transparent bg-clip-text
                    bg-gradient-to-br from-cyan-400 to-cyan-700 truncate
                    text-center">
-                Join {creatorInfos?.displayName}
+                Sponsor {creatorInfos?.displayName}
               </p>
             </div>
             <p className="text-2xl mt-5 font-bold leading-6 bc-text-color text-center">

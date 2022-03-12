@@ -1,5 +1,5 @@
 {
-  "name": "riptide-mefren-frontend",
+  "name": "riptide-solsponsor-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.dev.local craco start",
-    "build:env": "env-cmd -f .env.dev.local craco build",
+    "build:env": "env-cmd -f .env.dev.local craco --max_old_space_size=8192  build",
     "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint src/**/*.ts src/**/*.tsx",

@@ -44,7 +44,7 @@ export default function CreateMetadata(
   });
 
   const metaCollection: metadt.MetadataJsonCollection = {
-    name: 'SolSponsor',
+    name: 'solsponsor',
     family: 'Sponsor',
   };
 

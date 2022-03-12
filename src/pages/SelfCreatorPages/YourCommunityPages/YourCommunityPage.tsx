@@ -10,7 +10,7 @@ import MembersTab from './MembersTab';
 export default function YourCommunityPage(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(0);
 
-  const tabs = [{ name: 'Members' }, { name: 'Messages' }];
+  const tabs = [{ name: 'Sponsors' }, { name: 'Messages' }];
   return (
     <div className="pageFrame">
       <div
@@ -20,7 +20,7 @@ export default function YourCommunityPage(): JSX.Element {
           className="text-xl mt-1 font-bold text-center
         text-black
         dark:text-neutral-100">
-          Your Community
+          Your Sponsors
         </div>
         {/* Small tabs dropdown */}
         <div className="mt-4 sm:hidden">

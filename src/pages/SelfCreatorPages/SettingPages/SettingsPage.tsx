@@ -12,7 +12,7 @@ export default function SettingsPage(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(0);
 
   const tabs = [
-    { name: 'Supporter benefits' },
+    { name: 'Sponsors benefits' },
     { name: 'Profile' },
     { name: 'Socials' },
   ];
