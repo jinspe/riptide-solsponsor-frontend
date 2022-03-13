@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Icreator, IFullPost } from 'types/types';
-import { getFullPost } from 'services/Firebase/GetData/PostUtils';
 
+import { getFullPost } from 'services/Firebase/GetData/PostUtils';
+import PostFullreader from 'components/Posts/PostReader/PostFullReader/PostFullreader';
 import Spinner from 'components/Common/Util/Spinner';
-import FullPostPage from './Components/FullPostPage';
-import PostPreviewPage from './Components/PostPreviewPage';
-import NotFoundPostPage from './Components/NotFoundPostPage';
+import NotFoundPostPage from './NotFoundPostPage';
 
 type TpostPage = {
   postId: string;
@@ -42,26 +41,9 @@ export default function PostPage({
       {!pageLoading && fullPost === undefined && (
         <NotFoundPostPage creatorInfos={creatorInfos} />
       )}
-      {!pageLoading &&
-        fullPost !== undefined &&
-        fullPost.preview !== undefined &&
-        fullPost.content === undefined && (
-          <PostPreviewPage
-            creatorInfos={creatorInfos}
-            postPreview={fullPost.preview}
-          />
-        )}
-
-      {!pageLoading &&
-        fullPost !== undefined &&
-        fullPost.preview !== undefined &&
-        fullPost.content !== undefined && (
-          <FullPostPage
-            creatorInfos={creatorInfos}
-            postPreview={fullPost.preview}
-            postContent={fullPost.content}
-          />
-        )}
+      {!pageLoading && fullPost !== undefined && (
+        <PostFullreader creatorInfos={creatorInfos} post={fullPost} />
+      )}
     </div>
   );
 }

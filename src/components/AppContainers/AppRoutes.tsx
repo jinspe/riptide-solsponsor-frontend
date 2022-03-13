@@ -8,16 +8,16 @@ import {
 } from 'services/Utils/Router/HomeRouting';
 import { Routes, Route } from 'react-router-dom';
 
-import HomePage from 'pages/HomePages/HomePage';
-import UserHomePage from 'pages/HomePages/UserHomePage';
+import LandingPage from 'pages/HomePages/LandingPage/LandingPage';
+import UserHomePage from 'pages/HomePages/UserHomePage/UserHomePage';
 import UserSettingPage from 'pages/UserPages/UserSettingPage';
-import BecomeCreatorPage from 'pages/SelfCreatorPages/BecomeCreatorPage';
+import BecomeCreatorPage from 'pages/UserPages/BecomeCreatorPage';
 
-import CreatorHomePage from 'pages/HomePages/CreatorHomePage';
+import CreatorHomePage from 'pages/HomePages/CreatorHomePage/CreatorHomePage';
 import NewPostPage from 'pages/SelfCreatorPages/NewPostPages/NewPostPage';
-import DraftPostPage from 'pages/SelfCreatorPages/DraftPostPages/DraftPostPage';
-import PublishedPostsPage from 'pages/SelfCreatorPages/PublishedPostPages/PublishedPostsPage';
-import YourCommunityPage from 'pages/SelfCreatorPages/YourCommunityPages/YourCommunityPage';
+import DraftPostsPage from 'pages/SelfCreatorPages/PubDraftPostsPages/DraftPostsPage';
+import PublishedPostsPage from 'pages/SelfCreatorPages/PubDraftPostsPages/PublishedPostsPage';
+import YourSponsorsPage from 'pages/SelfCreatorPages/YourSponsorsPages/YourSponsorsPage';
 import SettingsPage from 'pages/SelfCreatorPages/SettingPages/SettingsPage';
 
 import CreatorPage from 'pages/CreatorPages/CreatorPage';
@@ -33,7 +33,7 @@ export default function AppRoutes(): JSX.Element {
         path="/"
         element={
           <HomeRootRouting
-            element={<HomePage />}
+            element={<LandingPage />}
             userRoute="home"
             creatorRoute="creator-home"
           />
@@ -83,15 +83,15 @@ export default function AppRoutes(): JSX.Element {
       />
       <Route
         path="/drafts"
-        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
+        element={<OnlyCreatorRoute element={<DraftPostsPage />} />}
       />
       <Route
         path="/drafts/:postType/:postId"
-        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
+        element={<OnlyCreatorRoute element={<DraftPostsPage />} />}
       />
       <Route
         path="/drafts/:postType"
-        element={<OnlyCreatorRoute element={<DraftPostPage />} />}
+        element={<OnlyCreatorRoute element={<DraftPostsPage />} />}
       />
       <Route
         path="/published"
@@ -99,7 +99,7 @@ export default function AppRoutes(): JSX.Element {
       />
       <Route
         path="/sponsors"
-        element={<OnlyCreatorRoute element={<YourCommunityPage />} />}
+        element={<OnlyCreatorRoute element={<YourSponsorsPage />} />}
       />
       <Route
         path="/settings"

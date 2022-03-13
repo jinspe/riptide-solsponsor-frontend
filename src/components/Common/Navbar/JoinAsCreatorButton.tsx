@@ -12,22 +12,11 @@ export default function JoinAsCreatorButton(): JSX.Element {
       flex 
       items-center
       font-bold
-      pb-0.5
       px-4
-      bg-blue-700
-      hover:bg-blue-600
-      border
-      border-blue-500
-      dark:border-neutral-600
+      button-action
       focus:outline-none 
       hover:ring-2
       hover:ring-inset
-      hover:ring-cyan-500
-      hover:ring-opacity-30
-      focus:ring-2
-      focus:ring-inset  
-      focus:ring-cyan-500
-      focus:ring-opacity-100
       text-white 
       ">
         Become A Creator

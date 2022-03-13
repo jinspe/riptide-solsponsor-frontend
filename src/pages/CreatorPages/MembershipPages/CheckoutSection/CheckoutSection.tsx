@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-
-import WalletButton from 'components/SolanaWallet/WalletButton';
 import { CheckIcon } from '@heroicons/react/solid';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import {
+  SystemProgram,
+  Transaction,
+  PublicKey,
+  LAMPORTS_PER_SOL,
+} from '@solana/web3.js';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { toast } from 'react-toastify';
 
 import { FirebaseAuth } from 'services/Firebase/FirebaseConfig';
-import { useRecoilValue, useRecoilState } from 'recoil';
-
-import Spinner from 'components/Common/Util/Spinner';
-import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { VerifyTransaction } from 'services/Firebase/CloudFunctions/VerifyTransaction';
-
-import { Icreator, Imembership, TtransactionSate } from 'types/types';
 import {
   userPublicKeyAtom,
   userMembershipsAtom,
@@ -20,15 +20,13 @@ import {
 import {
   TimestampToExpiration,
   DAYTIMESTAMP,
-} from 'services/Utils/Functions/TimestampToExpiration';
+} from 'services/Utils/Functions/TimeFunctions';
 
-import {
-  SystemProgram,
-  Transaction,
-  PublicKey,
-  LAMPORTS_PER_SOL,
-} from '@solana/web3.js';
-import { toast } from 'react-toastify';
+import WalletButton from 'components/SolanaWallet/WalletButton';
+import Spinner from 'components/Common/Util/Spinner';
+import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
+
+import { Icreator, Imembership, TtransactionSate } from 'types/types';
 
 import MintingStep from './MintingStep';
 
@@ -169,7 +167,7 @@ export default function CheckoutSection({
 
   return (
     <div className="mt-5 mb-5 space-y-5">
-      <p className=" text-2xl text-center font-bold bc-text-color">
+      <p className=" text-2xl text-center font-bold text-primary">
         Checkout with your wallet
       </p>
       {/* Step 1 Connect Wallet */}
@@ -178,7 +176,7 @@ export default function CheckoutSection({
           transactionState === 'connect' ? 'opacity-100' : 'opacity-50',
           ''
         )}>
-        <p className="mt-3 text-lg text-center font-medium bc-text-color">
+        <p className="mt-3 text-lg text-center font-medium text-primary">
           1. Connect your wallet
         </p>
         <div className="flex justify-center mt-3">
@@ -196,7 +194,7 @@ export default function CheckoutSection({
             : 'opacity-50',
           ''
         )}>
-        <p className="mt-4 text-lg text-center font-medium bc-text-color">
+        <p className="mt-4 text-lg text-center font-medium text-primary">
           2. Checkout
         </p>
 
@@ -219,9 +217,7 @@ export default function CheckoutSection({
       <div>
         {/* Displaying Payment state */}
         {paymentState !== undefined && (
-          <div
-            className=" flex  text-black 
-  dark:text-neutral-100 mx-auto ">
+          <div className=" flex text-primary mx-auto ">
             <div
               className="text-base flex items-center gap-x-2 mt-0.5 
     font-semibold mx-auto ">
@@ -236,11 +232,9 @@ export default function CheckoutSection({
             transactionState === 'minting' ||
             transactionState === 'file' ||
             transactionState === 'finish') && (
-            <div
-              className=" text-center  text-neutral-900 
-dark:text-neutral-100 mx-auto ">
+            <div className=" text-center text-primary mx-auto ">
               <div
-                className=" justify-center text-center  bc-text-color
+                className=" justify-center text-center text-primary
             text-base flex items-center gap-x-2 mt-0.5 
             font-semibold mx-auto">
                 <CheckIcon className="h-6 " />
@@ -250,7 +244,7 @@ dark:text-neutral-100 mx-auto ">
                 <a
                   href={`https://explorer.solana.com/tx/${transacSignature}?cluster=devnet`}
                   className="text-xs leading-none font-medium 
-              mx-auto text-cyan-700 italic break-words underline ">
+              mx-auto text-link italic break-words underline ">
                   {`https://explorer.solana.com/tx/${transacSignature}?cluster=devnet`}
                 </a>
               </div>
@@ -259,9 +253,7 @@ dark:text-neutral-100 mx-auto ">
 
         {/* Cloud function statue */}
         {updatingProfile && (
-          <div
-            className=" flex mt-4 text-black 
- dark:text-neutral-100 mx-auto ">
+          <div className="flex mt-4 text-primary mx-auto ">
             <div
               className="text-base flex items-center gap-x-2 mt-0.5 
    font-semibold mx-auto ">
@@ -290,7 +282,7 @@ dark:text-neutral-100 mx-auto ">
               <div className="mx-auto">Create a new transaction</div>
             </button>
           </div>
-          <p className="mt-2 text-base text-neutral-500 text-center">
+          <p className="mt-2 text-base text-secondary text-center">
             Reset the checkout process and <br /> add time to your membership.
           </p>
         </div>

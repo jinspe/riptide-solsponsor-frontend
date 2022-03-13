@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { toast } from 'react-toastify';
-
+import { useNavigate } from 'react-router-dom';
 import { userPublicKeyAtom } from 'services/Utils/Recoil/userInfo';
-import ArticleEditor from 'services/Utils/CKeditor/Editor/ArticleEditor';
-import PostMakerContainer from 'components/Posts/PostMaker/PostMakerContainer';
 import Spinner from 'components/Common/Util/Spinner';
+import PostMaker from 'components/Posts/PostMaker/PostMaker';
 
 import { getSelfFullPost } from 'services/Firebase/GetData/SelfPostUtils';
 
@@ -23,12 +22,11 @@ type IeditPostPage = {
   postId: string;
 };
 
-const MAXLENGHTARTICLE = 500000;
-
 export default function EditPostPage({
   postType,
   postId,
 }: IeditPostPage): JSX.Element {
+  const navigate = useNavigate();
   const userPublickey = useRecoilValue(userPublicKeyAtom);
 
   const [postPreview, setPostPreview] = useState<IpostPreview>({
@@ -61,6 +59,12 @@ export default function EditPostPage({
           userPublickey,
           'any'
         );
+        if (
+          postPreviewFetch?.type !== undefined &&
+          postPreviewFetch.type !== postType
+        ) {
+          navigate(`/drafts/${postPreviewFetch.type}/${postPreviewFetch.id}`);
+        }
         setPostPreviewF(postPreviewFetch);
         if (postPreviewFetch !== undefined) {
           setPostPreview(postPreviewFetch);
@@ -89,24 +93,17 @@ export default function EditPostPage({
       )}
       {!pageLoading && postPreviewF === undefined && <PostNotFoundPage />}
       {!pageLoading && postPreviewF !== undefined && (
-        <PostMakerContainer
+        <PostMaker
+          postType={postType}
           postPreview={postPreview}
           setPostPreview={setPostPreview}
           attachments={attachments}
           setAttachments={setAttachments}
           attachmentsLocal={attachmentsLocal}
           setAttachmentsLocal={setAttachmentsLocal}
-          postContent={postContent}>
-          <div>
-            {postType === 'article' && (
-              <ArticleEditor
-                text={postContent}
-                setText={setPostContent}
-                maxLength={MAXLENGHTARTICLE}
-              />
-            )}
-          </div>
-        </PostMakerContainer>
+          postContent={postContent}
+          setPostContent={setPostContent}
+        />
       )}
     </div>
   );

@@ -11,7 +11,6 @@ import {
   userProfileImageAtom,
 } from 'services/Utils/Recoil/userInfo';
 import IsImageBelowMaxSize from 'services/Utils/Functions/FileVerification';
-
 import {
   SaveProfileImage,
   SaveDisplayName,
@@ -103,63 +102,49 @@ export default function UserSettingPage(): JSX.Element {
 
   return (
     <div className="pageFrame">
-      <div
-        className="bg-neutral-200 dark:bg-neutral-900 
-      rounded-lg shadow mx-auto p-3">
+      <div className="page-container-l1">
         <div>
           <button
             type="button"
             className=" ml-2 text-base font-medium 
-                text-cyan-600 hover:text-cyan-500 text-center "
+                text-link text-center "
             onClick={() => navigate(-1)}>
             <span aria-hidden="true"> &larr;</span> Go back
           </button>
         </div>
 
-        <div
-          className="text-xl -mt-4 font-bold text-center
-        text-black
-        dark:text-neutral-100">
-          Edit your profile
-        </div>
-        <div
-          className="bg-neutral-100 dark:bg-neutral-800 
-          border border-neutral-300 dark:border-neutral-600 
-      rounded-lg max-w-3xl mx-auto p-3 mt-10 mb-3 space-y-6">
+        <div className="page-title -mt-4 ">Edit your profile</div>
+        <div className="surface-l2-container max-w-3xl mx-auto space-y-6">
           {/* Title */}
-          <div className="px-12 mt-2">
-            <h3 className="text-lg font-medium leading-6 bc-text-color">
+          <div className="px-3 sm:px-12 mt-2">
+            <h3 className="text-lg font-medium leading-6 text-primary">
               Profile
             </h3>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-secondary">
               This information will be displayed publicly so be careful what you
               share.
             </p>
           </div>
-          <div className="px-6 mt-4 ">
+          {/* Display Name */}
+          <div className="px-1 sm:px-6 mt-4 ">
             <div
               className="md:flex items-baseline 
-          py-2 px-5 rounded-lg ">
+          py-2 px-1 sm:px-5 rounded-lg ">
               <p
                 className=" w-36 text-left pl-1
           py-1 text-base font-medium 
-          text-black
-          dark:text-neutral-100
+          text-primary
           ">
                 Display Name
               </p>
-              <div className="mt-1 w-full  pl-3">
+              <div className="mt-1 w-full  sm:pl-3">
                 <input
                   type="text"
                   name="username"
                   id="displayname"
                   autoComplete="off"
-                  className="w-5/6 items-start px-3 py-1 rounded-lg
-                bg-white
-                dark:bg-neutral-700
-                placeholder-neutral-500
-                dark:placeholder-neutral-400
-                text-input-field"
+                  className="w-full sm:w-5/6 items-start px-3 py-1
+                text-input-field rounded-md"
                   maxLength={MAXDISPLAYNAMELENGTH}
                   minLength={MINDISPLAYNAMELENGTH}
                   value={tempDisplayName}
@@ -168,23 +153,20 @@ export default function UserSettingPage(): JSX.Element {
               </div>
             </div>
           </div>
-
-          <div className="px-6 mt-2">
+          {/* Profile Image */}
+          <div className="px-1 sm:px-6 mt-2">
             <div
               className="md:flex items-center 
-             py-2 px-5 rounded-lg ">
-              <div className="flex  w-56 items-baseline ">
+             py-2 px-1 sm:px-5 rounded-lg ">
+              <div
+                className="flex  w-56 items-baseline justify-items-start 
+              gap-1">
                 <p
-                  className="flex-1 text-left pl-1
-          py-1 text-base font-medium 
-          text-black
-          dark:text-neutral-100">
+                  className=" text-left pl-1
+          py-1 text-base font-medium text-primary">
                   Profile Image
                 </p>
-                <p className="text-xs font-medium ml-1 text-neutral-500">
-                  {' '}
-                  (500x500)
-                </p>
+                <p className="text-xs font-medium text-secondary">(500x500)</p>
               </div>
 
               <div className="flex w-full items-center ">

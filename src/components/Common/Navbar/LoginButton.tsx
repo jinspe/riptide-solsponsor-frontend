@@ -12,13 +12,12 @@ export default function LoginButton(): JSX.Element {
       flex 
       items-center
       font-bold
-      pb-0.5
       px-4
       border
       bg-white
       hover:bg-blue-50
       dark:bg-neutral-800
-      border-blue-600
+      border-cyan-600
       dark:border-neutral-600
       focus:outline-none 
       hover:ring-2
@@ -29,9 +28,10 @@ export default function LoginButton(): JSX.Element {
       focus:ring-inset  
       focus:ring-cyan-500
       focus:ring-opacity-100
-      text-blue-600 
-      dark:text-neutral-400 
-      dark:hover:text-neutral-200">
+      text-cyan-600 
+      dark:text-neutral-200 
+      dark:hover:text-neutral-200
+      ">
         Log In
       </button>
     </Link>

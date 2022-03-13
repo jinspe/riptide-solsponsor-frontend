@@ -53,6 +53,10 @@ export async function getPostContent(
 
 export async function hasAccessToContent(cId: string): Promise<boolean> {
   // check if has access
+  if (FirebaseAuth.currentUser?.uid === cId) {
+    return true;
+  }
+
   let hasAccess = false;
   const userTokens = await FirebaseAuth.currentUser?.getIdTokenResult();
   const claims = userTokens?.claims;
@@ -61,9 +65,6 @@ export async function hasAccessToContent(cId: string): Promise<boolean> {
     if ((claimForC as number) > new Date().getTime()) {
       hasAccess = true;
     }
-  }
-  if (FirebaseAuth.currentUser?.uid === cId) {
-    hasAccess = true;
   }
 
   return hasAccess;
@@ -118,7 +119,6 @@ export async function queryPostPreviewByCreator(
   }
 
   const postPreview = await getDocs(postQuery);
-
   const lastVisible = postPreview.docs[postPreview.docs.length - 1];
 
   postPreview.forEach((postDoc) => {

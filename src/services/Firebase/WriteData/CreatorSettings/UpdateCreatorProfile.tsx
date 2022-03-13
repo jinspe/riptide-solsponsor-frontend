@@ -3,7 +3,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { defaultTierImage } from 'components/Common/Util/DefaultValues';
 
 import { FirebaseAuth, Firestore } from '../../FirebaseConfig';
-import UploadFile from '../../UploadFile';
+import UploadFile from '../UploadFile';
 
 export async function SaveCreatorInfos(
   displayName: string,

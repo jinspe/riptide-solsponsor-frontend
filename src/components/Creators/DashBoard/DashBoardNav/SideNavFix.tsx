@@ -8,7 +8,7 @@ import 'style/Components/headers.css';
 
 export default function SideNavFix(): JSX.Element {
   return (
-    <div className="hidden  min-h-full lg:flex lg:flex-shrink-0 ">
+    <div className="hidden min-h-full lg:flex lg:flex-shrink-0 ">
       <div className="flex flex-col w-64">
         <div
           className="flex-1 flex flex-col 

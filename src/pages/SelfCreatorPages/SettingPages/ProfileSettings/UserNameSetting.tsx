@@ -10,8 +10,6 @@ import { creatorInfosAtom } from 'services/Utils/Recoil/creatorInfo';
 
 import Spinner from 'components/Common/Util/Spinner';
 
-import 'style/Components/creator.css';
-
 const USERNAMEMAXLENGTH = 40;
 const USERNAMEMINLENGTH = 3;
 
@@ -117,18 +115,15 @@ export default function UserNameSetting(): JSX.Element {
     <div className="">
       <div className="space-y-6 ">
         <div
-          className="bg-neutral-100 dark:bg-neutral-800 
-          max-w-4xl mx-auto 
-          shadow-sm
-         border border-transparant dark:border-neutral-600 
-        px-4 py-5 rounded-lg sm:p-6">
+          className="content-l2-container
+          max-w-4xl mx-auto">
           <div className="mx-auto max-w-3xl">
             {/* Title */}
             <div className="">
-              <h3 className="text-lg font-medium leading-6 bc-text-color">
+              <h3 className="text-lg font-medium leading-6 text-primary">
                 Update your username
               </h3>
-              <p className="mt-1 text-sm text-neutral-500">
+              <p className="mt-1 text-sm text-secondary">
                 Your previous url will not redirect to your new one. You can
                 lose traffic, please only change it if you really need to.
               </p>
@@ -142,7 +137,7 @@ export default function UserNameSetting(): JSX.Element {
                 {/* Creator username */}
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-3 max-w-lg">
-                    <p className="block text-sm font-medium bc-text-color">
+                    <p className="block text-sm font-medium text-primary">
                       Creator username
                     </p>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -173,9 +168,7 @@ export default function UserNameSetting(): JSX.Element {
                     <button
                       type="button"
                       className=" flex mt-1 px-1 text-base font-medium 
-                text-cyan-600 hover:text-cyan-500 text-center\
-                items-center
-                 "
+                text-link text-centeritems-center"
                       onClick={() => checkUserNameValid(userName)}
                       disabled={loadingCheckUserName}>
                       Check if available{' '}
@@ -192,7 +185,7 @@ export default function UserNameSetting(): JSX.Element {
 
           {/* Action buttons */}
           <div
-            className="flex mt-11 mx-auto max-w-3xl 
+            className="flex mt-6 mx-auto max-w-3xl 
           justify-end gap-6">
             <button
               type="button"

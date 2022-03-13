@@ -57,16 +57,9 @@ export default function CurrentMembership({
   }, [creatorMembership]);
 
   return (
-    <div
-      className="bg-neutral-100 dark:bg-neutral-800 max-w-4xl 
-    mx-auto 
-    shadow-sm
-   border border-neutral-300 dark:border-neutral-600 
-  px-4 py-5 rounded-lg sm:p-6
- 
-  ">
+    <div className="content-l2-container max-w-4xl mx-auto">
       <div className="">
-        <h3 className="text-lg font-medium leading-6 bc-text-color  text-center">
+        <h3 className="text-lg font-medium leading-6 text-primary text-center">
           Your current membership
         </h3>
       </div>
@@ -78,14 +71,14 @@ export default function CurrentMembership({
             alt="membershipImage"
             className="h-96 mx-auto "
           />
-          <div className="bc-text-color font-semibold text-center mt-4">
+          <div className="text-primary font-semibold text-center mt-4">
             Expires: {expiration}
           </div>
         </div>
       ) : (
         <div className="mt-2 ">
           {/* No membership */}
-          <div className="bc-text-color text-center">
+          <div className="text-primary text-center">
             You currently have no membership to this creator
           </div>
         </div>

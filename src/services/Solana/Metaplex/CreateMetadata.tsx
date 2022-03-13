@@ -8,7 +8,7 @@ export default function CreateMetadata(
   imageUrl: string,
   transactionList: string[]
 ): metadt.MetadataJson {
-  const creatorsList: metadt.MetadataJsonCreator[] = [
+  let creatorsList: metadt.MetadataJsonCreator[] = [
     {
       address: creatorPk,
       verified: false,
@@ -20,6 +20,15 @@ export default function CreateMetadata(
       share: 20,
     },
   ];
+  if (creatorPk === minterPk) {
+    creatorsList = [
+      {
+        address: creatorPk,
+        verified: false,
+        share: 100,
+      },
+    ];
+  }
 
   const files: metadt.MetadataJsonFile[] = [
     {

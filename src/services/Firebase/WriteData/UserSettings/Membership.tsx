@@ -1,9 +1,10 @@
 import { doc, setDoc } from 'firebase/firestore';
 
 import { FirebaseAuth, Firestore } from '../../FirebaseConfig';
-import UploadFile from '../../UploadFile';
+import UploadFile from '../UploadFile';
 
 const CREATORPBSLICE = 10;
+const USERPBSLICE = 10;
 
 export async function SaveNFTImage(
   fileToUpload: File | Blob,
@@ -11,7 +12,8 @@ export async function SaveNFTImage(
 ): Promise<string> {
   if (FirebaseAuth.currentUser != null) {
     const creatorShort = creator.slice(0, CREATORPBSLICE);
-    const filePath = `users/${FirebaseAuth.currentUser.uid}/n/${creatorShort}/im.png`;
+    const userShort = FirebaseAuth.currentUser.uid.slice(0, USERPBSLICE);
+    const filePath = `n/${userShort}/${creatorShort}/i.png`;
     const [imageUrl] = await UploadFile(filePath, fileToUpload);
     const userRef = doc(Firestore, 'memberFiles', FirebaseAuth.currentUser.uid);
 
@@ -34,7 +36,8 @@ export async function SaveNFTJson(
 ): Promise<string> {
   if (FirebaseAuth.currentUser != null) {
     const creatorShort = creator.slice(0, CREATORPBSLICE);
-    const filePath = `users/${FirebaseAuth.currentUser.uid}/n/${creatorShort}/mt.json`;
+    const userShort = FirebaseAuth.currentUser.uid.slice(0, USERPBSLICE);
+    const filePath = `n/${userShort}/${creatorShort}/m.json`;
     const [jsonUrl] = await UploadFile(filePath, fileToUpload);
     const userRef = doc(Firestore, 'memberFiles', FirebaseAuth.currentUser.uid);
 

@@ -1,4 +1,4 @@
-import { doc, setDoc, addDoc, collection, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
 
 import {
   IattachmentLocal,
@@ -9,7 +9,7 @@ import {
 import { PostPreviewConverter } from 'services/Firebase/Converters/PostPreviewConverter';
 import { PostContentConverter } from 'services/Firebase/Converters/PostContentConverter';
 import { FirebaseAuth, Firestore } from '../../FirebaseConfig';
-import UploadFile from '../../UploadFile';
+import UploadFile from '../UploadFile';
 
 /* eslint-disable max-len */
 export async function saveNewPostPreview(

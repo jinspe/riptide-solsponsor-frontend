@@ -11,28 +11,28 @@ export default function NoMembershipSection({
   creatorInfos,
 }: TnoMembershipSection): JSX.Element {
   return (
-    <div className="my-5 mt-10">
+    <div className="my-5 mt-10 ">
       <div
         className="text-lg font-bold text-center
         text-black
         dark:text-neutral-100">
         You currently don&apos;t sponsor this creator
       </div>
-      <div className=" overflow-hidden">
-        <p
-          className=" w-min mx-auto text-2xl font-extrabold 
-                text-transparent bg-clip-text
-                   bg-gradient-to-br from-cyan-400 to-cyan-700 truncate
+      <div className=" ">
+        <div
+          className=" mx-auto text-2xl font-extrabold 
                    text-center">
-          Sponsor {creatorInfos?.displayName} !
-        </p>
+          <p className="text-gradiant-accent overflow-hidden truncate">
+            Sponsor {creatorInfos?.displayName} !
+          </p>
+        </div>
       </div>
       <div className="flex justify-center">
         <button
           type="button"
           className="text-base font-medium 
         text-center mx-auto mt-2
-                text-cyan-600 hover:text-cyan-500"
+                text-link"
           onClick={() => setCurrentTab(1)}>
           Get a membership<span aria-hidden="true"> &rarr;</span>
         </button>

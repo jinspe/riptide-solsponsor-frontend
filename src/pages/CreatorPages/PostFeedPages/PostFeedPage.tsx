@@ -3,10 +3,12 @@ import { useRecoilValue } from 'recoil';
 import { QueryDocumentSnapshot } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { queryFullPostByCreator } from 'services/Firebase/GetData/PostUtils';
-import Spinner from 'components/Common/Util/Spinner';
-import PostCardContainer from 'components/Posts/PostFeed/PostCardContainer';
-import { IpostPreview, Icreator, IFullPost } from 'types/types';
 import { userMembershipsAtom } from 'services/Utils/Recoil/userInfo';
+
+import PostFeedReader from 'components/Posts/PostReader/PostFeedReader/PostFeedReader';
+import Spinner from 'components/Common/Util/Spinner';
+
+import { IpostPreview, Icreator, IFullPost } from 'types/types';
 
 import NoMembershipSection from './Components/NoMembershipSection';
 import NoPostSection from './Components/NoPostSection';
@@ -118,14 +120,12 @@ export default function PostFeedPage({
         <div>
           <div className="my-10 space-y-10 max-w-3xl mx-auto">
             {postBatchList.map((postBatch) => (
-              <div className="my-5 space-y-10  mx-auto">
+              <div
+                key={postBatch[0].preview.id}
+                className="my-5 space-y-10  mx-auto">
                 {postBatch.map((post) => (
                   <div key={post.preview.id}>
-                    <PostCardContainer
-                      postPreview={post.preview}
-                      creatorInfos={creatorInfos}>
-                      <div />
-                    </PostCardContainer>
+                    <PostFeedReader post={post} creatorInfos={creatorInfos} />
                   </div>
                 ))}
               </div>

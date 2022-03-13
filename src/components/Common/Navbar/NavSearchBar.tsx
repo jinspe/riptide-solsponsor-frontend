@@ -21,8 +21,8 @@ export default function NavSearchBar(): JSX.Element {
         <input
           id="search"
           name="search"
-          className="block w-full pl-3 pr-10 py-1.5  
-                    rounded-lg  
+          className="block w-full pl-3 pr-10 py-1 
+                    rounded-md  
                     placeholder-neutral-500
                     dark:placeholder-neutral-400
                     bg-neutral-100
@@ -44,7 +44,7 @@ export default function NavSearchBar(): JSX.Element {
             border 
             border-neutral-400
             dark:border-neutral-600
-            rounded-lg rounded-l-none
+            rounded-md rounded-l-none
             flex items-center ">
           <SearchIcon
             className="h-5 w-5 

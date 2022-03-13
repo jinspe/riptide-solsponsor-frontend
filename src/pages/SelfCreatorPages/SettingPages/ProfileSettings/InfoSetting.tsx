@@ -20,8 +20,6 @@ import {
 } from 'components/Common/Util/DefaultValues';
 import Spinner from 'components/Common/Util/Spinner';
 
-import 'style/Components/creator.css';
-
 const BIOMAXLENGTH = 2000;
 const MAXDISPLAYNAMELENGTH = 45;
 const MINDISPLAYNAMELENGTH = 1;
@@ -202,18 +200,14 @@ export default function InfoSetting(): JSX.Element {
   return (
     <div className="">
       <div className=" space-y-6 ">
-        <div
-          className="bg-neutral-100 dark:bg-neutral-800 max-w-4xl mx-auto 
-          shadow-sm
-         border border-neutral-300 dark:border-neutral-600 
-        px-4 py-5 rounded-lg sm:p-6">
+        <div className="content-l2-container max-w-4xl mx-auto">
           <div className="mx-auto max-w-3xl">
             {/* Title */}
             <div className="">
-              <h3 className="text-lg font-medium leading-6 bc-text-color">
+              <h3 className="text-lg font-medium leading-6 text-primary">
                 Update your profile
               </h3>
-              <p className="mt-1 text-sm text-neutral-500">
+              <p className="mt-1 text-sm text-secondary">
                 This is your creator profile different from your user profile.
               </p>
             </div>
@@ -226,7 +220,7 @@ export default function InfoSetting(): JSX.Element {
                 autoComplete="off">
                 {/* Display Name */}
                 <div>
-                  <p className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium text-primary">
                     Creator display name
                   </p>
                   <div className="mt-1">
@@ -236,8 +230,7 @@ export default function InfoSetting(): JSX.Element {
                       type="text"
                       className="shadow-sm 
                   text-input-field
-                  bc-field-input
-                   block w-full text-sm border 
+                   block w-full text-sm 
                     rounded-md"
                       maxLength={MAXDISPLAYNAMELENGTH}
                       minLength={MINDISPLAYNAMELENGTH}
@@ -248,7 +241,7 @@ export default function InfoSetting(): JSX.Element {
                 </div>
                 {/* Short Bio */}
                 <div>
-                  <p className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium text-primary">
                     Creator tags
                   </p>
                   <div className="mt-1">
@@ -258,8 +251,7 @@ export default function InfoSetting(): JSX.Element {
                       type="text"
                       className="shadow-sm 
                   text-input-field
-                  bc-field-input
-                   block w-full text-sm border 
+                   block w-full text-sm 
                     rounded-md"
                       maxLength={MAXTAGSLENGTH}
                       minLength={MINTAGSLENGTH}
@@ -268,7 +260,7 @@ export default function InfoSetting(): JSX.Element {
                       placeholder="example: Music, NFT Artist, Developer, Podcaster"
                     />
                   </div>
-                  <p className="mt-2 text-sm text-neutral-500">
+                  <p className="mt-2 text-sm text-secondary">
                     Help sponsors discover you with a small description of what
                     you do separate the tags by commas ({MAXTAGSLENGTH}{' '}
                     characters)
@@ -277,7 +269,7 @@ export default function InfoSetting(): JSX.Element {
 
                 {/* About */}
                 <div>
-                  <p className="block text-sm font-medium bc-text-color">
+                  <p className="block text-sm font-medium text-primary">
                     About
                   </p>
                   <div className="mt-1">
@@ -287,7 +279,7 @@ export default function InfoSetting(): JSX.Element {
                       setText={setBio}
                     />
                   </div>
-                  <p className="mt-2 text-sm text-neutral-500">
+                  <p className="mt-2 text-sm text-secondary">
                     Brief description for your profile (try to keep it short,
                     less than 300 characters).
                   </p>
@@ -295,9 +287,11 @@ export default function InfoSetting(): JSX.Element {
 
                 {/*  Photo */}
                 <div>
-                  <div className="items-baseline flex text-sm font-medium bc-text-color">
+                  <div
+                    className="items-baseline flex text-sm font-medium 
+                  text-primary">
                     Photo{' '}
-                    <p className="text-xs ml-2 text-neutral-500"> (500x500)</p>
+                    <p className="text-xs ml-2 text-secondary"> (500x500)</p>
                   </div>
                   <div className="mt-1 flex items-center space-x-5">
                     {profileImage === '' || profileImage === undefined ? (
@@ -351,9 +345,9 @@ export default function InfoSetting(): JSX.Element {
 
                 {/* Cover photo */}
                 <div>
-                  <div className="items-baseline flex text-sm font-medium bc-text-color">
+                  <div className="items-baseline flex text-sm font-medium text-primary">
                     Cover photo{' '}
-                    <p className="text-xs ml-2 text-neutral-500"> (1500x500)</p>
+                    <p className="text-xs ml-2 text-secondary"> (1500x500)</p>
                   </div>
                   <img
                     className="h-32 mt-1 w-full mx-auto 

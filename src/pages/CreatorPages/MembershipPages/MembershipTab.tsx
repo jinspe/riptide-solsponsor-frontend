@@ -21,15 +21,12 @@ export default function MembershipTab({
         <AddToMembership creatorInfos={creatorInfos} />
         {/* About section */}
         {creatorInfos?.bio !== undefined && (
-          <div
-            className="bg-neutral-100 dark:bg-neutral-800 max-w-4xl mx-auto 
-          shadow-sm
-         border border-neutral-300 dark:border-neutral-600 
-        px-4 py-5 rounded-lg sm:p-6
-        ">
+          <div className="content-l2-container max-w-4xl mx-auto">
             <div className="mx-auto max-w-3xl">
               {/* Title */}
-              <h3 className="text-lg font-medium leading-6 bc-text-color truncate text-center">
+              <h3
+                className="text-lg font-medium leading-6 text-primary 
+              truncate text-center">
                 About {creatorInfos?.displayName}
               </h3>
               <div className="flex mt-4 ">

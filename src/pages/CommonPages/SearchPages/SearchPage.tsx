@@ -76,7 +76,7 @@ export default function SearchPage(): JSX.Element {
           </div>
           <button
             type="submit"
-            className="  px-1 
+            className="  px-3 
             button-action
             h-11
             text-lg
@@ -100,7 +100,7 @@ export default function SearchPage(): JSX.Element {
           dark:border-neutral-600">
               <Link to={`/c/${el.userName}`}>
                 <div
-                  className=" my-2 py-2 px-5 flex items-center rounded-lg dark:hover:bg-neutral-700 
+                  className=" my-6 py-6 px-5 flex items-center rounded-lg dark:hover:bg-neutral-700 
       hover:bg-neutral-200">
                   <img
                     className="h-20 w-20 mx-auto rounded-full"
@@ -118,13 +118,13 @@ export default function SearchPage(): JSX.Element {
                     <p
                       className=" truncate
                     text-neutral-800 dark:text-neutral-200 
-                      text-sm font-medium">
+                      text-base font-medium">
                       {el.tags?.join(',')}
                     </p>
                     <p
                       className=" truncate
                       text-neutral-500
-                      text-xs font-medium">
+                      text-base font-medium">
                       c/{el.userName}
                     </p>
                   </div>

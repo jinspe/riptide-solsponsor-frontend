@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
 
 import { FirebaseAuth, Firestore } from '../../FirebaseConfig';
-import UploadFile from '../../UploadFile';
+import UploadFile from '../UploadFile';
 
 export async function SaveDisplayName(displayName: string): Promise<void> {
   if (FirebaseAuth.currentUser != null) {

@@ -154,9 +154,7 @@ export default function MintingStep({
   return (
     <div>
       {transactionState === 'file' && (
-        <div
-          className=" flex  text-black 
-  dark:text-neutral-100 mx-auto ">
+        <div className="flex text-primary mx-auto ">
           <div
             className="text-base flex items-center gap-x-2 mt-0.5 
     font-semibold mx-auto ">
@@ -168,9 +166,7 @@ export default function MintingStep({
       {(transactionState === 'finish' ||
         transactionState === 'mint' ||
         transactionState === 'minting') && (
-        <div
-          className=" flex mt-2 text-black 
- dark:text-neutral-100 mx-auto ">
+        <div className="flex mt-2 text-primary mx-auto ">
           <div
             className="text-base flex items-center gap-x-2 mt-0.5 
    font-semibold mx-auto ">
@@ -186,10 +182,10 @@ export default function MintingStep({
             : 'opacity-50',
           ''
         )}>
-        <p className="mt-4 text-lg text-center font-medium bc-text-color leading-tight">
+        <p className="mt-4 text-lg text-center font-medium text-primary leading-tight">
           3. Mint membership <br /> card as a NFT (optional)
         </p>
-        <p className="mt-2 text-base text-neutral-500 text-center">
+        <p className="mt-2 text-base text-secondary text-center">
           Mint a new NFT, if you already have one <br />
           the Metadata have been updated.
         </p>
@@ -209,9 +205,7 @@ export default function MintingStep({
           </button>
         </div>
         {transactionState === 'minting' && (
-          <div
-            className=" flex  text-black 
-  dark:text-neutral-100 mx-auto ">
+          <div className="flex text-primary mx-auto ">
             <div
               className="text-base flex items-center gap-x-2 mt-0.5 
     font-semibold mx-auto ">
@@ -223,9 +217,7 @@ export default function MintingStep({
       </div>
       {transactionState === 'finish' && (
         <div>
-          <div
-            className=" flex mt-2 text-black 
- dark:text-neutral-100 mx-auto ">
+          <div className=" flex mt-2 text-primary mx-auto ">
             <div
               className="text-base flex items-center gap-x-2 mt-0.5 
    font-semibold mx-auto ">
@@ -237,7 +229,7 @@ export default function MintingStep({
             <a
               href={`https://explorer.solana.com/tx/${mintTransaction}?cluster=devnet`}
               className="text-xs leading-none font-medium 
-              mx-auto text-cyan-700 italic break-words underline ">
+              mx-auto text-link italic break-words underline ">
               {`https://explorer.solana.com/tx/${mintTransaction}?cluster=devnet`}
             </a>
           </div>
@@ -245,10 +237,10 @@ export default function MintingStep({
       )}
       {/* Member Card */}
       <div className=" mt-6 ">
-        <p className=" text-lg font-medium bc-text-color text-center">
+        <p className=" text-lg font-medium text-primary text-center">
           Membership card preview
         </p>
-        <div className="  flex">
+        <div className="flex">
           <div
             className="transform scale-100 origin-top-left mt-2
                        mx-auto

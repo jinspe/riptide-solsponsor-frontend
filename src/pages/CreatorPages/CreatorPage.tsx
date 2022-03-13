@@ -55,8 +55,13 @@ export default function CreatorPage(): JSX.Element {
         )}
 
         {/* Creator Tabs */}
-        {!pageLoading && postId === undefined && creatorInfos !== undefined && (
-          <CreatorTabsPage creatorInfos={creatorInfos} />
+        {creatorInfos !== undefined && (
+          <div
+            className={
+              !pageLoading && postId === undefined ? 'block' : 'hidden'
+            }>
+            <CreatorTabsPage creatorInfos={creatorInfos} />
+          </div>
         )}
 
         {/* Post Pages */}

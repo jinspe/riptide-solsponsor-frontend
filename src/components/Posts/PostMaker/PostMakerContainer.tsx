@@ -15,7 +15,7 @@ import {
   TpostSate,
 } from 'types/types';
 
-import AttachmentSection from './Utils/AttachmentSection';
+import AttachmentSection from './AttachmentSection';
 
 type TpostContainer = {
   children: ReactChildren | ReactChild;
@@ -101,37 +101,34 @@ export default function PostMakerContainer({
   async function handleDelete() {
     setDeleteLoading(true);
     setDisableEdit(true);
-    try {
-      await postDelete(postPreview.id);
-      toast.success('Post deleted');
-      navigate(-1);
-    } catch (error: any) {
-      toast.error(error?.message);
-      setDeleteLoading(false);
-      setDisableEdit(false);
+    if (postPreview.id !== '') {
+      try {
+        await postDelete(postPreview.id);
+        toast.success('Post deleted');
+        goDraft();
+      } catch (error: any) {
+        toast.error(error?.message);
+        setDeleteLoading(false);
+        setDisableEdit(false);
+      }
+    } else {
+      goDraft();
     }
   }
 
   return (
-    <div
-      className="bg-neutral-200 dark:bg-neutral-900 
-    rounded-lg shadow mx-auto sm:p-3">
-      <div
-        className="text-xl mt-1 font-bold text-center
-        text-black
-        dark:text-neutral-100">
-        Draft {postPreview.type} post
-      </div>
+    <div className="page-container-l1">
+      <div className="page-title mt-1">Draft {postPreview.type} post</div>
       <div
         className="max-w-3xl mx-auto 
         px-4 py-5 rounded-lg sm:p-6">
         {/* Title */}
         <div>
           <div
-            className=" text-sm font-medium bc-text-color 
+            className=" text-sm font-medium text-primary 
                     flex items-center gap-2">
             <p>Post title</p>
-            <p className="text-neutral-500 text-xs ">
+            <p className="text-secondary text-xs ">
               (required, max {MAXTITLELENGTH} characters)
             </p>
           </div>
@@ -141,11 +138,9 @@ export default function PostMakerContainer({
               name="title"
               id="title"
               className="text-input-field
-              shadow-sm 
-                  bc-field-input
-                  font-semibold
-                   block w-full text-lg border 
-                    rounded-md"
+              shadow-sm font-semibold
+              block w-full text-lg
+              rounded-md"
               placeholder="Post Title"
               value={postPreview.title}
               maxLength={MAXTEASERLENGTH}
@@ -161,10 +156,10 @@ export default function PostMakerContainer({
         {/* Teaser */}
         <div className="mt-4">
           <div
-            className=" text-sm font-medium bc-text-color 
+            className=" text-sm font-medium text-primary
                     flex items-center gap-2">
             <p>Post teaser</p>
-            <p className="text-neutral-500 text-xs ">
+            <p className="text-secondary text-xs ">
               (optional, max {MAXTEASERLENGTH} characters)
             </p>
           </div>
@@ -174,13 +169,11 @@ export default function PostMakerContainer({
               name="comment"
               id="comment"
               className="block w-full py-3 border-0 resize-none 
-              
               text-input-field
                leading-tight
               shadow-sm 
               rounded-md
-              text-base
-                  bc-field-input"
+              text-base"
               placeholder="Add a public teaser text ..."
               value={postPreview.teaser}
               maxLength={MAXTEASERLENGTH}

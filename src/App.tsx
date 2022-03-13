@@ -12,6 +12,8 @@ import AppSwitcher from 'components/AppContainers/AppSwitcher';
 import 'react-toastify/dist/ReactToastify.css';
 import 'style/Components/Toastify/toastify.css';
 
+import 'style/global.css';
+
 function App(): JSX.Element {
   useDarkMode();
   return (

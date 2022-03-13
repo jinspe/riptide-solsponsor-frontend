@@ -5,8 +5,8 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import ClassNamesLogic from 'components/Common/Util/ClassNamesLogic';
 
 import ProfileSettings from './ProfileSettings/ProfileSettings';
-import SocialSettings from './SocialSettings/SocialSettings';
-import BenefitSettings from './BenefitSettings/BenefitSettings';
+import SocialSettings from './SocialSettings';
+import BenefitSettings from './BenefitSettings';
 
 export default function SettingsPage(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(0);
@@ -18,15 +18,8 @@ export default function SettingsPage(): JSX.Element {
   ];
   return (
     <div className="pageFrame">
-      <div
-        className="bg-neutral-200 dark:bg-neutral-900 
-      rounded-lg shadow mx-auto p-3">
-        <div
-          className="text-xl mt-1 font-bold text-center
-        text-black
-        dark:text-neutral-100">
-          Creator settings
-        </div>
+      <div className="page-container-l1">
+        <div className="mt-1 page-title">Creator settings</div>
         {/* Small tabs dropdown */}
         <div className="mt-4 sm:hidden">
           <Listbox value={currentTab} onChange={setCurrentTab}>
@@ -129,15 +122,9 @@ export default function SettingsPage(): JSX.Element {
                   type="button"
                   className={ClassNamesLogic(
                     idx === currentTab
-                      ? 'border-cyan-600 text-cyan-600' +
-                          ' dark:text-cyan-400 dark:border-cyan-400'
-                      : 'border-transparant dark:border-neutral-800 ' +
-                          ' text-neutral-500' +
-                          ' hover:text-neutral-700 hover:border-neutral-300' +
-                          ' dark:hover:text-neutral-300 ' +
-                          'dark:hover:border-neutral-500',
-                    'w-full py-4 px-1 text-center border-b-2 ' +
-                      'font-bold text-base'
+                      ? 'large-tab-active'
+                      : 'large-tab-inactive',
+                    'large-tab-base'
                   )}
                   onClick={() => setCurrentTab(idx)}>
                   {tab.name}

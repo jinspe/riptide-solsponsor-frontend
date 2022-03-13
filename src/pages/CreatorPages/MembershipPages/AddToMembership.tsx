@@ -36,31 +36,25 @@ export default function AddToMembership({
   return (
     <div className="">
       {/* Support Creator section */}
-      <div
-        className="bg-neutral-100 dark:bg-neutral-800 max-w-4xl mx-auto 
-          shadow-sm
-         border border-neutral-300 dark:border-neutral-600 
-        px-4 py-5 rounded-lg sm:p-6">
+      <div className="content-l2-container max-w-4xl mx-auto">
         <div className="mx-auto max-w-3xl">
           {/* Title */}
           <div className="">
             {/* Action heading */}
-            <div className=" overflow-hidden">
-              <p
-                className=" w-min mx-auto text-2xl font-extrabold 
-                text-transparent bg-clip-text
-                   bg-gradient-to-br from-cyan-400 to-cyan-700 truncate
+            <div
+              className=" mx-auto text-2xl font-extrabold 
                    text-center">
-                Sponsor {creatorInfos?.displayName}
+              <p className="text-gradiant-accent overflow-hidden truncate">
+                Sponsor {creatorInfos?.displayName} !
               </p>
             </div>
-            <p className="text-2xl mt-5 font-bold leading-6 bc-text-color text-center">
+            <p className="text-2xl mt-5 font-bold leading-6 text-primary text-center">
               Add time to your membership
             </p>
-            <p className="mt-2 text-base text-neutral-500 text-center">
+            <p className="mt-2 text-base text-secondary text-center">
               Buy an access to all their content for a chosen period of time!
             </p>
-            <p className="mt-2  text-xl font-bold bc-text-color text-center">
+            <p className="mt-2  text-xl font-bold text-primary text-center">
               {creatorInfos?.tierPrice} SOL / month
             </p>
           </div>
@@ -73,7 +67,7 @@ export default function AddToMembership({
               autoComplete="off">
               {/* Tier Description */}
               <div>
-                <p className="block text-lg font-medium bc-text-color text-center">
+                <p className="block text-lg font-medium text-primary text-center">
                   Membership description
                 </p>
                 <div className="flex mt-1  ">
@@ -88,20 +82,18 @@ export default function AddToMembership({
                 <div className="mt-6">
                   <div
                     className=" text-center
-                    text-lg font-medium bc-text-color">
+                    text-lg font-medium text-primary">
                     Choose a time to add in days
                   </div>
-                  <p className="text-base ml-2  text-center text-neutral-500">
+                  <p className="text-base ml-2 text-center text-secondary">
                     (minimum 30 days)
                   </p>
                   <input
                     type="number"
                     className="shadow-sm 
-                    mx-auto
-                      mt-2
+                    mx-auto mt-2
                   text-input-field
-                  bc-field-input
-                   block w-24 text-xl border 
+                   block w-24 text-xl  
                     rounded-md"
                     value={membershipTime}
                     min={30}
@@ -115,13 +107,13 @@ export default function AddToMembership({
                 {/* Preview Costs */}
                 <div className="mt-2">
                   <div className="flex justify-center items-baseline gap-2">
-                    <div className=" text-lg font-medium bc-text-color">
+                    <div className=" text-lg font-medium text-primary">
                       Total costs :
                     </div>
                     {creatorInfos?.tierPrice !== undefined && (
                       <div
-                        className="text-neutral-900 text-lg
-                      dark:text-neutral-100 font-semibold">
+                        className="text-primary text-lg
+                       font-semibold">
                         {membershipPrice} SOL
                       </div>
                     )}

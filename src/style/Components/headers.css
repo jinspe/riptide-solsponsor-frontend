@@ -15,7 +15,7 @@
 }
 
 .headers-bg {
-  @apply bg-white dark:bg-neutral-900;
+  @apply bg-white dark:bg-neutral-950;
 }
 
 .side-items-bg-active {
