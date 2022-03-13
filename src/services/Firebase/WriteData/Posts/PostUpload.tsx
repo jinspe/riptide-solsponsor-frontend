@@ -61,6 +61,7 @@ async function uploadAttachment(
 }
 
 export async function savePost(
+  prevAttachments: Iattachment[],
   attachmentsLocal: IattachmentLocal[],
   postPreview: IpostPreview,
   postContent: string
@@ -75,7 +76,6 @@ export async function savePost(
 
     const attachmentPromises: Promise<Iattachment>[] = [];
     attachmentsLocal.forEach((att) => {
-      // vs code doesn t see that I check up there
       if (FirebaseAuth.currentUser != null) {
         attachmentPromises.push(uploadAttachment(att, postId));
       }
@@ -86,7 +86,7 @@ export async function savePost(
     const SavedPostContent: IpostContent = {
       id: postId,
       content: postContent,
-      attachments: attachmentsResult,
+      attachments: [...prevAttachments, ...attachmentsResult],
     };
     const postContentRef = doc(
       Firestore,

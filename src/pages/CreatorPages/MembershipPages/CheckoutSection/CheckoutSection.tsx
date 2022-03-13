@@ -91,7 +91,7 @@ export default function CheckoutSection({
     if (transactionState === 'checkout' || transactionState === 'connect') {
       updateExpiration();
     }
-  }, [membershipTime, currentMembership]);
+  }, [membershipTime, currentMembership, transactionState]);
 
   useEffect(() => {
     if (connected) {
@@ -120,6 +120,9 @@ export default function CheckoutSection({
         });
       }
       setMembershipRecoil(memberships);
+      setCurrentMembership(
+        memberships.find((element) => element.cId === creatorInfos?.uId)
+      );
 
       toast.success('Your membership has been updated!');
     } catch (error: any) {

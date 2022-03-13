@@ -80,6 +80,7 @@ export default function PostMakerContainer({
       setPostPreview(savedPreview);
 
       const postId = await savePost(
+        attachments,
         attachmentsLocal,
         savedPreview,
         postContent

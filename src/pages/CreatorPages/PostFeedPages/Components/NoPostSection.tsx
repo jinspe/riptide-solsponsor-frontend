@@ -3,7 +3,7 @@ import React from 'react';
 export default function NoPostSection(): JSX.Element {
   return (
     <div>
-      <div className="mb-5">
+      <div className="my-16">
         <div
           className="text-lg mt-10 font-bold text-center
         text-black

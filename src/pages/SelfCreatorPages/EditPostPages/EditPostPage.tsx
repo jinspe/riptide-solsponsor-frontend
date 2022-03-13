@@ -43,6 +43,7 @@ export default function EditPostPage({
   const [postPreviewF, setPostPreviewF] = useState<IpostPreview | undefined>();
 
   const [postContent, setPostContent] = useState<string>('');
+  const [postContentNoRef, setPostContentNoRef] = useState<string>('');
   const [attachments, setAttachments] = useState<Iattachment[]>([]);
   const [attachmentsLocal, setAttachmentsLocal] = useState<IattachmentLocal[]>(
     []
@@ -71,6 +72,7 @@ export default function EditPostPage({
         }
         if (postContentFetch !== undefined) {
           setPostContent(postContentFetch.content);
+          setPostContentNoRef(postContentFetch.content);
           setAttachments(postContentFetch.attachments);
         }
       }
@@ -103,6 +105,7 @@ export default function EditPostPage({
           setAttachmentsLocal={setAttachmentsLocal}
           postContent={postContent}
           setPostContent={setPostContent}
+          postContentNoRef={postContentNoRef}
         />
       )}
     </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Icreator } from 'types/types';
 
 type TpostPreviewPage = {

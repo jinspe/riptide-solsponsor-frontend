@@ -19,6 +19,7 @@ type TpostMaker = {
   attachmentsLocal: IattachmentLocal[];
   setAttachmentsLocal: React.Dispatch<React.SetStateAction<IattachmentLocal[]>>;
   postContent: string;
+  postContentNoRef: string;
   setPostContent: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -33,6 +34,7 @@ export default function PostMaker({
   attachmentsLocal,
   setAttachmentsLocal,
   postContent,
+  postContentNoRef,
   setPostContent,
 }: TpostMaker): JSX.Element {
   return (
@@ -47,7 +49,7 @@ export default function PostMaker({
       <div>
         {postType === 'article' && (
           <ArticleEditor
-            text={postContent}
+            text={postContentNoRef}
             setText={setPostContent}
             maxLength={MAXLENGHTARTICLE}
           />

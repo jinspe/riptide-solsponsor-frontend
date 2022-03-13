@@ -46,6 +46,7 @@ export default function NewDraftPage({ postType }: InewDraftPage): JSX.Element {
       setAttachmentsLocal={setAttachmentsLocal}
       postContent={postContent}
       setPostContent={setPostContent}
+      postContentNoRef=""
     />
   );
 }
