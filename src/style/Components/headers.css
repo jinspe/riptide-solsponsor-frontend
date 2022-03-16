@@ -1,0 +1,47 @@
+.dropdown-text-color {
+  @apply text-neutral-800 dark:text-neutral-200;
+}
+
+.dropdown-text {
+  @apply dropdown-text-color text-sm font-bold;
+}
+
+.dropdown-bg-active {
+  @apply bg-neutral-200 dark:bg-neutral-700;
+}
+
+.nav-icons-size {
+  @apply h-5 w-5;
+}
+
+.headers-bg {
+  @apply bg-white dark:bg-neutral-950;
+}
+
+.side-items-bg-active {
+  @apply bg-neutral-200 dark:bg-neutral-700;
+}
+
+.side-items-bg-hover {
+  @apply hover:bg-neutral-100 dark:hover:bg-neutral-800;
+}
+
+.side-items-text-color {
+  @apply text-neutral-900 dark:text-neutral-200;
+}
+
+.side-items-text {
+  @apply side-items-text-color text-base font-bold;
+}
+
+.side-icons-size {
+  @apply h-6 w-6;
+}
+
+.side-icons-inactive {
+  @apply text-neutral-600 dark:text-neutral-400;
+}
+
+.side-icons-hover {
+  @apply group-hover:text-neutral-800 dark:group-hover:text-neutral-200;
+}

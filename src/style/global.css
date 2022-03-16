@@ -1,0 +1,140 @@
+/* layouts */
+.mcontainer-c0 {
+  @apply max-w-7xl mx-auto px-2 sm:px-4 lg:px-8;
+}
+.pageFrame {
+  @apply mcontainer-c0 overflow-x-hidden mt-4 mb-10;
+}
+
+/* Surfaces-Backgrounds */
+.surface-l0 {
+  @apply bg-neutral-300 dark:bg-black;
+}
+.surface-l1 {
+  @apply bg-neutral-200 dark:bg-neutral-900;
+}
+.surface-l2 {
+  @apply bg-neutral-100 dark:bg-neutral-800;
+}
+
+.color-border-l1 {
+  @apply border-neutral-500;
+}
+
+/* main text */
+.text-primary {
+  @apply text-black dark:text-neutral-100;
+}
+
+.text-secondary {
+  @apply text-neutral-500;
+}
+
+.text-accent {
+  @apply text-cyan-700 dark:text-cyan-600;
+}
+
+.text-link {
+  @apply dark:text-cyan-500 dark:hover:text-cyan-400
+  hover:underline text-cyan-600 hover:text-cyan-500;
+}
+
+.text-gradiant-accent {
+  @apply text-transparent bg-clip-text
+  bg-gradient-to-br from-cyan-400 to-cyan-700;
+}
+
+.text-neutral-link {
+  @apply text-primary dark:hover:text-cyan-400
+  hover:underline  hover:text-cyan-500;
+}
+
+/* Buttons */
+
+.text-action {
+  @apply dark:text-cyan-500 dark:hover:text-cyan-400
+  text-cyan-600 hover:text-cyan-500;
+}
+
+.button-action {
+  @apply inline-flex items-center px-4 py-2     
+    shadow-sm  font-medium  rounded-lg 
+  text-white 
+  bg-gradient-to-br from-cyan-400 to-indigo-800
+  hover:from-cyan-600 hover:to-indigo-900
+  hover:ring-2
+    hover:ring-inset hover:ring-cyan-500 hover:ring-opacity-30
+    focus:ring-2 focus:ring-inset focus:ring-cyan-500 focus:ring-opacity-100
+  focus:outline-none;
+}
+
+.button-cancel {
+  @apply inline-flex items-center px-4 py-2     
+    shadow-sm  font-medium  rounded-lg 
+  text-white 
+  bg-gradient-to-br from-neutral-400 to-neutral-700
+  hover:from-red-600 
+  hover:to-red-900 
+  hover:ring-2
+    hover:ring-inset 
+    hover:ring-red-500 hover:ring-opacity-30
+    focus:ring-2 focus:ring-inset 
+    focus:ring-red-500 
+    focus:ring-opacity-100
+    focus:outline-none;
+}
+
+.button-draft {
+  @apply inline-flex items-center px-4 py-2     
+    shadow-sm  font-medium  rounded-lg 
+  text-white 
+  bg-gradient-to-br from-neutral-400 to-neutral-700
+  hover:from-amber-600 hover:to-amber-900 
+  hover:ring-2
+    hover:ring-inset hover:ring-amber-500 hover:ring-opacity-30
+    focus:ring-2 focus:ring-inset focus:ring-amber-500 focus:ring-opacity-100
+    focus:outline-none;
+}
+
+/* Components */
+
+.spinner-color {
+  @apply text-cyan-700 dark:text-cyan-600;
+}
+
+/* Layout */
+
+.page-container-l1 {
+  @apply surface-l1 rounded-lg shadow mx-auto p-3;
+}
+
+.content-l2-container {
+  @apply surface-l2 
+          shadow border border-neutral-300 dark:border-neutral-600 
+          px-4 py-5 rounded-lg sm:p-6;
+}
+
+.surface-l2-container {
+  @apply surface-l2 rounded-lg p-3 mt-10 mb-3
+  border border-neutral-300 dark:border-neutral-600;
+}
+
+.page-title {
+  @apply text-xl font-bold text-center text-primary;
+}
+
+/* Tabs */
+
+.large-tab-active {
+  @apply border-cyan-600 text-cyan-600 dark:text-cyan-400 dark:border-cyan-400;
+}
+
+.large-tab-inactive {
+  @apply border-neutral-300 dark:border-neutral-800
+  text-neutral-500 hover:text-neutral-700 hover:border-neutral-400
+  dark:hover:text-neutral-300 dark:hover:border-neutral-500;
+}
+
+.large-tab-base {
+  @apply w-full py-4 px-1 text-center border-b-2 font-bold text-base;
+}
