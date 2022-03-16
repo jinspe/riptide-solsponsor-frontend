@@ -62,7 +62,7 @@ export default function LoginProcess({ message }: IloginMessage): JSX.Element {
             dark:text-neutral-100 text-lg">
               Login with your wallet.
             </div>
-            <div className="mx-auto w-36 pl-3 mt-2  ">
+            <div className=" flex justify-center mx-auto w-42 mt-2  ">
               <WalletButton />
             </div>
             <div

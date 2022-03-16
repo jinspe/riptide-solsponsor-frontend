@@ -21,7 +21,7 @@ export default function CKArticleReader({
   return (
     <div className=" flex break-all">
       <div
-        className="ckbreader border-none relative ck-article ring-none break-words"
+        className="ckbreader w-full ck-article ring-none break-words"
         dangerouslySetInnerHTML={createMarkup()}
       />
     </div>

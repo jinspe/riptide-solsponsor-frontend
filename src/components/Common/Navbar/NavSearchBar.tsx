@@ -29,7 +29,7 @@ export default function NavSearchBar(): JSX.Element {
                     dark:bg-neutral-950
                     text-input-field
                     "
-          placeholder="Search"
+          placeholder="Find creators"
           autoComplete="off"
           type="search"
           value={search}

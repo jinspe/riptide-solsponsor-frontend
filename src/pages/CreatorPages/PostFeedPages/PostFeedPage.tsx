@@ -18,7 +18,7 @@ type TpostFeedPage = {
   setCurrentTab: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const BATCHLENGHT = 7;
+const BATCHLENGHT = 6;
 
 export default function PostFeedPage({
   creatorInfos,

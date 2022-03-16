@@ -40,9 +40,7 @@ export default function PostFeedContainer({
               alt=""
             />
             <div className="overflow-hidden ">
-              <p
-                className="
-        text-base font-semibold truncate ">
+              <p className="text-base font-semibold truncate ">
                 {creatorInfos.displayName}
               </p>
             </div>
@@ -54,7 +52,7 @@ export default function PostFeedContainer({
           </div>
           <div
             className="text-base mt-2 text-left
-      text-primary whitespace-pre leading-tight">
+      text-primary whitespace-pre-wrap leading-tight">
             {postPreview.teaser}
           </div>
         </Link>

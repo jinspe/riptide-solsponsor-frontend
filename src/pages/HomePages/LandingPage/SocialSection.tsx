@@ -25,7 +25,7 @@ export default function SocialSection(): JSX.Element {
           Contact
         </h2>
         <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-secondary">
-          Contact us on other social medias if you would like to use this
+          Contact us on other social media if you would like to use this
           platform, get the latest news or join the development effort. Thank
           you!
         </p>

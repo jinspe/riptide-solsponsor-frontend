@@ -111,7 +111,7 @@ export default function MemberCard({
           className="absolute bottom-10
              right-2.5 shadow-2xl  
              bg-gradient-to-br from-pink-500 via-purple-500 to-pink-500 p-px">
-          <QRCode value={`https://solsponsor/c/${userName}.com`} size={50} />
+          <QRCode value={`https://solsponsor.com/c/${userName}`} size={50} />
         </div>
       </div>
     </div>
