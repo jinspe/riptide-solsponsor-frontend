@@ -1,4 +1,12 @@
-# Solana Wallet Adapter CRA TypeScript Tailwind ESLint Prettier
+# Solsponsor Frontend
+
+### Built with React TypeScript
+
+Backend here: <br />
+https://github.com/jinspe/riptide-solsponsor-backend
+
+More infos here: <br />
+https://drive.google.com/drive/folders/1CBx2fayCIlANY2YxuIduX3SsvSygKrgu?usp=sharing
 
 # Getting Started with Create React App
 
