@@ -13,15 +13,15 @@ export default function DemoSection(): JSX.Element {
           How to use this demo
         </h2>
         <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-secondary">
-          This is platform is currently a demo, you will need to have your
-          wallet on the Devnet Network and have Devnet Solana if you want to get
-          a membership.
+          This platform is currently a demo, you will need to have your wallet
+          on the Devnet Network, and have Devnet Solana if you want to get a
+          membership.
         </p>
       </div>
       <div className=" mt-8">
-        <div className="">
+        <div className="max-w-xl mx-auto">
           <img
-            className="max-w-xl mx-auto"
+            className=" max-w-full mx-auto"
             src={changeDevnet}
             alt="changeDevnet"
           />
@@ -29,7 +29,7 @@ export default function DemoSection(): JSX.Element {
             Switch your wallet to Devnet.
           </p>
           <img
-            className="max-w-xl mx-auto mt-5 rounded-lg"
+            className="max-w-full mx-auto mt-5 rounded-lg"
             src={solfaucet}
             alt="solfaucet"
           />

@@ -119,7 +119,8 @@ export default function MintingStep({
       if (
         wallet.publicKey &&
         wallet.signTransaction &&
-        wallet.signAllTransactions
+        wallet.signAllTransactions &&
+        creatorInfos?.uId !== undefined
       ) {
         const customerMetaWallet: Wallet = {
           publicKey: wallet.publicKey,
@@ -130,6 +131,7 @@ export default function MintingStep({
           const mintSignature = await CreateMasterEdition(
             metadataJson,
             metadataUri,
+            creatorInfos.uId,
             customerMetaWallet
           );
           setMintTransaction(mintSignature);

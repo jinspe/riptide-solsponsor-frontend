@@ -190,7 +190,11 @@ export default function InfoSetting(): JSX.Element {
         coverImage,
       }));
       setLoadingSaving(false);
-      toast.success('Your creator profile has been updated!');
+      toast.success(
+        <p>
+          Your creator profile has been <br /> updated!
+        </p>
+      );
     } catch (error: any) {
       setLoadingSaving(false);
       toast.error(error?.message);

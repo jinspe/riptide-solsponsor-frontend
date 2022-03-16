@@ -209,7 +209,7 @@ export default function PostMakerContainer({
             className="button-cancel"
             disabled={disableEdit}
             onClick={handleDelete}>
-            <div className=" w-20 sm:w-24 mx-auto">
+            <div className=" w-16 sm:w-24 mx-auto">
               {deleteLoading ? (
                 <Spinner classExtend="h-5 mx-auto" />
               ) : (
@@ -242,7 +242,7 @@ export default function PostMakerContainer({
               onClick={() => {
                 handleSave(true);
               }}>
-              <div className=" w-16 sm:w-24 mx-auto">
+              <div className=" w-12 sm:w-24 mx-auto">
                 {publishLoading ? (
                   <Spinner classExtend="h-5 mx-auto" />
                 ) : (

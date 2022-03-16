@@ -1,18 +1,13 @@
-import { Connection, clusterApiUrl } from '@solana/web3.js';
+import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { programs, actions, Wallet } from '@metaplex/js';
 import BN from 'bn.js';
 
 import { MetadataJson } from './MetadataTypes';
 
-export interface SelfMetadata {
-  metadata: MetadataJson;
-  uri: string;
-  customerWallet: Wallet;
-}
-
 export default async function CreateMasterEdition(
   metadata: MetadataJson,
   uri: string,
+  creatorPb: string,
   customerWallet: Wallet
 ): Promise<string> {
   const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
@@ -89,7 +84,7 @@ export default async function CreateMasterEdition(
     {
       metadata: metadataPDA,
       updateAuthority: customerWallet.publicKey, // destKey,
-      newUpdateAuthority: customerWallet.publicKey,
+      newUpdateAuthority: new PublicKey(creatorPb),
       primarySaleHappened: true,
     }
   );

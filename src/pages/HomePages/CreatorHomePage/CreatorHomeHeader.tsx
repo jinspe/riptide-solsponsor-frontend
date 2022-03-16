@@ -80,7 +80,7 @@ export default function CreatorHomeHeader({
                 className=""
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `https://solsponsor/c/${creatorInfos.userName}.com`
+                    `https://solsponsor.com/c/${creatorInfos.userName}`
                   );
                 }}>
                 <p

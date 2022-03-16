@@ -68,7 +68,7 @@ export default function SearchPage(): JSX.Element {
                     text-lg
                     h-11
                     "
-              placeholder="Search"
+              placeholder="Find creators"
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}

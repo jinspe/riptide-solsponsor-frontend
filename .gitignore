@@ -23,7 +23,7 @@ firebase.json
 .env.local
 .env.dev.local
 .env.test.local
-.env.prod
+.env.prod.local
 
 npm-debug.log*
 yarn-debug.log*

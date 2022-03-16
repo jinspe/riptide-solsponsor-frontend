@@ -26,7 +26,7 @@ const monetizeFeatures = [
     id: 2,
     name: 'Wallet authentication',
     description:
-      'Your account is secured with our wallet authentication mecanism, ' +
+      'Your account is secured with our wallet authentication mechanism, ' +
       'contents and memberships are linked to your public key ' +
       'and accessed after a wallet signature.',
     icon: FingerPrintIcon,
@@ -49,7 +49,7 @@ const communicationFeatures = [
     description:
       'We support or will support any type of posts: articles with our rich text editor' +
       ', images where you can create a carousel of pictures, videos, links, polls to ' +
-      'get your sponsors opinion and audio for music or podcasts.',
+      "get your sponsor's opinion and audio for music or podcasts.",
     icon: DocumentAddIcon,
   },
   {
@@ -57,8 +57,8 @@ const communicationFeatures = [
     name: 'Smart posts',
     description:
       'We support or will support two types of smart posts, NFT auctions' +
-      ' where you will be able to sell exclusive NFTs using the Metaplex NFT auction sale' +
-      ' tool and Fund raising were you will be able to raise funds for a project and also ' +
+      ' where you will be able to sell exclusive NFTs using the Metaplex NFT auction sales' +
+      ' tool and Fundraising were you will be able to raise funds for a project and also ' +
       'give back to the sponsors who participated.',
     icon: ChipIcon,
   },
@@ -66,7 +66,7 @@ const communicationFeatures = [
     id: 3,
     name: 'Upload any file',
     description:
-      'You can attach any files to your posts' +
+      'You can attach any files to your posts,' +
       ' your files are secured and only accessible by your sponsors.',
     icon: CloudUploadIcon,
   },
@@ -115,7 +115,7 @@ export default function FeatureSection(): JSX.Element {
             On a mission to empower creators
           </h2>
           <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-secondary">
-            Utilize the power of the solana ecosystem to create smart posts,
+            Utilize the power of the Solana ecosystem to create smart posts,
             engage with your fans and monetize your skills.
           </p>
         </div>

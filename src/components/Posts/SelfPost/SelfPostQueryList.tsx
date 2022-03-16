@@ -100,47 +100,49 @@ export default function SelfPostQueryList({
             </div>
           )}
 
-          {!pageLoading && postBatchList[0].length === 0 && (
-            <NoPostFound state={state} />
-          )}
+          {!pageLoading &&
+            postBatchList[0] !== undefined &&
+            postBatchList[0].length === 0 && <NoPostFound state={state} />}
           {/* Has Post */}
-          {!pageLoading && postBatchList[0].length > 0 && (
-            <div>
-              <div className="my-10 space-y-10 max-w-3xl mx-auto">
-                {postBatchList.map((postBatch) => (
-                  <div
-                    key={postBatch[0].preview.id}
-                    className="my-5 space-y-10 mx-auto">
-                    {postBatch.map((post) => (
-                      <div key={post.preview.id}>
-                        <SelfPostEditCard
-                          post={post}
-                          creatorInfos={creatorInfos}
-                          state={state}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-              {hasMorePost && (
-                <div className="mb-10 flex justify-between">
-                  <button
-                    className="button-action w-42 mx-auto"
-                    type="button"
-                    onClick={getAPostBatch}>
-                    {postPaginationLoading ? (
-                      <div className="px-12 py-0.5">
-                        <Spinner classExtend="h-5 px-0.5 " />
-                      </div>
-                    ) : (
-                      <p className="text-center">Load More Posts</p>
-                    )}
-                  </button>
+          {!pageLoading &&
+            postBatchList[0] !== undefined &&
+            postBatchList[0].length > 0 && (
+              <div>
+                <div className="my-10 space-y-10 max-w-3xl mx-auto">
+                  {postBatchList.map((postBatch) => (
+                    <div
+                      key={postBatch[0].preview.id}
+                      className="my-5 space-y-10 mx-auto">
+                      {postBatch.map((post) => (
+                        <div key={post.preview.id}>
+                          <SelfPostEditCard
+                            post={post}
+                            creatorInfos={creatorInfos}
+                            state={state}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
+                {hasMorePost && (
+                  <div className="mb-10 flex justify-between">
+                    <button
+                      className="button-action w-42 mx-auto"
+                      type="button"
+                      onClick={getAPostBatch}>
+                      {postPaginationLoading ? (
+                        <div className="px-12 py-0.5">
+                          <Spinner classExtend="h-5 px-0.5 " />
+                        </div>
+                      ) : (
+                        <p className="text-center">Load More Posts</p>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
         </div>
       </div>
     </div>

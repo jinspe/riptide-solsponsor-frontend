@@ -17,9 +17,9 @@ export default function NoSponsorsSection(): JSX.Element {
       </p>
       <div className="mt-2">
         <a
-          href={`https://solsponsor/c/${creatorUsername}.com`}
-          className="text-cyan-600 text-lg italic underline font-semibold">
-          {`https://solsponsor/c/${creatorUsername}.com`}
+          href={`https://solsponsor.com/c/${creatorUsername}`}
+          className="text-cyan-600 text-lg italic break-words underline font-semibold">
+          {`https://solsponsor.com/c/${creatorUsername}`}
         </a>
       </div>
       <button
@@ -27,7 +27,7 @@ export default function NoSponsorsSection(): JSX.Element {
         className="mt-3 h-10 button-action"
         onClick={() => {
           navigator.clipboard.writeText(
-            `https://solsponsor/c/${creatorUsername}.com`
+            `https://solsponsor.com/c/${creatorUsername}`
           );
         }}>
         <p
