@@ -1,0 +1,33 @@
+.ckbreader {
+  @apply text-black dark:text-neutral-100 
+  font-sans
+  !important;
+}
+.ckbreader ul,
+.ckbreader ul li {
+  list-style-type: inherit;
+}
+
+.ckbreader ul {
+  padding-left: 40px;
+}
+
+.ckbreader a {
+  @apply text-cyan-500 underline;
+}
+
+.ckbreader h2 {
+  @apply text-4xl;
+}
+
+.ckbreader h3 {
+  @apply text-3xl;
+}
+
+.ckbreader h4 {
+  @apply text-xl;
+}
+
+.ckbreader code {
+  @apply text-black dark:text-neutral-100;
+}

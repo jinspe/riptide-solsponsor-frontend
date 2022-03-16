@@ -1,0 +1,19 @@
+.Toastify__toast {
+  @apply rounded-lg;
+}
+.Toastify__toast-body {
+  @apply break-all overflow-hidden font-sans text-sm font-medium
+  text-neutral-900 dark:text-neutral-100
+  
+   !important;
+}
+.Toastify__toast {
+  @apply bg-neutral-100 dark:bg-neutral-700
+   shadow-2xl
+  !important;
+}
+
+.Toastify__close-button {
+  @apply text-neutral-900 dark:text-neutral-100
+  !important;
+}

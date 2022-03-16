@@ -1,0 +1,39 @@
+.color-article {
+  @apply text-cyan-700 bg-cyan-50;
+}
+
+.color-images {
+  @apply text-purple-700 bg-purple-50;
+}
+
+.color-video {
+  @apply text-green-700 bg-green-50;
+}
+
+.color-link {
+  @apply text-yellow-700 bg-yellow-50;
+}
+
+.color-poll {
+  @apply text-blue-700 bg-blue-50;
+}
+
+.color-audio {
+  @apply text-indigo-700 bg-indigo-50;
+}
+
+.color-nft-auction {
+  @apply text-rose-100
+                    bg-gradient-to-br 
+                    from-purple-600 
+                    via-fuchsia-600 
+                    to-pink-600;
+}
+
+.color-fund-raising {
+  @apply text-amber-100  
+                    bg-gradient-to-br 
+                    from-yellow-600 
+                    via-orange-600 
+                    to-red-600;
+}
