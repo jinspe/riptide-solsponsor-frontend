@@ -2,10 +2,13 @@
 
 ### Built with React TypeScript
 
-Backend here: <br />
+Website:<br />
+https://solsponsor.com
+
+Backend : <br />
 https://github.com/jinspe/riptide-solsponsor-backend
 
-More infos here: <br />
+More infos : <br />
 https://drive.google.com/drive/folders/1CBx2fayCIlANY2YxuIduX3SsvSygKrgu?usp=sharing
 
 # Getting Started with Create React App
